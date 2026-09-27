@@ -1,0 +1,19 @@
+Evaluation Strategy,Feature Set,Model Classifier,Balanced Accuracy,Macro F1,Macro Precision,Macro Recall,AUROC (OVR),AUPRC,Brier Score,Expected Calibration Error (ECE)
+random_unit_split,Model_A_Latency_Only,logistic_regression,0.309,0.2767,0.34,0.309,0.6514,0.3472,0.5422,0.0847
+random_unit_split,Model_A_Latency_Only,random_forest,0.3757,0.3759,0.3768,0.3757,0.7676,0.4035,0.0922,0.0284
+random_unit_split,Model_A_Latency_Only,xgboost,0.3281,0.3242,0.3204,0.3281,0.7983,0.3941,0.0852,0.0303
+random_unit_split,Model_B_Latency_Reliability,logistic_regression,0.803,0.6243,0.5556,0.803,0.9367,0.5662,0.0985,0.029
+random_unit_split,Model_B_Latency_Reliability,random_forest,0.4718,0.4934,0.5247,0.4718,0.9628,0.584,0.0562,0.0174
+random_unit_split,Model_B_Latency_Reliability,xgboost,0.5611,0.5804,0.6041,0.5611,0.9796,0.6644,0.0556,0.0182
+random_unit_split,Model_C_Latency_Reliability_Modulation,logistic_regression,0.8065,0.685,0.6514,0.8065,0.9207,0.5925,0.084,0.0199
+random_unit_split,Model_C_Latency_Reliability_Modulation,random_forest,0.6539,0.6978,0.7726,0.6539,0.9933,0.763,0.0288,0.0185
+random_unit_split,Model_C_Latency_Reliability_Modulation,xgboost,0.7789,0.8102,0.8466,0.7789,0.9971,0.8824,0.0225,0.0094
+random_unit_split,Model_D_All_Physiological,logistic_regression,0.8186,0.7178,0.6597,0.8186,0.9584,0.7142,0.0509,0.018
+random_unit_split,Model_D_All_Physiological,random_forest,0.8205,0.8242,0.8325,0.8205,0.995,0.7964,0.0207,0.0083
+random_unit_split,Model_D_All_Physiological,xgboost,0.8214,0.8393,0.8602,0.8214,0.9941,0.8077,0.0212,0.0087
+random_unit_split,Model_E_Physiological_Plus_Intensity,logistic_regression,0.8585,0.7318,0.6667,0.8585,0.9638,0.7173,0.0532,0.024
+random_unit_split,Model_E_Physiological_Plus_Intensity,random_forest,0.7729,0.7769,0.7991,0.7729,0.9967,0.8454,0.0198,0.0136
+random_unit_split,Model_E_Physiological_Plus_Intensity,xgboost,0.7729,0.7769,0.7991,0.7729,0.9947,0.8457,0.0233,0.0078
+random_unit_split,Model_F_Full_Plus_Train_Dynamics,logistic_regression,0.8585,0.7318,0.6667,0.8585,0.9633,0.7173,0.0533,0.024
+random_unit_split,Model_F_Full_Plus_Train_Dynamics,random_forest,0.8205,0.8242,0.8325,0.8205,0.9962,0.8433,0.02,0.0147
+random_unit_split,Model_F_Full_Plus_Train_Dynamics,xgboost,0.7738,0.7904,0.8213,0.7738,0.9946,0.8408,0.0234,0.0101

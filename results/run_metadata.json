@@ -1,0 +1,135 @@
+{
+  "timestamp": "2026-09-27 13:22:17 UTC",
+  "python_version": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "operating_system": "Windows-10-10.0.26200-SP0",
+  "platform_machine": "AMD64",
+  "allensdk_version": "2.16.2",
+  "numpy_version": "1.23.5",
+  "scipy_version": "1.10.1",
+  "pandas_version": "1.5.3",
+  "sklearn_version": "1.7.2",
+  "config_parameters": {
+    "project": {
+      "name": "optotagging_research",
+      "title": "A Reliability-Aware Multifeature Framework for Automated Optotagging of Neuropixels Units",
+      "version": "1.0.0",
+      "random_seed": 42
+    },
+    "paths": {
+      "manifest_path": "data/raw/manifest.json",
+      "raw_dir": "data/raw",
+      "metadata_dir": "data/metadata",
+      "cache_dir": "data/cache",
+      "processed_dir": "data/processed",
+      "tables_dir": "results/tables",
+      "figures_dir": "results/figures",
+      "models_dir": "results/models",
+      "logs_dir": "results/logs",
+      "session_inventory": "results/tables/session_inventory.csv",
+      "unit_features": "results/tables/unit_features.csv",
+      "trial_responses": "data/processed/unit_trial_responses.parquet",
+      "exclusion_log": "results/tables/exclusion_log.csv",
+      "run_metadata": "results/run_metadata.json"
+    },
+    "windows_seconds": {
+      "baseline": [
+        -0.02,
+        -0.005
+      ],
+      "evoked": [
+        0.001,
+        0.009
+      ],
+      "sham": [
+        -0.018,
+        -0.01
+      ],
+      "psth": [
+        -0.02,
+        0.03
+      ],
+      "psth_bin_size": 0.001,
+      "artifact_guard_onset": [
+        0.0,
+        0.001
+      ],
+      "artifact_guard_offset": [
+        0.009,
+        0.011
+      ]
+    },
+    "thresholds": {
+      "primary": {
+        "latency_ms": 8.0,
+        "reliability": 0.3,
+        "modulation_ratio": 2.0,
+        "p_value": 0.05,
+        "effect_size_min": 0.2
+      },
+      "sensitivity": {
+        "latency_sweep_ms": [
+          6.0,
+          8.0,
+          10.0
+        ],
+        "reliability_sweep": [
+          0.2,
+          0.3,
+          0.5
+        ],
+        "modulation_sweep": [
+          1.5,
+          2.0,
+          3.0
+        ]
+      }
+    },
+    "stimulus_conditions": {
+      "primary": "10-ms pulse",
+      "secondary": [
+        "5-ms pulse",
+        "2.5-ms pulse train",
+        "1-s raised cosine"
+      ]
+    },
+    "machine_learning": {
+      "cv_strategy": "GroupKFold",
+      "n_splits": 5,
+      "group_column": "session_id",
+      "specimen_column": "specimen_id",
+      "test_size_random": 0.2,
+      "models": {
+        "logistic_regression": {
+          "max_iter": 1000,
+          "class_weight": "balanced",
+          "solver": "lbfgs"
+        },
+        "random_forest": {
+          "n_estimators": 200,
+          "max_depth": 6,
+          "class_weight": "balanced",
+          "random_state": 42
+        },
+        "xgboost": {
+          "n_estimators": 150,
+          "max_depth": 4,
+          "learning_rate": 0.05,
+          "tree_method": "hist",
+          "random_state": 42
+        },
+        "mlp": {
+          "hidden_layer_sizes": [
+            32,
+            16
+          ],
+          "max_iter": 500,
+          "random_state": 42
+        }
+      }
+    },
+    "reproducibility": {
+      "deterministic": true,
+      "n_jobs": 1
+    }
+  }
+}

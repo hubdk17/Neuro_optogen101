@@ -1,0 +1,84 @@
+# =====================================================================
+# Configuration for Reliability-Aware Multifeature Optotagging Pipeline
+# =====================================================================
+
+project:
+  name: "optotagging_research"
+  title: "A Reliability-Aware Multifeature Framework for Automated Optotagging of Neuropixels Units"
+  version: "1.0.0"
+  random_seed: 42
+
+paths:
+  manifest_path: "data/raw/manifest.json"
+  raw_dir: "data/raw"
+  metadata_dir: "data/metadata"
+  cache_dir: "data/cache"
+  processed_dir: "data/processed"
+  tables_dir: "results/tables"
+  figures_dir: "results/figures"
+  models_dir: "results/models"
+  logs_dir: "results/logs"
+  session_inventory: "results/tables/session_inventory.csv"
+  unit_features: "results/tables/unit_features.csv"
+  trial_responses: "data/processed/unit_trial_responses.parquet"
+  exclusion_log: "results/tables/exclusion_log.csv"
+  run_metadata: "results/run_metadata.json"
+
+windows_seconds:
+  baseline: [-0.020, -0.005]   # [-20 ms, -5 ms] baseline window (duration: 15 ms)
+  evoked: [0.001, 0.009]       # [+1 ms, +9 ms] evoked window (duration: 8 ms, excluding light onset/offset artifacts)
+  sham: [-0.018, -0.010]       # [-18 ms, -10 ms] pre-onset sham control window (duration: 8 ms)
+  psth: [-0.020, 0.030]        # [-20 ms, +30 ms] visualization and PSTH window
+  psth_bin_size: 0.001         # 1 ms bin size for PSTH
+  artifact_guard_onset: [0.000, 0.001]   # [0, 1 ms] artifact exclusion zone
+  artifact_guard_offset: [0.009, 0.011]  # [9, 11 ms] artifact exclusion zone for 10ms pulse
+
+thresholds:
+  primary:
+    latency_ms: 8.0            # median first-spike latency < 8 ms
+    reliability: 0.30          # trial reliability >= 0.30
+    modulation_ratio: 2.0      # evoked / (baseline + 1) > 2.0
+    p_value: 0.05              # statistical significance p < 0.05
+    effect_size_min: 0.20      # minimum Cohen's d or rank-biserial effect size
+  sensitivity:
+    latency_sweep_ms: [6.0, 8.0, 10.0]
+    reliability_sweep: [0.20, 0.30, 0.50]
+    modulation_sweep: [1.5, 2.0, 3.0]
+
+stimulus_conditions:
+  primary: "10-ms pulse"       # Single 10-ms optical pulses
+  secondary:
+    - "5-ms pulse"             # Single 5-ms pulses
+    - "2.5-ms pulse train"     # 2.5-ms pulses at 10 Hz for 1 s
+    - "1-s raised cosine"      # 1-s ramp / raised-cosine stimulation
+
+machine_learning:
+  cv_strategy: "GroupKFold"    # Session-held-out validation
+  n_splits: 5
+  group_column: "session_id"
+  specimen_column: "specimen_id"
+  test_size_random: 0.20       # Only for baseline random split comparison
+  models:
+    logistic_regression:
+      max_iter: 1000
+      class_weight: "balanced"
+      solver: "lbfgs"
+    random_forest:
+      n_estimators: 200
+      max_depth: 6
+      class_weight: "balanced"
+      random_state: 42
+    xgboost:
+      n_estimators: 150
+      max_depth: 4
+      learning_rate: 0.05
+      tree_method: "hist"      # CPU backend
+      random_state: 42
+    mlp:
+      hidden_layer_sizes: [32, 16]
+      max_iter: 500
+      random_state: 42
+
+reproducibility:
+  deterministic: true
+  n_jobs: 1                    # Safe single-threaded or CPU parallelism

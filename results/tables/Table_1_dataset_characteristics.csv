@@ -1,0 +1,5 @@
+Transgenic Line / Genotype,Optogenetic Stimulation,Sessions Count,Total Probes,Total Units,Mean Units / Session,Unique Brain Structures Recorded,Key Structures
+Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,Yes (ChR2/Ai32),12,70,27006,2250.5,43,"APN, CA1, CA2, CA3, CP, DG, Eth, HPF..."
+Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,Yes (ChR2/Ai32),8,45,15767,1970.9,38,"APN, CA1, CA2, CA3, DG, HPF, IGL, IntG..."
+Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,Yes (ChR2/Ai32),8,44,17520,2190.0,42,"APN, CA1, CA2, CA3, DG, Eth, HPF, IGL..."
+wt/wt,No (Wild-type),30,173,74982,2499.4,51,"APN, CA1, CA2, CA3, DG, Eth, HPF, IGL..."

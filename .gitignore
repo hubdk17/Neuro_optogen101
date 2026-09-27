@@ -1,0 +1,19 @@
+# Python virtual environment
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Large raw NWB files & downloads
+data/raw/*.nwb
+data/raw/session_*/*.nwb
+data/raw/*.download*
+data/cache/
+
+# Processed intermediate caches
+data/processed/*.parquet
+
+# OS files
+.DS_Store
+Thumbs.db

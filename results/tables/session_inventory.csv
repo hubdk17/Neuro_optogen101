@@ -1,0 +1,59 @@
+session_id,specimen_id,genotype,session_type,is_eligible_opto,probe_count,unit_count,brain_areas,has_10ms_pulse,has_5ms_pulse,has_2p5ms_train,has_1s_ramp
+715093703,699733581,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,2714,APN; CA1; CA3; DG; LGd; LP; MB; PO; PoT; VISam; VISl; VISp; VISpm; VISrl; grey,True,True,True,True
+719161530,703279284,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,3129,APN; CA1; CA2; CA3; DG; Eth; LGd; LP; MB; NOT; PO; POL; SUB; TH; VISal; VISam; VISl; VISp; VISpm; VISrl; VL; VPM; grey,True,True,True,True
+721123822,707296982,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,1600,APN; CA1; CA3; DG; HPF; LGd; LGv; LP; MB; NOT; POL; PPT; ProS; SCig; VIS; VISal; VISam; VISl; VISp; VISrl,True,True,True,True
+732592105,717038288,wt/wt,brain_observatory_1.1,False,5,3018,VISal; VISl; VISp; VISpm; VISrl; grey,False,False,False,False
+737581020,718643567,wt/wt,brain_observatory_1.1,False,6,2039,VISl; VISmma; VISp; VISpm; VISrl; grey,False,False,False,False
+739448407,716813543,wt/wt,brain_observatory_1.1,False,6,2369,VIS; VISam; VISl; VISp; VISrl; grey,False,False,False,False
+742951821,723627604,wt/wt,brain_observatory_1.1,False,6,2961,VIS; VISal; VISl; VISp; VISpm; VISrl; grey,False,False,False,False
+743475441,722882755,wt/wt,brain_observatory_1.1,False,6,2126,APN; CA1; CA3; DG; Eth; HPF; LGd; LP; MGv; PIL; PO; PP; ProS; SUB; TH; VISam; VISl; VISmma; VISp; VISrl,False,False,False,False
+744228101,719817805,wt/wt,brain_observatory_1.1,False,6,2691,APN; CA1; CA2; CA3; DG; Eth; IGL; LGd; LP; POL; SGN; SUB; TH; VIS; VISal; VISl; VISp; VISrl; VPL,False,False,False,False
+746083955,726170935,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,2069,CA1; CA2; CA3; LGd; TH; VISal; VISl; VISp; VISpm; VISrl; VPM; grey,True,True,True,True
+750332458,726141251,wt/wt,brain_observatory_1.1,False,6,3029,CA1; CA3; DG; IGL; IntG; LGd; VISal; VISam; VISl; VISp; VISpm; VISrl; grey,False,False,False,False
+750749662,726162197,wt/wt,brain_observatory_1.1,False,6,2477,CA1; CA2; CA3; DG; Eth; IGL; LD; LGd; LGv; LP; PO; TH; VISal; VISam; VISl; VISp; VISpm; VISrl; VPM,False,False,False,False
+751348571,732548380,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,2622,APN; CA1; CA3; DG; Eth; LGd; LGv; LP; MB; MGm; PO; POL; PoT; SGN; SUB; VISam; VISl; VISp; VISpm; VISrl; grey,True,True,True,True
+754312389,719828690,wt/wt,brain_observatory_1.1,False,6,1884,APN; CA1; CA2; CA3; DG; HPF; LGd; LP; POL; TH; VISal; VISam; VISl; VISp; VISpm; VISrl; grey,False,False,False,False
+754829445,726298253,wt/wt,brain_observatory_1.1,False,5,2285,APN; CA1; CA2; CA3; DG; Eth; LGd; LP; PO; POL; PoT; TH; VISam; VISp; VISpm; VISrl; VPM,False,False,False,False
+755434585,730760270,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,2116,APN; CA1; CA3; DG; LGd; LP; MB; MGd; MGv; NOT; PPT; ProS; SCig; SGN; TH; VISal; VISam; VISl; VISp; VISpm; VISrl; grey,True,True,True,True
+756029989,734865738,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,2144,APN; CA1; CA2; CA3; DG; Eth; LGd; LP; MB; PO; POL; POST; SCig; SUB; TH; VISal; VISam; VISl; VISp; VISpm; VISrl; VPM,True,True,True,True
+757216464,733457989,wt/wt,brain_observatory_1.1,False,6,2800,APN; CA1; CA3; DG; Eth; HPF; LGd; LGv; LP; MB; MGm; MRN; NOT; PO; ProS; SGN; SUB; TH; VIS; VISal; VISam; VISl; VISp; VISrl,False,False,False,False
+757970808,730756780,wt/wt,brain_observatory_1.1,False,5,2412,CA1; CA3; DG; LGd; LP; MB; MGd; MRN; NOT; OP; PPT; ProS; SGN; SUB; TH; VISal; VISam; VISli; VISp; VISrl; VPM; grey,False,False,False,False
+758798717,735109609,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,4,1689,APN; CA1; DG; HPF; LP; MB; MGd; MGv; NOT; OP; PPT; ProS; SGN; SUB; TH; VISal; VISam; VISp; VISpm,True,True,True,True
+759883607,740268986,wt/wt,brain_observatory_1.1,False,4,1755,APN; CA1; CA3; DG; LGd; MB; MGm; MGv; NOT; POL; PPT; ProS; SCig; SUB; TH; VISal; VISam; VISp; VISpm,False,False,False,False
+760345702,739783171,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,5,1774,APN; CA1; CA2; CA3; DG; LGd; LP; MB; PIL; PP; TH; VISal; VISam; VISl; VISp; VISpm; grey,True,True,True,True
+760693773,738651054,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,2281,VISal; VISam; VISp; VISpm; VISrl; grey,True,True,True,True
+761418226,742714475,wt/wt,brain_observatory_1.1,False,6,2352,APN; CA1; CA2; CA3; DG; Eth; HPF; IGL; LGd; LGv; LP; MB; POL; TH; VISal; VISp; VISpm; VISrl; ZI; grey,False,False,False,False
+762120172,745276236,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,5,2344,VIS; VISal; VISam; VISl; VISp; grey,True,True,True,True
+762602078,744915204,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,2159,APN; CA1; CA3; DG; HPF; LGv; LP; MB; NOT; POST; PPT; ProS; SGN; SUB; VIS; VISam; VISmmp; VISp; VISrl,True,True,True,True
+763673393,742602892,wt/wt,brain_observatory_1.1,False,6,2446,APN; CA1; CA2; CA3; DG; Eth; LGd; LGv; LP; MB; POL; TH; VIS; VISam; VISl; VISp; VISrl; ZI,False,False,False,False
+766640955,744912849,wt/wt,functional_connectivity,False,6,2890,APN; CA1; CA3; DG; LGd; LP; MB; MGd; NOT; PF; TH; VISal; VISam; VISl; VISmma; VISp; VISrl; VPM,False,False,False,False
+767871931,753795610,wt/wt,functional_connectivity,False,6,2672,APN; CA1; CA3; DG; LP; LT; MB; MGd; MRN; PO; ProS; SGN; SUB; TH; VISal; VISam; VISli; VISp; VISpm; VISrl,False,False,False,False
+768515987,754477358,wt/wt,functional_connectivity,False,6,2568,APN; CA1; CA2; CA3; DG; Eth; LGd; LP; MB; MGd; MGm; MGv; NOT; POL; ProS; RPF; TH; VISal; VISam; VISl; VISmma; VISp; VISrl,False,False,False,False
+771160300,754488979,wt/wt,functional_connectivity,False,6,2890,APN; CA1; CA2; CA3; DG; IGL; IntG; LGd; LP; MB; NOT; OP; PPT; ProS; SCig; SUB; VIS; VISal; VISam; VISli; VISp; VISpm; ZI,False,False,False,False
+771990200,756578435,wt/wt,functional_connectivity,False,6,2139,APN; CA1; CA2; CA3; DG; LGd; LP; MB; PO; POL; ProS; TH; VISal; VISam; VISli; VISp; VISpm; VISrl,False,False,False,False
+773418906,757329624,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,1868,APN; CA1; CA2; CA3; DG; HPF; MB; MGd; MGv; NOT; POST; PPT; ProS; SCig; SUB; TH; VISal; VISam; VISmmp; VISp; VISrl,True,True,True,True
+774875821,759711152,wt/wt,functional_connectivity,False,6,2397,APN; CA1; CA3; DG; HPF; LP; MB; MGd; MGv; NOT; ProS; SCig; SUB; VISal; VISam; VISl; VISmma; VISp; VISrl,False,False,False,False
+778240327,760938797,wt/wt,functional_connectivity,False,6,2522,APN; CA1; CA2; CA3; DG; HPF; IGL; IntG; LGd; LP; NOT; POL; ProS; SUB; TH; VISal; VISam; VISl; VISp; VISpm; VISrl; ZI; grey,False,False,False,False
+778998620,759674770,wt/wt,functional_connectivity,False,6,2828,APN; CA1; CA2; CA3; DG; LGv; LP; MB; NOT; POL; SGN; SUB; VISal; VISam; VISl; VISp; VISpm; VISrl; ZI,False,False,False,False
+779839471,760960653,wt/wt,functional_connectivity,False,6,3022,APN; CA1; CA2; CA3; DG; HPF; LGd; LP; MB; NOT; OP; POL; PPT; ProS; SUB; TH; VIS; VISam; VISp; VISpm; VISrl,False,False,False,False
+781842082,760946813,wt/wt,functional_connectivity,False,6,2548,APN; CA1; CA2; CA3; DG; HPF; LGd; LP; MB; MGm; MGv; NOT; POL; POST; PRE; SGN; SUB; TH; VISal; VISam; VISmma; VISp; VISrl; grey,False,False,False,False
+786091066,763884103,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,functional_connectivity,True,6,1881,APN; CA1; CA2; CA3; DG; MB; MGd; NOT; PPT; ProS; SCig; SUB; VISal; VISam; VISp; VISpm; VISrl; grey,True,True,True,True
+787025148,763236014,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,functional_connectivity,True,6,2468,APN; CA1; CA3; DG; LP; MB; MGv; NOT; POL; PP; PPT; ProS; SCig; SCiw; SGN; SUB; TH; VIS; VISal; VISam; VISli; VISp; VISrl; grey,True,True,True,True
+789848216,763808604,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,functional_connectivity,True,6,1467,APN; CA1; CA2; CA3; CP; DG; LD; LP; POL; TH; VISal; VISam; VISl; VISmmp; VISp; VISrl; grey,True,True,True,True
+791319847,769360779,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,1997,APN; CA1; CA2; CA3; DG; LGd; LGv; LP; POL; ProS; SUB; TH; VISal; VISam; VISl; VISp; VISpm; VISrl; ZI,True,True,True,True
+793224716,769319624,wt/wt,functional_connectivity,False,6,2731,APN; CA1; CA2; CA3; DG; Eth; LP; MB; MRN; NOT; SGN; SUB; VIS; VISal; VISp; VISrl; grey,False,False,False,False
+794812542,774672366,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,functional_connectivity,True,6,2680,APN; CA1; CA2; CA3; DG; HPF; LP; MB; MGd; MGm; MGv; NOT; PIL; POL; POST; ProS; SCig; SUB; VISal; VISam; VISl; VISp; VISpm; VISrl,True,True,True,True
+797828357,776061251,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,2152,APN; CA1; CA2; CA3; DG; HPF; IGL; IntG; LP; MB; NOT; POL; PPT; ProS; SUB; VISal; VISam; VISl; VISp; VISpm; VISrl; ZI,True,True,True,True
+798911424,775876828,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,brain_observatory_1.1,True,6,2525,APN; CA1; CA2; CA3; DG; Eth; HPF; LGv; LP; MB; NOT; ProS; SUB; TH; VISal; VISam; VISl; VISp; VISrl,True,True,True,True
+799864342,772616823,wt/wt,brain_observatory_1.1,False,6,2245,APN; CA1; CA2; CA3; DG; LGd; LP; POL; ProS; SUB; VISal; VISam; VISl; VISmma; VISp; VISrl,False,False,False,False
+816200189,791857608,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,functional_connectivity,True,5,2152,APN; CA1; CA2; CA3; DG; IGL; LGv; LP; MB; MRN; RT; SGN; SUB; VIS; VISam; VISl; VISp; VISpm; VPM,True,True,True,True
+819186360,800249587,wt/wt,functional_connectivity,False,5,1861,APN; CA1; CA3; DG; HPF; LGd; LP; MB; NOT; POL; SCig; SCiw; SCop; SUB; VISam; VISl; VISpm; VISrl,False,False,False,False
+819701982,795770036,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,functional_connectivity,True,5,1816,APN; CA1; CA3; DG; LGd; LP; MB; NOT; POL; PPT; ProS; SCig; SCiw; SGN; SUB; TH; VISam; VISl; VISrl,True,True,True,True
+821695405,800250057,wt/wt,functional_connectivity,False,5,1978,CA1; CA3; DG; LGd; LGv; LP; ProS; TH; VISal; VISam; VISl; VISp; VISpm; grey,False,False,False,False
+829720705,811322619,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,functional_connectivity,True,5,1766,CA1; CA3; DG; POST; SCig; SCop; SCsg; SCzo; VISal; VISam; VISl; VISp; VISrl; grey,True,True,True,True
+831882777,803390291,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,functional_connectivity,True,6,1902,APN; CA1; DG; HPF; MB; NOT; POST; PPT; ProS; SCig; SUB; VISal; VISam; VISl; VISp; VISpm; VISrl; grey,True,True,True,True
+835479236,813701562,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,functional_connectivity,True,5,1948,CA1; CA3; DG; LGd; LP; ProS; SCig; SCiw; SCop; SCsg; SCzo; VISal; VISl; VISmmp; VISp; VISrl; grey,True,True,True,True
+839068429,817060751,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,functional_connectivity,True,6,2492,APN; CA1; CA3; DG; LGd; LP; MB; ProS; SUB; TH; VIS; VISam; VISl; VISp; VISpm; VISrl,True,True,True,True
+839557629,821469666,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,functional_connectivity,True,5,1761,APN; CA1; CA2; CA3; DG; LGd; MB; NOT; ProS; TH; VISal; VISam; VISl; VISp; VISpm,True,True,True,True
+840012044,820866121,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,functional_connectivity,True,6,2777,APN; CA1; CA3; DG; IGL; LGv; LP; MGd; MGv; TH; VISam; VISl; VISp; VISpm; VISrl,True,True,True,True
+847657808,827809884,wt/wt,functional_connectivity,False,6,3047,APN; CA1; CA3; DG; HPF; LP; MB; MGd; NOT; POST; ProS; SGN; SUB; TH; VISal; VISam; VISl; VISp; VISpm; VISrl,False,False,False,False
