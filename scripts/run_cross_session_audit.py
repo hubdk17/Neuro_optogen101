@@ -212,3 +212,59 @@ def build_validation_comparison_table(
     comp_df.to_csv(output_path, index=False)
     logger.info("Saved Table 5 (Comprehensive Validation Comparison) to %s", output_path)
     return comp_df
+
+
+if __name__ == "__main__":
+    config = load_config("config.yaml")
+    multi_csv = "results/tables/unit_features_multisession.csv"
+    if not os.path.exists(multi_csv):
+        logger.error("Multisession features file not found: %s", multi_csv)
+        sys.exit(1)
+        
+    df_all = pd.read_csv(multi_csv)
+    logger.info("Loaded multisession data with shape: %s", df_all.shape)
+    
+    # 1. Audit Session and Specimen Grouping
+    logger.info("==================================================")
+    logger.info("AUDITING GROUPING VARIABLES FOR CROSS-SESSION VALIDATION")
+    logger.info("==================================================")
+    sessions = df_all["session_id"].unique()
+    specimens = df_all["specimen_id"].unique()
+    logger.info("Session grouping variable: 'session_id', unique count = %d, values = %s", len(sessions), sessions.tolist())
+    logger.info("Specimen grouping variable: 'specimen_id', unique count = %d, values = %s", len(specimens), specimens.tolist())
+    for s_id in sessions:
+        sub = df_all[df_all["session_id"] == s_id]
+        logger.info("Session %s (Specimen %s): %d total units, classes = %s",
+                    s_id, sub["specimen_id"].iloc[0], len(sub), sub["reference_class"].value_counts().to_dict())
+                    
+    # 2. Run True Session-Held-Out Validation
+    res = run_true_session_held_out_validation(df_all, config)
+    
+    # Print detailed report for Random Forest
+    rf_res = res["random_forest"]
+    logger.info("==================================================")
+    logger.info("SESSION-HELD-OUT RESULTS (RANDOM FOREST)")
+    logger.info("==================================================")
+    logger.info("Mean Balanced Acc: %.4f +/- %.4f", rf_res["mean_balanced_accuracy"], rf_res["std_balanced_accuracy"])
+    logger.info("Mean Macro F1:     %.4f +/- %.4f", rf_res["mean_macro_f1"], rf_res["std_macro_f1"])
+    logger.info("Mean AUROC:        %.4f +/- %.4f", rf_res["mean_auroc"], rf_res["std_auroc"])
+    logger.info("Mean AUPRC:        %.4f +/- %.4f", rf_res["mean_auprc"], rf_res["std_auprc"])
+    logger.info("Mean Brier Score:  %.4f +/- %.4f", rf_res["mean_brier_score"], rf_res["std_brier_score"])
+    
+    # Print each fold
+    for f in rf_res["session_fold_metrics"]:
+        logger.info("Held-out Session %s (n_train=%d, n_test=%d): Bal Acc=%.4f, Macro F1=%.4f, AUROC=%.4f, AUPRC=%.4f, Prec=%.4f, Rec=%.4f, Brier=%.4f, ECE=%.4f",
+                    f["held_out_session"], f["n_train"], f["n_test"],
+                    f.get("balanced_accuracy", np.nan), f.get("macro_f1", np.nan),
+                    f.get("auroc", np.nan), f.get("auprc", np.nan),
+                    f.get("macro_precision", np.nan), f.get("macro_recall", np.nan),
+                    f.get("brier_score", np.nan), f.get("ece", np.nan))
+                    
+    # Build Table 5
+    build_validation_comparison_table(
+        df_random_path="results/tables/Table_4_random_split_leakage_baseline.csv",
+        df_probe_path="results/tables/Table_5_held_out_validation.csv",
+        session_heldout_res=res,
+        output_path="results/tables/Table_5_comprehensive_validation_comparison.csv"
+    )
+

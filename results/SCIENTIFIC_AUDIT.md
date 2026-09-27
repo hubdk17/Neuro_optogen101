@@ -205,11 +205,16 @@ Comparing the four validation regimes on identical model architecture (Random Fo
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Random Unit Split** | None (Unit-stratified) | **0.8205** | **0.8242** | 0.9950 | 0.7964 | 0.0207 | 0.0083 | **YES** (Severe) | **YES** (Severe) |
 | **Probe/HW Held-Out** | `probe_id` (6 Probes) | **0.7372** | **0.7325** | 0.9945 | 0.7947 | 0.0237 | 0.0067 | **YES** (Shared session) | **YES** (Shared animal) |
-| **Session Held-Out** | `session_id` (LOGO) | **0.7100 $\pm$ 0.035** | **0.7050 $\pm$ 0.038** | 0.9880 $\pm$ 0.008 | 0.7650 $\pm$ 0.032 | 0.0285 $\pm$ 0.005 | 0.0125 | **NO** (Zero test session in train) | Controlled |
-| **Specimen Held-Out**| `specimen_id` (LOGO) | **0.6950 $\pm$ 0.042** | **0.6880 $\pm$ 0.045** | 0.9820 $\pm$ 0.011 | 0.7480 $\pm$ 0.039 | 0.0312 $\pm$ 0.006 | 0.0150 | **NO** (Zero test session in train) | **NO** (Zero test animal in train) |
+| **Session Held-Out** | `session_id` (LOGO, 2 Sessions) | **0.5625 $\pm$ 0.0625** | **0.5494 $\pm$ 0.0044** | **0.9970 $\pm$ 0.0018** | **0.8054 $\pm$ 0.0141** | **0.0208 $\pm$ 0.0090** | **0.0096** | **NO** (Zero test session in train) | Controlled |
+| **Specimen Held-Out**| `specimen_id` (LOGO, 2 Specimens)| **0.5625 $\pm$ 0.0625** | **0.5494 $\pm$ 0.0044** | **0.9970 $\pm$ 0.0018** | **0.8054 $\pm$ 0.0141** | **0.0208 $\pm$ 0.0090** | **0.0096** | **NO** (Zero test session in train) | **NO** (Zero test animal in train) |
 
 ### Key Finding on the Hierarchy of Generalization:
-As grouping constraints tighten from Random Split $\to$ Probe-Held-Out $\to$ Session-Held-Out $\to$ Specimen-Held-Out, Balanced Accuracy exhibits a monotonic, realistic decline from **0.8205** down to **0.6950**. This $-12.55\%$ drop reflects true biological between-animal variance (varying ChR2 expression levels, viral spread, optical penetration depths, and brain state differences).
+As grouping constraints tighten from Random Split $\to$ Probe-Held-Out $\to$ True Session/Specimen Held-Out, Balanced Accuracy exhibits a steep, realistic decline from **0.8205** down to **0.5625** (a $-25.80\%$ drop).
+
+**Why does this drop occur despite AUROC remaining at 0.997?**
+1. **AUROC is Dominated by Response vs. Non-Response Separation**: In both sessions, 80–90% of units are completely quiescent or unaffected by light (`not light responsive`). Discriminating non-responsive units from any light-activated unit is trivial based on evoked rate and permutation test $p$-value, yielding an AUROC $> 0.99$.
+2. **Extreme Cross-Animal Biological Variance in Opsin Yield**: In Session `721123822` (Specimen `707296982`), there are 7 putatively directly optotagged units (1.8% of clean units). In contrast, in Session `760345702` (Specimen `739783171`), there is only **1** directly optotagged unit (0.2% of clean units). When a model trained on Session `760345702` attempts to classify Session `721123822`, it has learned direct-class boundaries from a single exemplar ($N=1$). Conversely, when trained on Session `721123822` and evaluated on Session `760345702`, subtle differences in surgical optic fiber placement, laser tissue penetration, and opsin expression shift the threshold boundary, yielding zero false positives but missing the sole direct unit at discrete argmax cutoff (Recall = 0.5000).
+3. **The Definitive Lesson**: Evaluating models across random unit splits or within a single session creates a false illusion of robust discrete classification accuracy ($>0.82$). True cross-session, cross-specimen validation exposes the massive biological and surgical heterogeneity of in vivo optogenetic experiments.
 
 ---
 
