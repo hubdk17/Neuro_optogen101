@@ -1,0 +1,2 @@
+control_experiment,total_units_evaluated,direct_false_positives,direct_false_positive_rate_pct,indirect_classifications,nonresponsive_classifications,mean_sham_evidence_score,max_sham_evidence_score,optical_artifact_flagged_units,optical_artifact_flagged_pct
+"Matched Pre-Stimulus Sham Window [-18, -10 ms]",945,0,0.0,1,944,0.1882,0.4631,0,0.0

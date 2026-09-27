@@ -1,0 +1,13 @@
+metric_name,metric_value
+Operating System,Windows 10 (Build 10.0.26200)
+Processor Architecture,"AMD64 (Intel64 Family 6 Model 197 Stepping 2, GenuineIntel)"
+Python Environment,Python 3.11.9 (64-bit)
+Compute Acceleration,CPU-Only (Zero GPU Dependencies)
+Total Recorded Units Processed,945 Neuropixels units across 11 probes
+Unit Trial Observations,"19,980 unit-trial pairs"
+Feature Extraction Throughput,~450 units / 60 seconds (CPU)
+Peak Memory Consumption,~2.4 GB RAM per session NWB
+Random Forest Training Latency,"0.24 seconds (100 trees, CPU)"
+XGBoost Training Latency,0.18 seconds (Hist CPU)
+Continuous Evidence Scoring Latency,0.015 seconds for 945 units
+Deterministic Reproducibility Seed,Seed 42 (Configured in config.yaml)

@@ -1,0 +1,5 @@
+evaluation_regime,grouping_level,classifier,balanced_accuracy,balanced_accuracy_std,macro_f1,macro_f1_std,auroc,auroc_std,auprc,brier_score,ece,intra_session_leakage,intra_specimen_leakage
+Random Unit Split (Data Leakage Baseline),None (Unit-stratified),Random Forest,0.8205,0.0,0.8242,0.0,0.995,0.0,0.7964,0.0207,0.0083,YES (Severe),YES (Severe)
+Probe / Hardware Held-Out (Shank Isolation),probe_id (6 shanks),Random Forest,0.7372,0.038,0.7325,0.041,0.9945,0.002,0.7947,0.0237,0.0067,YES (Shared Session),YES (Shared Specimen)
+Session Held-Out (Leave-One-Session-Out),session_id (LOGO),Random Forest,0.5625,0.0625,0.5494,0.0044,0.997,0.0018,0.8054,0.0208,0.0096,NO (Zero test data in train),Controlled
+Specimen Held-Out (Leave-One-Specimen-Out),specimen_id (LOGO),Random Forest,0.5625,0.0625,0.5494,0.0044,0.997,0.0018,0.8054,0.0208,0.0096,NO (Zero test data in train),NO (Zero test animal in train)

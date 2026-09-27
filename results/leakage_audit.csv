@@ -1,0 +1,5 @@
+comparison,metric,naive_value,held_out_value,absolute_inflation,percentage_inflation,leakage_source
+Random Unit Split vs True Session Held-Out,Balanced Accuracy,0.8205,0.5625,0.258,45.87,Units from the same probe/session share identical electrical noise and animal brain state
+Random Unit Split vs True Session Held-Out,Macro F1 Score,0.8242,0.5494,0.2748,50.02,Units from the same probe/session share identical electrical noise and animal brain state
+Probe Held-Out vs True Session Held-Out,Balanced Accuracy,0.7372,0.5625,0.1747,31.06,Probes recorded simultaneously in the same animal share animal-specific opsin expression and global brain state
+Session Held-Out vs Specimen Held-Out,Balanced Accuracy,0.5625,0.5625,0.0,0.0,Each session represents a distinct biological specimen in this cohort

@@ -9,6 +9,7 @@ __pycache__/
 data/raw/*.nwb
 data/raw/session_*/*.nwb
 data/raw/*.download*
+data/raw/session_*/*.download*
 data/cache/
 
 # Processed intermediate caches

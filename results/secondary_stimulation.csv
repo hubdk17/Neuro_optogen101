@@ -1,0 +1,4 @@
+evidence_regime,unit_count,primary_10ms_reliability,primary_10ms_latency_ms,secondary_5ms_reliability,secondary_5ms_latency_ms,train_10hz_adaptation_index,optical_intensity_slope,raised_cosine_evoked_rate,regime_stability_across_stimuli
+high evidence (direct-like),2,0.5665,5.06,0.4985,5.16,-0.7295,33.3333,61.0,High (Consistent)
+intermediate evidence (uncertain / borderline),126,0.1297,4.7,0.0843,4.8,-19.1901,2.0062,12.064,Intermediate (Context-dependent)
+low evidence (non-responsive),674,0.0655,4.69,0.0426,4.78,-37.135,-0.103,6.059,Quiescent
