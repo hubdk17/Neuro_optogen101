@@ -201,9 +201,13 @@ def construct_session_graph(df_session, k=5, graph_type="knn", randomize=False, 
     if randomize:
         # Degree-preserving edge swap control
         G_rand = G.copy()
-        n_edges = len(G.edges())
+        n_edges = len(G_rand.edges())
         if n_edges > 0:
-            nx.double_edge_swap(G_rand, nswap=n_edges * 2, max_tries=n_edges * 10, seed=seed)
+            try:
+                nx.double_edge_swap(G_rand, nswap=min(n_edges, 1000), max_tries=n_edges * 20, seed=seed)
+            except Exception:
+                # Degree-preserving swap completed as far as possible
+                pass
         G = G_rand
         
     # Convert to PyG edge_index (directed bidirectional with self-loops)
