@@ -1,0 +1,10 @@
+model,hyperparameter,value,tuning,class_weight
+logistic_regression,C,1.0,Nested CV L2 regularization,balanced
+linear_svm,C,1.0,CalibratedClassifierCV (Platt scaling),balanced
+random_forest,n_estimators / max_depth,100 / 6,Grid restricted inside inner fold,balanced
+gradient_boosting,n_estimators / learning_rate,100 / 0.05,Default shrinkage,None
+xgboost,n_estimators / max_depth / lr / scale_pos_weight,100 / 3 / 0.05 / dynamic,Inverse prevalence pos_weight,scale_pos_weight
+mlp,architecture / lr / epochs / pos_weight,64-32 / 0.001 / 60 / dynamic,Adam + BCEWithLogitsLoss,pos_weight
+gcn,channels / dropout / epochs / lr,32 / 0.2 / 60 / 0.001,2-layer GCNConv + BCEWithLogits,pos_weight
+graphsage,channels / dropout / epochs / lr,32 / 0.2 / 60 / 0.001,2-layer SAGEConv (mean aggregator),pos_weight
+gat,heads / channels / dropout / lr,2 / 16 / 0.2 / 0.001,Multi-head attention GATConv,pos_weight
