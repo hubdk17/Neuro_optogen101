@@ -1,0 +1,4 @@
+regime,classifier,balanced_accuracy_mean,balanced_accuracy_std,macro_f1_mean,macro_f1_std,auroc_mean,auroc_std,auprc_mean,brier_score_mean,specificity_mean,intra_recording_leakage,n_sessions
+Session Held-Out (Leave-One-Session-Out),logistic_regression,0.8455,0.1258,0.6803,0.0214,0.9865,0.0191,0.8078,0.0078,0.9962,NO (Strict Session Isolation),2
+Session Held-Out (Leave-One-Session-Out),random_forest,0.7292,0.1473,0.7163,0.2423,0.9984,0.0022,0.9298,0.0067,1.0,NO (Strict Session Isolation),2
+Session Held-Out (Leave-One-Session-Out),xgboost,0.7847,0.2259,0.7018,0.2217,0.9917,0.0083,0.4532,0.0094,0.9988,NO (Strict Session Isolation),2

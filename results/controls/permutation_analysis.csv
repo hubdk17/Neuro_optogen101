@@ -1,0 +1,6 @@
+permutation_iteration,null_direct_count,null_mean_evidence,p_value_empirical,observed_direct_count,p_value_empirical_final
+0,0,0.1457,0.0,8,0.0
+200,0,0.1425,0.0,8,0.0
+400,0,0.1478,0.0,8,0.0
+600,0,0.1481,0.0,8,0.0
+800,0,0.1461,0.0,8,0.0

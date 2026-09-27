@@ -1,0 +1,12 @@
+model_name,weight_statistical,weight_reliability,weight_modulation,weight_latency,weight_jitter,spearman_rho_to_model_a,kendall_tau_to_model_a,top_decile_jaccard_to_model_a,correlation_with_operational_direct,mean_score,std_score,mean_session_721123822,mean_session_760345702
+Model A (Proposed Physiological),0.3,0.25,0.2,0.15,0.1,1.0,1.0,1.0,0.1584,0.221,0.1282,0.2296,0.2134
+Model B (Equal Weights),0.2,0.2,0.2,0.2,0.2,0.9695,0.8727,0.766,0.1548,0.2718,0.1671,0.2823,0.2625
+Model C1 (Minus Statistical),0.0,0.357,0.286,0.214,0.143,0.9596,0.8669,0.8511,0.1571,0.2395,0.1684,0.2435,0.2359
+Model C2 (Minus Reliability),0.4,0.0,0.267,0.2,0.133,0.9787,0.9062,0.8404,0.1542,0.2729,0.1557,0.2853,0.262
+Model C3 (Minus Modulation),0.375,0.312,0.0,0.187,0.125,0.8928,0.7844,0.4043,0.1573,0.2482,0.1331,0.2619,0.2361
+Model C4 (Minus Latency),0.353,0.294,0.235,0.0,0.118,0.9653,0.8723,0.8404,0.1587,0.1593,0.0989,0.1655,0.1539
+Model C5 (Minus Jitter),0.333,0.278,0.222,0.167,0.0,0.9409,0.8238,0.7979,0.1585,0.1974,0.1174,0.2041,0.1915
+Model D1 (Heavy-Statistical),0.5,0.15,0.15,0.1,0.1,0.9775,0.8994,0.7766,0.1579,0.216,0.1115,0.2281,0.2052
+Model D2 (Heavy-Reliability),0.15,0.45,0.15,0.15,0.1,0.9797,0.9003,0.8191,0.1585,0.2018,0.1265,0.2075,0.1967
+Model D3 (Heavy-Latency),0.15,0.2,0.15,0.4,0.1,0.946,0.8282,0.7766,0.1543,0.3281,0.2044,0.3401,0.3175
+Model D4 (Heavy-Modulation),0.15,0.15,0.45,0.15,0.1,0.9757,0.8905,0.7872,0.1535,0.2158,0.1575,0.2189,0.2131

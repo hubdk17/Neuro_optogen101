@@ -1,0 +1,29 @@
+specimen_id,session_id,cre_line,genotype,age_in_days,sex,n_probes,good_units,analyzed_units,status,usable,exclusion_reason
+699733581,715093703,Sst-IRES-Cre,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,118.0,M,6,2073,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+703279284,719161530,Sst-IRES-Cre,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,122.0,M,6,1785,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+707296982,721123822,Pvalb-IRES-Cre,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,125.0,M,6,1191,444,Successfully Processed,True,None (Successfully processed and extracted)
+726170935,746083955,Pvalb-IRES-Cre,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,98.0,F,6,1542,0,In-Progress Download,False,Download in progress (partial remote data transfer)
+732548380,751348571,Vip-IRES-Cre,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,93.0,F,6,1985,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+730760270,755434585,Vip-IRES-Cre,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,100.0,M,6,1541,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+734865738,756029989,Sst-IRES-Cre,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,96.0,M,6,1641,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+735109609,758798717,Sst-IRES-Cre,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,102.0,M,4,1343,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+739783171,760345702,Pvalb-IRES-Cre,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,103.0,M,5,1332,501,Successfully Processed,True,None (Successfully processed and extracted)
+738651054,760693773,Sst-IRES-Cre,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,110.0,F,6,1786,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+745276236,762120172,Vip-IRES-Cre,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,100.0,M,5,1642,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+744915204,762602078,Sst-IRES-Cre,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,110.0,M,6,1314,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+757329624,773418906,Pvalb-IRES-Cre,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,124.0,F,6,1393,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+763884103,786091066,Sst-IRES-Cre,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,111.0,F,6,1530,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+763236014,787025148,Sst-IRES-Cre,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,114.0,M,6,1868,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+763808604,789848216,Sst-IRES-Cre,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,119.0,M,6,1075,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+769360779,791319847,Vip-IRES-Cre,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,116.0,M,6,1445,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+774672366,794812542,Sst-IRES-Cre,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,120.0,F,6,2137,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+776061251,797828357,Pvalb-IRES-Cre,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,107.0,M,6,1610,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+775876828,798911424,Vip-IRES-Cre,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,110.0,F,6,1878,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+791857608,816200189,Vip-IRES-Cre,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,128.0,F,5,1572,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+795770036,819701982,Vip-IRES-Cre,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,135.0,F,5,1351,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+811322619,829720705,Pvalb-IRES-Cre,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,112.0,M,5,1286,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+803390291,831882777,Sst-IRES-Cre,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,137.0,M,6,1488,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+813701562,835479236,Vip-IRES-Cre,Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,121.0,M,5,1313,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+817060751,839068429,Sst-IRES-Cre,Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,129.0,F,6,1906,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+821469666,839557629,Pvalb-IRES-Cre,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,115.0,M,5,1218,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained
+820866121,840012044,Pvalb-IRES-Cre,Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt,116.0,M,6,2045,0,Metadata-Only (Remote S3),False,Raw NWB file (>2GB) remote on Allen AWS S3; bandwidth-constrained

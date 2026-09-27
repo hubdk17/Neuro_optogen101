@@ -1,0 +1,8 @@
+ablation_condition,excluded_family,feature_count,balanced_accuracy,delta_balanced_accuracy,macro_f1,delta_macro_f1,auroc,auprc
+A (Full 14 Features),Full 14 Features,14,0.7292,0.0,0.7163,0.0,0.9984,0.9298
+C1 (Minus Temporal Family),Minus Temporal Family,10,0.7292,0.0,0.661,-0.0553,1.0,1.0
+C2 (Minus Reliability Family),Minus Reliability Family,11,0.7569,0.0278,0.6834,-0.0329,0.9967,0.6741
+C3 (Minus Firing Family),Minus Firing Family,11,0.7292,0.0,0.661,-0.0553,0.9963,0.6548
+C4 (Minus Statistical Family),Minus Statistical Family,12,0.5503,-0.1788,0.5154,-0.2009,0.9998,0.9911
+C5 (Minus Optical Family),Minus Optical Family,13,0.5625,-0.1667,0.5495,-0.1669,0.9976,0.69
+C6 (Minus Dynamics Family),Minus Dynamics Family,13,0.7014,-0.0278,0.633,-0.0833,0.9979,0.7044

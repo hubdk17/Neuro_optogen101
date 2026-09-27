@@ -1,0 +1,5 @@
+class_name,class_index,count,prevalence_pct,imbalance_ratio
+putatively directly optotagged,2,8,1.0,1 : 100
+light-responsive / indirect or uncertain,1,14,1.75,1 : 57
+not light responsive,0,780,97.26,1 : 1
+Trivial Majority Classifier Baseline,-1,802,100.0,Balanced Acc: 0.3333 | Macro F1: 0.3287

@@ -1,0 +1,4 @@
+regime,classifier,balanced_accuracy_mean,balanced_accuracy_std,macro_f1_mean,macro_f1_std,auroc_mean,auroc_std,auprc_mean,brier_score_mean,specificity_mean,intra_recording_leakage,prevalence_direct
+Random Unit Split (Optimistic Leakage Baseline),logistic_regression,0.9167,0.0745,0.7938,0.0793,0.9987,0.0028,0.9,0.0038,0.9962,YES (Severe),0.01
+Random Unit Split (Optimistic Leakage Baseline),random_forest,0.8,0.2173,0.7723,0.2499,0.9987,0.0028,0.9167,0.0034,0.9975,YES (Severe),0.01
+Random Unit Split (Optimistic Leakage Baseline),xgboost,0.7667,0.194,0.7256,0.202,0.9975,0.0035,0.8167,0.005,0.9962,YES (Severe),0.01

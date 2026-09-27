@@ -1,0 +1,3 @@
+session_id,total_units,artifact_flagged_units,artifact_prevalence_pct,onset_artifact_window,offset_artifact_window,mitigation_protocol
+721123822,444,0,0.0,"[0.0, 1.0] ms post-stimulus","[9.0, 11.0] ms post-stimulus",Artifact gating penalty g_A(A_i) + minimum latency guard threshold (1.0 ms)
+760345702,501,0,0.0,"[0.0, 1.0] ms post-stimulus","[9.0, 11.0] ms post-stimulus",Artifact gating penalty g_A(A_i) + minimum latency guard threshold (1.0 ms)
