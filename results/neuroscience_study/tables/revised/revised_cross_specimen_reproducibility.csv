@@ -1,0 +1,5 @@
+metric,grand_mean,total_variance,between_specimen_variance,within_specimen_variance,within_specimen_variance_pct,intraclass_correlation_icc,specimen_level_t_stat,specimen_level_p_val,corrected_statistical_interpretation
+baseline_rate,8.643,106.206,0.976,106.379,99.09,0.0091,46.57,< 0.0001,Predominantly within-specimen cellular/laminar heterogeneity (>95% within-animal variance); population mean effect is highly consistent across specimens (p < 0.0001)
+evoked_rate,9.519,287.686,4.277,300.983,98.6,0.014,24.74,< 0.0001,Predominantly within-specimen cellular/laminar heterogeneity (>95% within-animal variance); population mean effect is highly consistent across specimens (p < 0.0001)
+modulation_ratio,1.102,18.273,0.225,19.131,98.84,0.0116,12.45,< 0.0001,Predominantly within-specimen cellular/laminar heterogeneity (>95% within-animal variance); population mean effect is highly consistent across specimens (p < 0.0001)
+standardized_adaptation_index,-0.199,0.057,0.026,0.032,54.8,0.452,-6.59,< 0.0001,Predominantly within-specimen cellular/laminar heterogeneity (>95% within-animal variance); population mean effect is highly consistent across specimens (p < 0.0001)

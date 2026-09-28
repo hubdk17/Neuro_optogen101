@@ -1,0 +1,6 @@
+unsupervised_response_archetype,unit_count,mean_baseline_hz,mean_evoked_hz,mean_latency_ms,pvalb_pct,sst_pct,vip_pct,cohort_fraction_pct
+Non-Responsive / Stationary,7222,1.5637762392689007,2.004856134034893,4.683,17.79,37.75,44.46,39.43
+Non-Responsive / Stationary (Variant 2),3830,17.66691148825065,20.745002349869452,4.8865,15.48,28.59,55.93,20.91
+Prolonged Network Suppression,2379,11.02532156368222,7.41281672971837,4.3855,100.0,0.0,0.0,12.99
+Prolonged Network Suppression (Variant 2),4499,11.189917981773727,7.961940653478551,4.68,0.0,100.0,0.0,24.56
+Rapid Direct-Like Excitation,386,7.167862694300518,69.83017616580311,4.468,42.49,43.52,13.99,2.11
