@@ -1,0 +1,4 @@
+configuration,auroc,auprc,balanced_accuracy,macro_f1
+Model 1: Physiology Only,0.99982,0.98849,0.99438,0.94238
+Model 2: Physiology + Probe Position,0.99983,0.98921,0.99424,0.93854
+Model 3: Physiology + 3D CCF Coordinates,0.9998,0.98793,0.99438,0.94238

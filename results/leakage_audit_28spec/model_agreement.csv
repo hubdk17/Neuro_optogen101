@@ -1,0 +1,16 @@
+model_1,model_2,pearson_r,spearman_rho,positive_units_m1,positive_units_m2,overlap_count,jaccard_similarity
+logistic_regression,logistic_regression,1.0,1.0,322,322,322,1.0
+logistic_regression,linear_svm,0.9234,0.6118,322,236,236,0.7329
+logistic_regression,random_forest,0.9281,0.2184,322,260,258,0.7963
+logistic_regression,gradient_boosting,0.9183,0.0994,322,261,259,0.7994
+logistic_regression,xgboost,0.9155,0.0895,322,261,259,0.7994
+linear_svm,linear_svm,1.0,1.0,236,236,236,1.0
+linear_svm,random_forest,0.9637,0.2326,236,260,232,0.8788
+linear_svm,gradient_boosting,0.9574,0.0382,236,261,232,0.8755
+linear_svm,xgboost,0.9539,0.0536,236,261,232,0.8755
+random_forest,random_forest,1.0,1.0,260,260,260,1.0
+random_forest,gradient_boosting,0.9942,0.2316,260,261,259,0.9885
+random_forest,xgboost,0.9943,0.2386,260,261,260,0.9962
+gradient_boosting,gradient_boosting,1.0,1.0,261,261,261,1.0
+gradient_boosting,xgboost,0.9911,0.1761,261,261,259,0.9848
+xgboost,xgboost,1.0,1.0,261,261,261,1.0

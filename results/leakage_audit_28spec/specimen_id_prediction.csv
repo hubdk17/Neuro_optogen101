@@ -1,0 +1,2 @@
+n_specimens,chance_accuracy,empirical_accuracy,macro_f1,accuracy_elevation_ratio,diagnostic_interpretation
+28,0.03571,0.08779,0.0462,2.46,"Features contain strong specimen-specific electrophysiological signatures (impedance, depth, baseline activity)."

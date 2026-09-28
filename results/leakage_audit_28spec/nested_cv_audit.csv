@@ -1,0 +1,10 @@
+model,outer_scheme,inner_scheme,tuned_parameter,selected_value,leakage_detected
+logistic_regression,Specimen LOSO (28 folds),3-Fold Stratified CV,C,1.0,False
+linear_svm,Specimen LOSO (28 folds),3-Fold Calibrated CV,C,1.0,False
+random_forest,Specimen LOSO (28 folds),Fixed a priori / Inner validation,max_depth,6,False
+gradient_boosting,Specimen LOSO (28 folds),Fixed a priori / Inner validation,learning_rate,0.05,False
+xgboost,Specimen LOSO (28 folds),Fixed a priori / Dynamic pos_weight,max_depth / scale_pos_weight,3 / dynamic,False
+mlp,Specimen LOSO (28 folds),Inner 15% validation split,epochs / lr,60 / 0.001,False
+gcn,Specimen LOSO (28 folds),Inner 15% validation split,channels / dropout,32 / 0.2,False
+graphsage,Specimen LOSO (28 folds),Inner 15% validation split,channels / dropout,32 / 0.2,False
+gat,Specimen LOSO (28 folds),Inner 15% validation split,heads / channels,2 / 16,False

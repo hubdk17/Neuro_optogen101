@@ -1,0 +1,13 @@
+setting,model,n_features,balanced_accuracy,macro_f1,auroc,auprc
+Setting A (Full Features),logistic_regression,14,0.99438,0.94238,0.99981,0.98837
+Setting A (Full Features),random_forest,14,0.99805,0.99805,1.0,0.9997
+Setting A (Full Features),xgboost,14,0.99997,0.99903,0.99995,0.98654
+Setting B (Remove Direct Defining Features),logistic_regression,14,0.99617,0.93951,0.9998,0.98684
+Setting B (Remove Direct Defining Features),random_forest,14,0.97573,0.94933,0.99961,0.97261
+Setting B (Remove Direct Defining Features),xgboost,14,0.99516,0.96518,0.99988,0.98105
+Setting C (Remove All Known Label Proxies),logistic_regression,10,0.66656,0.3887,0.70827,0.03043
+Setting C (Remove All Known Label Proxies),random_forest,10,0.6191,0.45821,0.68193,0.02886
+Setting C (Remove All Known Label Proxies),xgboost,10,0.6491,0.43046,0.69747,0.02886
+Setting D (Independent Feature Set - Zero Evoked Optical Signal),logistic_regression,10,0.66656,0.3887,0.70827,0.03043
+Setting D (Independent Feature Set - Zero Evoked Optical Signal),random_forest,10,0.62899,0.45957,0.68452,0.02762
+Setting D (Independent Feature Set - Zero Evoked Optical Signal),xgboost,10,0.6491,0.43046,0.69747,0.02886

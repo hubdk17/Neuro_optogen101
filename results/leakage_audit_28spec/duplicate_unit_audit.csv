@@ -1,0 +1,5 @@
+check,total_rows,unique_unit_ids,duplicate_unit_count,status
+Unique Unit IDs,18316,18316,0,PASS (All unit_ids are strictly globally unique)
+Unit x Session Uniqueness,18316,18316,0,PASS
+Unit x Specimen Uniqueness,18316,18316,0,PASS
+Unit x Probe Uniqueness,18316,18316,0,PASS

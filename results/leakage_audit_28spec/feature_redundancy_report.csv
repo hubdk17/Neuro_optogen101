@@ -1,0 +1,28 @@
+feature_1,feature_2,pearson_r,spearman_rho,is_identical,is_deterministic_linear,valid_samples,redundancy_type
+trial_reliability,responsive_trial_fraction,1.0,1.0,True,True,18316,Exact Duplicate
+median_latency_ms,median_latency,1.0,1.0,False,True,13643,Linear Transform
+subscore_reliability,responsive_trial_fraction,1.0,1.0,True,True,18316,Exact Duplicate
+composite_uncertainty,uncertainty_score,1.0,1.0,False,True,945,Linear Transform
+evoked_rate,evoked_firing_rate,1.0,1.0,True,True,18316,Exact Duplicate
+baseline_rate,baseline_firing_rate,1.0,1.0,True,True,18316,Exact Duplicate
+trial_reliability,subscore_reliability,1.0,1.0,True,True,18316,Exact Duplicate
+latency_sd_ms,latency_variability,1.0,1.0,False,True,13643,Linear Transform
+session_id,specimen_id,0.995065,0.992134,False,False,18316,High Collinearity (|r|>=0.99)
+evoked_rate,trial_reliability,0.951255,0.998072,False,False,18316,High Collinearity (|r|>=0.99)
+evoked_rate,subscore_reliability,0.951255,0.998072,False,False,18316,High Collinearity (|r|>=0.99)
+evoked_firing_rate,responsive_trial_fraction,0.951255,0.998072,False,False,18316,High Collinearity (|r|>=0.99)
+trial_reliability,evoked_firing_rate,0.951255,0.998072,False,False,18316,High Collinearity (|r|>=0.99)
+evoked_rate,responsive_trial_fraction,0.951255,0.998072,False,False,18316,High Collinearity (|r|>=0.99)
+subscore_reliability,evoked_firing_rate,0.951255,0.998072,False,False,18316,High Collinearity (|r|>=0.99)
+subscore_reliability,trial_sampling_variance,0.878932,0.998371,False,False,17371,High Collinearity (|r|>=0.99)
+responsive_trial_fraction,trial_sampling_variance,0.878932,0.998371,False,False,17371,High Collinearity (|r|>=0.99)
+trial_reliability,trial_sampling_variance,0.878932,0.998371,False,False,17371,High Collinearity (|r|>=0.99)
+evoked_rate,trial_sampling_variance,0.727984,0.996411,False,False,17371,High Collinearity (|r|>=0.99)
+evoked_firing_rate,trial_sampling_variance,0.727984,0.996411,False,False,17371,High Collinearity (|r|>=0.99)
+p_value,subscore_statistical,-0.719146,-0.999948,False,False,18316,High Collinearity (|r|>=0.99)
+distance_to_decision_boundary,boundary_proximity,-0.896362,-1.0,False,False,945,High Collinearity (|r|>=0.99)
+distance_to_decision_boundary,boundary_proximity_uncertainty,-0.90434,-1.0,False,False,17371,High Collinearity (|r|>=0.99)
+median_latency_ms,subscore_latency,-0.961906,-1.0,False,False,13643,High Collinearity (|r|>=0.99)
+subscore_latency,median_latency,-0.961906,-1.0,False,False,13643,High Collinearity (|r|>=0.99)
+subscore_jitter,latency_variability,-0.978348,-1.0,False,False,13643,High Collinearity (|r|>=0.99)
+latency_sd_ms,subscore_jitter,-0.978348,-1.0,False,False,13643,High Collinearity (|r|>=0.99)

@@ -1,0 +1,6 @@
+validation_scheme,model,balanced_accuracy,macro_f1,auroc,auprc,sensitivity,specificity,precision,brier_loss,confusion_matrix
+Specimen LOSO (28 Folds),logistic_regression,0.99438,0.94238,0.99981,0.98837,0.99231,0.99646,0.80124,0.002831,"[[17992, 64], [2, 258]]"
+Specimen LOSO (28 Folds),linear_svm,0.94409,0.96526,0.99977,0.9872,0.88846,0.99972,0.97881,0.001386,"[[18051, 5], [29, 231]]"
+Specimen LOSO (28 Folds),random_forest,0.99805,0.99805,1.0,0.9997,0.99615,0.99994,0.99615,0.000218,"[[18055, 1], [1, 259]]"
+Specimen LOSO (28 Folds),gradient_boosting,0.99607,0.99513,0.99995,0.99339,0.99231,0.99983,0.98851,0.000316,"[[18053, 3], [2, 258]]"
+Specimen LOSO (28 Folds),xgboost,0.99997,0.99903,0.99995,0.98654,1.0,0.99994,0.99617,7.3e-05,"[[18055, 1], [0, 260]]"

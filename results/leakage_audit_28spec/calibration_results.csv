@@ -1,0 +1,6 @@
+model,brier_loss,expected_calibration_error,mean_predicted_probability,empirical_prevalence
+logistic_regression,0.002831,0.00421,0.01841,0.0142
+linear_svm,0.001386,0.00219,0.01391,0.0142
+random_forest,0.000218,0.00076,0.01433,0.0142
+gradient_boosting,0.000316,0.00024,0.01428,0.0142
+xgboost,7.3e-05,0.00344,0.01763,0.0142
