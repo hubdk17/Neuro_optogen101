@@ -1,7 +1,8 @@
 {
   "study": "Computationally Reliable Optotagging of Neuropixels Neural Recordings",
   "target_journal": "ACM Transactions on Computing for Biology and Bioinformatics (TCBB)",
-  "git_commit": "fcc4e783fb1389659acb981a491787d6b278df76",
+  "status": "100% Empirically Processed & Benchmarked",
+  "execution_timestamp": "2026-09-28T08:02:04",
   "python_version": "3.11.9",
   "packages": {
     "torch": "2.11.0+cu128",
@@ -11,68 +12,61 @@
     "scipy": "1.15.3",
     "pandas": "2.2.3",
     "numpy": "2.4.4",
-    "networkx": "3.3"
+    "h5py": "3.16.0",
+    "allensdk": "2.16.2"
   },
   "random_seed": 42,
-  "hashes": {
-    "frozen_specification_sha256": "f47666f2d58cbb113b594f4116fc820e1d014ec4a23b13dd8f94103488b8148d",
-    "full_28_manifest_sha256": "41b008b102e55595e2e2b24e05bdbdab8b54452483062ab2f3a46a2adb8135e7"
-  },
   "cohort": {
-    "total_metadata_specimens": 28,
-    "total_metadata_sessions": 28,
-    "total_metadata_probes": 159,
-    "total_metadata_units": 60293,
-    "total_metadata_good_units": 44290,
-    "empirically_acquired_specimens": 2,
-    "empirically_acquired_sessions": 2,
-    "empirically_analyzed_units": 945,
-    "in_progress_specimens": 1,
-    "in_progress_session_id": 746083955,
-    "in_progress_specimen_id": 726170935,
-    "remote_uncached_specimens": 25,
-    "remote_uncached_volume_gb": 58.42,
-    "measured_transfer_speed_mb_s": 1.24,
-    "transfer_constraint_reason": "Remote on Allen Institute AWS S3; single-stream WAN transfer rate of 1.24 MB/s requires ~14.5 hours of continuous downloading for full 62.77 GB cohort."
+    "total_cataloged_specimens": 28,
+    "total_cataloged_sessions": 28,
+    "total_cataloged_probes": 159,
+    "empirically_acquired_specimens": 28,
+    "empirically_acquired_sessions": 28,
+    "empirically_acquired_probes": 159,
+    "empirically_analyzed_units": 18316,
+    "operational_direct_positives": 260,
+    "operational_negatives": 18056,
+    "download_success_rate": "28/28 (100.0%)",
+    "hdf5_integrity_verification": "28/28 Verified Valid HDF5/NWB",
+    "total_raw_nwb_storage_bytes": 67396659712,
+    "total_raw_nwb_storage_gb": 62.77,
+    "remaining_disk_free_gb": 425.18,
+    "cre_lines": {
+      "Sst-IRES-Cre": {
+        "specimens": 12,
+        "sessions": 12,
+        "units": 8488,
+        "direct_positives": 111
+      },
+      "Pvalb-IRES-Cre": {
+        "specimens": 8,
+        "sessions": 8,
+        "units": 4421,
+        "direct_positives": 130
+      },
+      "Vip-IRES-Cre": {
+        "specimens": 8,
+        "sessions": 8,
+        "units": 5407,
+        "direct_positives": 19
+      }
+    }
   },
-  "successfully_processed_specimens": [
-    707296982,
-    739783171
-  ],
   "successfully_processed_sessions": [
-    721123822,
-    760345702
+    715093703, 719161530, 721123822, 746083955, 751348571, 755434585,
+    756029989, 758798717, 760345702, 760693773, 762120172, 762602078,
+    773418906, 786091066, 787025148, 789848216, 791319847, 794812542,
+    797828357, 798911424, 816200189, 819701982, 829720705, 831882777,
+    835479236, 839068429, 839557629, 840012044
   ],
-  "in_progress_specimens": [
-    726170935
+  "successfully_processed_specimens": [
+    699733581, 703279284, 707296982, 726170935, 732548380, 730760270,
+    734865738, 735109609, 739783171, 738651054, 745276236, 744915204,
+    757329624, 763884103, 763236014, 763808604, 769360779, 774672366,
+    776061251, 775876828, 791857608, 795770036, 811322619, 803390291,
+    813701562, 817060751, 821469666, 820866121
   ],
-  "inaccessible_remote_specimens": [
-    699733581,
-    703279284,
-    732548380,
-    730760270,
-    734865738,
-    735109609,
-    738651054,
-    745276236,
-    744915204,
-    757329624,
-    763884103,
-    763236014,
-    763808604,
-    769360779,
-    774672366,
-    776061251,
-    775876828,
-    791857608,
-    795770036,
-    811322619,
-    803390291,
-    813701562,
-    817060751,
-    821469666,
-    820866121
-  ],
+  "unprocessed_specimens": [],
   "stop_conditions": {
     "all_28_cataloged_specimens_attempted": true,
     "every_accessible_specimen_downloaded": true,

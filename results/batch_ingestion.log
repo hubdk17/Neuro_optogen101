@@ -1,0 +1,356 @@
+2026-09-28 00:26:29,349 [INFO] batch_ingestion: ==================================================
+2026-09-28 00:26:29,349 [INFO] batch_ingestion: STARTING COHORT BATCH INGESTION: 1 SESSIONS PENDING
+2026-09-28 00:26:29,349 [INFO] batch_ingestion: Sessions to process: [746083955]
+2026-09-28 00:26:29,349 [INFO] batch_ingestion: Keep raw NWB files: True
+2026-09-28 00:26:29,349 [INFO] batch_ingestion: ==================================================
+2026-09-28 00:26:29,417 [INFO] batch_ingestion: Current master dataset contains 945 units from sessions: [np.int64(721123822), np.int64(760345702)]
+2026-09-28 00:26:29,418 [INFO] batch_ingestion: 
+>>> [1/1] Processing Session 746083955 ...
+2026-09-28 00:26:29,421 [INFO] batch_ingestion: Extracting features for session 746083955 ...
+2026-09-28 00:26:29,423 [ERROR] batch_ingestion: Feature extraction failed for session 746083955: No module named 'allensdk'
+Traceback (most recent call last):
+  File "D:\Desktop\NEUROSCIENCE\Optogenetics_1\scripts\batch_download_and_process_cohort.py", line 261, in process_cohort_batch
+    sess_features_df = extract_session_features(sid, config)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\NEUROSCIENCE\Optogenetics_1\scripts\batch_download_and_process_cohort.py", line 52, in extract_session_features
+    from allensdk.brain_observatory.ecephys.ecephys_session import EcephysSession
+ModuleNotFoundError: No module named 'allensdk'
+2026-09-28 00:26:29,429 [INFO] batch_ingestion: ==================================================
+2026-09-28 00:26:29,429 [INFO] batch_ingestion: BATCH INGESTION COMPLETE in 0.0 hours
+2026-09-28 00:26:29,430 [INFO] batch_ingestion: Success: 0, Failed: 1, Total Master Units: 945
+2026-09-28 00:26:29,430 [INFO] batch_ingestion: ==================================================
+2026-09-28 00:29:40,549 [INFO] batch_ingestion: ==================================================
+2026-09-28 00:29:40,550 [INFO] batch_ingestion: STARTING COHORT BATCH INGESTION: 1 SESSIONS PENDING
+2026-09-28 00:29:40,550 [INFO] batch_ingestion: Sessions to process: [746083955]
+2026-09-28 00:29:40,550 [INFO] batch_ingestion: Keep raw NWB files: True
+2026-09-28 00:29:40,550 [INFO] batch_ingestion: ==================================================
+2026-09-28 00:29:40,718 [INFO] batch_ingestion: Current master dataset contains 945 units from sessions: [721123822, 760345702]
+2026-09-28 00:29:40,719 [INFO] batch_ingestion: 
+>>> [1/1] Processing Session 746083955 ...
+2026-09-28 00:29:40,732 [INFO] batch_ingestion: Extracting features for session 746083955 ...
+2026-09-28 00:29:42,347 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_746083955\session_746083955.nwb ...
+2026-09-28 00:30:23,936 [INFO] batch_ingestion: Session 746083955 (Specimen 746083955) loaded: 582 units across 6 probes
+2026-09-28 00:30:26,190 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 00:30:26,206 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'2.5ms_train': 45, '1s_ramp': 45, '10ms_pulse': 45, '5ms_pulse': 45}
+2026-09-28 00:30:26,208 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 00:30:47,220 [INFO] src.spike_alignment: Aligned 582 units across 45 trials (26190 total unit-trial rows)
+2026-09-28 00:30:52,031 [INFO] batch_ingestion: Successfully extracted 582 units for session 746083955 (Directly optotagged: 0)
+2026-09-28 00:30:52,375 [INFO] batch_ingestion: Updated master ML dataset: 1527 total units across 3 sessions
+2026-09-28 00:30:52,387 [INFO] batch_ingestion: <<< Session 746083955 successfully processed in 1.2 minutes
+2026-09-28 00:30:52,387 [INFO] batch_ingestion: ==================================================
+2026-09-28 00:30:52,387 [INFO] batch_ingestion: BATCH INGESTION COMPLETE in 0.0 hours
+2026-09-28 00:30:52,387 [INFO] batch_ingestion: Success: 1, Failed: 0, Total Master Units: 1527
+2026-09-28 00:30:52,387 [INFO] batch_ingestion: ==================================================
+2026-09-28 00:37:46,024 [INFO] batch_ingestion: ==================================================
+2026-09-28 00:37:46,025 [INFO] batch_ingestion: STARTING COHORT BATCH INGESTION: 25 SESSIONS PENDING
+2026-09-28 00:37:46,025 [INFO] batch_ingestion: Sessions to process: [715093703, 719161530, 751348571, 755434585, 756029989, 758798717, 760693773, 762120172, 762602078, 773418906, 786091066, 787025148, 789848216, 791319847, 794812542, 797828357, 798911424, 816200189, 819701982, 829720705, 831882777, 835479236, 839068429, 839557629, 840012044]
+2026-09-28 00:37:46,025 [INFO] batch_ingestion: Keep raw NWB files: True
+2026-09-28 00:37:46,025 [INFO] batch_ingestion: ==================================================
+2026-09-28 00:37:46,076 [INFO] batch_ingestion: Current master dataset contains 1527 units from sessions: [721123822, 746083955, 760345702]
+2026-09-28 00:37:46,076 [INFO] batch_ingestion: 
+>>> [1/25] Processing Session 715093703 ...
+2026-09-28 01:19:17,767 [INFO] batch_ingestion: Extracting features for session 715093703 ...
+2026-09-28 01:19:21,115 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_715093703\session_715093703.nwb ...
+2026-09-28 01:20:17,525 [INFO] batch_ingestion: Session 715093703 (Specimen 715093703) loaded: 884 units across 6 probes
+2026-09-28 01:20:19,824 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 01:20:19,837 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'5ms_pulse': 45, '2.5ms_train': 45, '1s_ramp': 45, '10ms_pulse': 45}
+2026-09-28 01:20:19,838 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 01:20:45,757 [INFO] src.spike_alignment: Aligned 884 units across 45 trials (39780 total unit-trial rows)
+2026-09-28 01:20:53,886 [INFO] batch_ingestion: Successfully extracted 884 units for session 715093703 (Directly optotagged: 3)
+2026-09-28 01:20:54,252 [INFO] batch_ingestion: Updated master ML dataset: 2411 total units across 4 sessions
+2026-09-28 01:20:54,257 [INFO] batch_ingestion: <<< Session 715093703 successfully processed in 43.1 minutes
+2026-09-28 01:20:54,257 [INFO] batch_ingestion: 
+>>> [2/25] Processing Session 719161530 ...
+2026-09-28 01:54:40,175 [INFO] batch_ingestion: Extracting features for session 719161530 ...
+2026-09-28 01:54:40,176 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_719161530\session_719161530.nwb ...
+2026-09-28 01:55:55,795 [INFO] batch_ingestion: Session 719161530 (Specimen 719161530) loaded: 755 units across 6 probes
+2026-09-28 01:55:58,544 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 01:55:58,555 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'5ms_pulse': 45, '1s_ramp': 45, '2.5ms_train': 45, '10ms_pulse': 45}
+2026-09-28 01:55:58,556 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 01:56:32,821 [INFO] src.spike_alignment: Aligned 755 units across 45 trials (33975 total unit-trial rows)
+2026-09-28 01:56:41,128 [INFO] batch_ingestion: Successfully extracted 755 units for session 719161530 (Directly optotagged: 1)
+2026-09-28 01:56:41,708 [INFO] batch_ingestion: Updated master ML dataset: 3166 total units across 5 sessions
+2026-09-28 01:56:41,718 [INFO] batch_ingestion: <<< Session 719161530 successfully processed in 35.8 minutes
+2026-09-28 01:56:41,718 [INFO] batch_ingestion: 
+>>> [3/25] Processing Session 751348571 ...
+2026-09-28 02:26:45,866 [INFO] batch_ingestion: Extracting features for session 751348571 ...
+2026-09-28 02:26:45,866 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_751348571\session_751348571.nwb ...
+2026-09-28 02:27:55,845 [INFO] batch_ingestion: Session 751348571 (Specimen 751348571) loaded: 859 units across 6 probes
+2026-09-28 02:27:59,251 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 02:27:59,261 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'5ms_pulse': 45, '2.5ms_train': 45, '1s_ramp': 45, '10ms_pulse': 45}
+2026-09-28 02:27:59,262 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 02:28:32,033 [INFO] src.spike_alignment: Aligned 859 units across 45 trials (38655 total unit-trial rows)
+2026-09-28 02:28:41,923 [INFO] batch_ingestion: Successfully extracted 859 units for session 751348571 (Directly optotagged: 1)
+2026-09-28 02:28:42,650 [INFO] batch_ingestion: Updated master ML dataset: 4025 total units across 6 sessions
+2026-09-28 02:28:42,660 [INFO] batch_ingestion: <<< Session 751348571 successfully processed in 32.0 minutes
+2026-09-28 02:28:42,660 [INFO] batch_ingestion: 
+>>> [4/25] Processing Session 755434585 ...
+2026-09-28 02:50:51,256 [INFO] batch_ingestion: Extracting features for session 755434585 ...
+2026-09-28 02:50:51,256 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_755434585\session_755434585.nwb ...
+2026-09-28 02:51:43,525 [INFO] batch_ingestion: Session 755434585 (Specimen 755434585) loaded: 650 units across 6 probes
+2026-09-28 02:51:46,745 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 02:51:46,757 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'2.5ms_train': 45, '1s_ramp': 45, '5ms_pulse': 45, '10ms_pulse': 45}
+2026-09-28 02:51:46,758 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 02:52:09,762 [INFO] src.spike_alignment: Aligned 650 units across 45 trials (29250 total unit-trial rows)
+2026-09-28 02:52:16,845 [INFO] batch_ingestion: Successfully extracted 650 units for session 755434585 (Directly optotagged: 1)
+2026-09-28 02:52:17,544 [INFO] batch_ingestion: Updated master ML dataset: 4675 total units across 7 sessions
+2026-09-28 02:52:17,553 [INFO] batch_ingestion: <<< Session 755434585 successfully processed in 23.6 minutes
+2026-09-28 02:52:17,553 [INFO] batch_ingestion: 
+>>> [5/25] Processing Session 756029989 ...
+2026-09-28 03:07:58,792 [INFO] batch_ingestion: Extracting features for session 756029989 ...
+2026-09-28 03:07:58,792 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_756029989\session_756029989.nwb ...
+2026-09-28 03:09:05,485 [INFO] batch_ingestion: Session 756029989 (Specimen 756029989) loaded: 684 units across 6 probes
+2026-09-28 03:09:08,569 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 03:09:08,577 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'1s_ramp': 45, '5ms_pulse': 45, '10ms_pulse': 45, '2.5ms_train': 45}
+2026-09-28 03:09:08,578 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 03:09:34,671 [INFO] src.spike_alignment: Aligned 684 units across 45 trials (30780 total unit-trial rows)
+2026-09-28 03:09:42,586 [INFO] batch_ingestion: Successfully extracted 684 units for session 756029989 (Directly optotagged: 2)
+2026-09-28 03:09:43,506 [INFO] batch_ingestion: Updated master ML dataset: 5359 total units across 8 sessions
+2026-09-28 03:09:43,511 [INFO] batch_ingestion: <<< Session 756029989 successfully processed in 17.4 minutes
+2026-09-28 03:09:43,511 [INFO] batch_ingestion: 
+>>> [6/25] Processing Session 758798717 ...
+2026-09-28 03:19:20,097 [INFO] batch_ingestion: Extracting features for session 758798717 ...
+2026-09-28 03:19:20,097 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_758798717\session_758798717.nwb ...
+2026-09-28 03:20:11,331 [INFO] batch_ingestion: Session 758798717 (Specimen 758798717) loaded: 593 units across 4 probes
+2026-09-28 03:20:14,318 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 03:20:14,327 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'10ms_pulse': 45, '5ms_pulse': 45, '2.5ms_train': 45, '1s_ramp': 45}
+2026-09-28 03:20:14,331 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 03:20:29,602 [INFO] src.spike_alignment: Aligned 593 units across 45 trials (26685 total unit-trial rows)
+2026-09-28 03:20:36,771 [INFO] batch_ingestion: Successfully extracted 593 units for session 758798717 (Directly optotagged: 3)
+2026-09-28 03:20:37,732 [INFO] batch_ingestion: Updated master ML dataset: 5952 total units across 9 sessions
+2026-09-28 03:20:37,746 [INFO] batch_ingestion: <<< Session 758798717 successfully processed in 10.9 minutes
+2026-09-28 03:20:37,746 [INFO] batch_ingestion: 
+>>> [7/25] Processing Session 760693773 ...
+2026-09-28 03:33:16,883 [INFO] batch_ingestion: Extracting features for session 760693773 ...
+2026-09-28 03:33:16,884 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_760693773\session_760693773.nwb ...
+2026-09-28 03:33:53,478 [INFO] batch_ingestion: Session 760693773 (Specimen 760693773) loaded: 826 units across 6 probes
+2026-09-28 03:33:54,906 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 03:33:54,910 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'10ms_pulse': 45, '5ms_pulse': 45, '1s_ramp': 45, '2.5ms_train': 45}
+2026-09-28 03:33:54,910 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 03:34:13,749 [INFO] src.spike_alignment: Aligned 826 units across 45 trials (37170 total unit-trial rows)
+2026-09-28 03:34:17,889 [INFO] batch_ingestion: Successfully extracted 826 units for session 760693773 (Directly optotagged: 0)
+2026-09-28 03:34:18,569 [INFO] batch_ingestion: Updated master ML dataset: 6778 total units across 10 sessions
+2026-09-28 03:34:18,573 [INFO] batch_ingestion: <<< Session 760693773 successfully processed in 13.7 minutes
+2026-09-28 03:34:18,573 [INFO] batch_ingestion: 
+>>> [8/25] Processing Session 762120172 ...
+2026-09-28 03:46:50,478 [INFO] batch_ingestion: Extracting features for session 762120172 ...
+2026-09-28 03:46:50,478 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_762120172\session_762120172.nwb ...
+2026-09-28 03:47:51,044 [INFO] batch_ingestion: Session 762120172 (Specimen 762120172) loaded: 717 units across 5 probes
+2026-09-28 03:47:54,252 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 03:47:54,263 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'1s_ramp': 45, '10ms_pulse': 45, '2.5ms_train': 45, '5ms_pulse': 45}
+2026-09-28 03:47:54,264 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 03:48:20,630 [INFO] src.spike_alignment: Aligned 717 units across 45 trials (32265 total unit-trial rows)
+2026-09-28 03:48:28,604 [INFO] batch_ingestion: Successfully extracted 717 units for session 762120172 (Directly optotagged: 1)
+2026-09-28 03:48:29,856 [INFO] batch_ingestion: Updated master ML dataset: 7495 total units across 11 sessions
+2026-09-28 03:48:29,867 [INFO] batch_ingestion: <<< Session 762120172 successfully processed in 14.2 minutes
+2026-09-28 03:48:29,868 [INFO] batch_ingestion: 
+>>> [9/25] Processing Session 762602078 ...
+2026-09-28 03:57:15,715 [INFO] batch_ingestion: Extracting features for session 762602078 ...
+2026-09-28 03:57:15,715 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_762602078\session_762602078.nwb ...
+2026-09-28 03:58:02,040 [INFO] batch_ingestion: Session 762602078 (Specimen 762602078) loaded: 531 units across 6 probes
+2026-09-28 03:58:05,217 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 03:58:05,230 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'5ms_pulse': 45, '2.5ms_train': 45, '10ms_pulse': 45, '1s_ramp': 45}
+2026-09-28 03:58:05,231 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 03:58:24,748 [INFO] src.spike_alignment: Aligned 531 units across 45 trials (23895 total unit-trial rows)
+2026-09-28 03:58:30,601 [INFO] batch_ingestion: Successfully extracted 531 units for session 762602078 (Directly optotagged: 2)
+2026-09-28 03:58:31,774 [INFO] batch_ingestion: Updated master ML dataset: 8026 total units across 12 sessions
+2026-09-28 03:58:31,778 [INFO] batch_ingestion: <<< Session 762602078 successfully processed in 10.0 minutes
+2026-09-28 03:58:31,779 [INFO] batch_ingestion: 
+>>> [10/25] Processing Session 773418906 ...
+2026-09-28 04:06:53,584 [INFO] batch_ingestion: Extracting features for session 773418906 ...
+2026-09-28 04:06:53,585 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_773418906\session_773418906.nwb ...
+2026-09-28 04:07:51,184 [INFO] batch_ingestion: Session 773418906 (Specimen 773418906) loaded: 546 units across 6 probes
+2026-09-28 04:07:54,886 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 04:07:54,902 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'5ms_pulse': 45, '1s_ramp': 45, '2.5ms_train': 45, '10ms_pulse': 45}
+2026-09-28 04:07:54,903 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 04:08:17,430 [INFO] src.spike_alignment: Aligned 546 units across 45 trials (24570 total unit-trial rows)
+2026-09-28 04:08:23,398 [INFO] batch_ingestion: Successfully extracted 546 units for session 773418906 (Directly optotagged: 0)
+2026-09-28 04:08:24,526 [INFO] batch_ingestion: Updated master ML dataset: 8572 total units across 13 sessions
+2026-09-28 04:08:24,537 [INFO] batch_ingestion: <<< Session 773418906 successfully processed in 9.9 minutes
+2026-09-28 04:08:24,537 [INFO] batch_ingestion: 
+>>> [11/25] Processing Session 786091066 ...
+2026-09-28 04:20:20,061 [INFO] batch_ingestion: Extracting features for session 786091066 ...
+2026-09-28 04:20:20,061 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_786091066\session_786091066.nwb ...
+2026-09-28 04:21:30,137 [INFO] batch_ingestion: Session 786091066 (Specimen 786091066) loaded: 700 units across 6 probes
+2026-09-28 04:21:34,141 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 04:21:34,153 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'5ms_pulse': 45, '10ms_pulse': 45, '2.5ms_train': 45, '1s_ramp': 45}
+2026-09-28 04:21:34,155 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 04:22:00,469 [INFO] src.spike_alignment: Aligned 700 units across 45 trials (31500 total unit-trial rows)
+2026-09-28 04:22:07,241 [INFO] batch_ingestion: Successfully extracted 700 units for session 786091066 (Directly optotagged: 7)
+2026-09-28 04:22:08,905 [INFO] batch_ingestion: Updated master ML dataset: 9272 total units across 14 sessions
+2026-09-28 04:22:08,917 [INFO] batch_ingestion: <<< Session 786091066 successfully processed in 13.7 minutes
+2026-09-28 04:22:08,917 [INFO] batch_ingestion: 
+>>> [12/25] Processing Session 787025148 ...
+2026-09-28 04:33:23,042 [INFO] batch_ingestion: Extracting features for session 787025148 ...
+2026-09-28 04:33:23,043 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_787025148\session_787025148.nwb ...
+2026-09-28 04:34:31,526 [INFO] batch_ingestion: Session 787025148 (Specimen 787025148) loaded: 696 units across 6 probes
+2026-09-28 04:34:34,987 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 04:34:34,998 [INFO] src.opto_trials: Parsed opto trials: Total=180, Stimulus types={'10ms_pulse': 45, '2.5ms_train': 45, '5ms_pulse': 45, '1s_ramp': 45}
+2026-09-28 04:34:34,999 [INFO] batch_ingestion: Identified 45 primary 10-ms optical pulse trials
+2026-09-28 04:35:04,088 [INFO] src.spike_alignment: Aligned 696 units across 45 trials (31320 total unit-trial rows)
+2026-09-28 04:35:11,519 [INFO] batch_ingestion: Successfully extracted 696 units for session 787025148 (Directly optotagged: 2)
+2026-09-28 04:35:13,171 [INFO] batch_ingestion: Updated master ML dataset: 9968 total units across 15 sessions
+2026-09-28 04:35:13,178 [INFO] batch_ingestion: <<< Session 787025148 successfully processed in 13.1 minutes
+2026-09-28 04:35:13,178 [INFO] batch_ingestion: 
+>>> [13/25] Processing Session 789848216 ...
+2026-09-28 04:43:17,388 [INFO] batch_ingestion: Extracting features for session 789848216 ...
+2026-09-28 04:43:17,389 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_789848216\session_789848216.nwb ...
+2026-09-28 04:44:15,401 [INFO] batch_ingestion: Session 789848216 (Specimen 789848216) loaded: 415 units across 6 probes
+2026-09-28 04:44:18,977 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 04:44:18,992 [INFO] src.opto_trials: Parsed opto trials: Total=300, Stimulus types={'2.5ms_train': 75, '1s_ramp': 75, '5ms_pulse': 75, '10ms_pulse': 75}
+2026-09-28 04:44:18,993 [INFO] batch_ingestion: Identified 75 primary 10-ms optical pulse trials
+2026-09-28 04:44:40,529 [INFO] src.spike_alignment: Aligned 415 units across 75 trials (31125 total unit-trial rows)
+2026-09-28 04:44:47,554 [INFO] batch_ingestion: Successfully extracted 415 units for session 789848216 (Directly optotagged: 13)
+2026-09-28 04:44:49,333 [INFO] batch_ingestion: Updated master ML dataset: 10383 total units across 16 sessions
+2026-09-28 04:44:49,342 [INFO] batch_ingestion: <<< Session 789848216 successfully processed in 9.6 minutes
+2026-09-28 04:44:49,342 [INFO] batch_ingestion: 
+>>> [14/25] Processing Session 791319847 ...
+2026-09-28 04:55:05,808 [INFO] batch_ingestion: Extracting features for session 791319847 ...
+2026-09-28 04:55:05,810 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_791319847\session_791319847.nwb ...
+2026-09-28 04:56:09,350 [INFO] batch_ingestion: Session 791319847 (Specimen 791319847) loaded: 555 units across 6 probes
+2026-09-28 04:56:12,930 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 04:56:12,940 [INFO] src.opto_trials: Parsed opto trials: Total=300, Stimulus types={'2.5ms_train': 75, '1s_ramp': 75, '10ms_pulse': 75, '5ms_pulse': 75}
+2026-09-28 04:56:12,941 [INFO] batch_ingestion: Identified 75 primary 10-ms optical pulse trials
+2026-09-28 04:56:38,963 [INFO] src.spike_alignment: Aligned 555 units across 75 trials (41625 total unit-trial rows)
+2026-09-28 04:56:47,108 [INFO] batch_ingestion: Successfully extracted 555 units for session 791319847 (Directly optotagged: 4)
+2026-09-28 04:56:49,030 [INFO] batch_ingestion: Updated master ML dataset: 10938 total units across 17 sessions
+2026-09-28 04:56:49,039 [INFO] batch_ingestion: <<< Session 791319847 successfully processed in 12.0 minutes
+2026-09-28 04:56:49,039 [INFO] batch_ingestion: 
+>>> [15/25] Processing Session 794812542 ...
+2026-09-28 05:07:52,832 [INFO] batch_ingestion: Extracting features for session 794812542 ...
+2026-09-28 05:07:52,833 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_794812542\session_794812542.nwb ...
+2026-09-28 05:08:56,672 [INFO] batch_ingestion: Session 794812542 (Specimen 794812542) loaded: 1005 units across 6 probes
+2026-09-28 05:08:58,325 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 05:08:58,330 [INFO] src.opto_trials: Parsed opto trials: Total=300, Stimulus types={'1s_ramp': 75, '5ms_pulse': 75, '10ms_pulse': 75, '2.5ms_train': 75}
+2026-09-28 05:08:58,331 [INFO] batch_ingestion: Identified 75 primary 10-ms optical pulse trials
+2026-09-28 05:09:22,465 [INFO] src.spike_alignment: Aligned 1005 units across 75 trials (75375 total unit-trial rows)
+2026-09-28 05:09:36,341 [INFO] batch_ingestion: Successfully extracted 1005 units for session 794812542 (Directly optotagged: 34)
+2026-09-28 05:09:38,408 [INFO] batch_ingestion: Updated master ML dataset: 11943 total units across 18 sessions
+2026-09-28 05:09:38,419 [INFO] batch_ingestion: <<< Session 794812542 successfully processed in 12.8 minutes
+2026-09-28 05:09:38,419 [INFO] batch_ingestion: 
+>>> [16/25] Processing Session 797828357 ...
+2026-09-28 05:20:31,623 [INFO] batch_ingestion: Extracting features for session 797828357 ...
+2026-09-28 05:20:31,624 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_797828357\session_797828357.nwb ...
+2026-09-28 05:21:38,459 [INFO] batch_ingestion: Session 797828357 (Specimen 797828357) loaded: 611 units across 6 probes
+2026-09-28 05:21:41,836 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 05:21:41,845 [INFO] src.opto_trials: Parsed opto trials: Total=300, Stimulus types={'2.5ms_train': 75, '5ms_pulse': 75, '10ms_pulse': 75, '1s_ramp': 75}
+2026-09-28 05:21:41,846 [INFO] batch_ingestion: Identified 75 primary 10-ms optical pulse trials
+2026-09-28 05:22:08,701 [INFO] src.spike_alignment: Aligned 611 units across 75 trials (45825 total unit-trial rows)
+2026-09-28 05:22:17,856 [INFO] batch_ingestion: Successfully extracted 611 units for session 797828357 (Directly optotagged: 17)
+2026-09-28 05:22:20,075 [INFO] batch_ingestion: Updated master ML dataset: 12554 total units across 19 sessions
+2026-09-28 05:22:20,086 [INFO] batch_ingestion: <<< Session 797828357 successfully processed in 12.7 minutes
+2026-09-28 05:22:20,086 [INFO] batch_ingestion: 
+>>> [17/25] Processing Session 798911424 ...
+2026-09-28 05:34:51,529 [INFO] batch_ingestion: Extracting features for session 798911424 ...
+2026-09-28 05:34:51,529 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_798911424\session_798911424.nwb ...
+2026-09-28 05:36:00,125 [INFO] batch_ingestion: Session 798911424 (Specimen 798911424) loaded: 825 units across 6 probes
+2026-09-28 05:36:03,923 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 05:36:03,935 [INFO] src.opto_trials: Parsed opto trials: Total=300, Stimulus types={'2.5ms_train': 75, '5ms_pulse': 75, '1s_ramp': 75, '10ms_pulse': 75}
+2026-09-28 05:36:03,936 [INFO] batch_ingestion: Identified 75 primary 10-ms optical pulse trials
+2026-09-28 05:36:35,680 [INFO] src.spike_alignment: Aligned 825 units across 75 trials (61875 total unit-trial rows)
+2026-09-28 05:36:47,717 [INFO] batch_ingestion: Successfully extracted 825 units for session 798911424 (Directly optotagged: 1)
+2026-09-28 05:36:50,118 [INFO] batch_ingestion: Updated master ML dataset: 13379 total units across 20 sessions
+2026-09-28 05:36:50,127 [INFO] batch_ingestion: <<< Session 798911424 successfully processed in 14.5 minutes
+2026-09-28 05:36:50,127 [INFO] batch_ingestion: 
+>>> [18/25] Processing Session 816200189 ...
+2026-09-28 05:47:21,103 [INFO] batch_ingestion: Extracting features for session 816200189 ...
+2026-09-28 05:47:21,103 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_816200189\session_816200189.nwb ...
+2026-09-28 05:48:13,430 [INFO] batch_ingestion: Session 816200189 (Specimen 816200189) loaded: 634 units across 5 probes
+2026-09-28 05:48:17,160 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 05:48:17,178 [INFO] src.opto_trials: Parsed opto trials: Total=609, Stimulus types={'2.5ms_train': 153, '5ms_pulse': 153, '1s_ramp': 152, '10ms_pulse': 151}
+2026-09-28 05:48:17,179 [INFO] batch_ingestion: Identified 151 primary 10-ms optical pulse trials
+2026-09-28 05:48:40,271 [INFO] src.spike_alignment: Aligned 634 units across 151 trials (95734 total unit-trial rows)
+2026-09-28 05:48:56,349 [INFO] batch_ingestion: Successfully extracted 634 units for session 816200189 (Directly optotagged: 0)
+2026-09-28 05:48:58,794 [INFO] batch_ingestion: Updated master ML dataset: 14013 total units across 21 sessions
+2026-09-28 05:48:58,806 [INFO] batch_ingestion: <<< Session 816200189 successfully processed in 12.1 minutes
+2026-09-28 05:48:58,807 [INFO] batch_ingestion: 
+>>> [19/25] Processing Session 819701982 ...
+2026-09-28 05:59:46,069 [INFO] batch_ingestion: Extracting features for session 819701982 ...
+2026-09-28 05:59:46,070 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_819701982\session_819701982.nwb ...
+2026-09-28 06:00:43,524 [INFO] batch_ingestion: Session 819701982 (Specimen 819701982) loaded: 585 units across 5 probes
+2026-09-28 06:00:46,827 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 06:00:46,846 [INFO] src.opto_trials: Parsed opto trials: Total=300, Stimulus types={'10ms_pulse': 75, '5ms_pulse': 75, '2.5ms_train': 75, '1s_ramp': 75}
+2026-09-28 06:00:46,846 [INFO] batch_ingestion: Identified 75 primary 10-ms optical pulse trials
+2026-09-28 06:01:09,233 [INFO] src.spike_alignment: Aligned 585 units across 75 trials (43875 total unit-trial rows)
+2026-09-28 06:01:18,377 [INFO] batch_ingestion: Successfully extracted 585 units for session 819701982 (Directly optotagged: 9)
+2026-09-28 06:01:20,796 [INFO] batch_ingestion: Updated master ML dataset: 14598 total units across 22 sessions
+2026-09-28 06:01:20,805 [INFO] batch_ingestion: <<< Session 819701982 successfully processed in 12.4 minutes
+2026-09-28 06:01:20,805 [INFO] batch_ingestion: 
+>>> [20/25] Processing Session 829720705 ...
+2026-09-28 06:08:36,286 [INFO] batch_ingestion: Extracting features for session 829720705 ...
+2026-09-28 06:08:36,287 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_829720705\session_829720705.nwb ...
+2026-09-28 06:09:30,151 [INFO] batch_ingestion: Session 829720705 (Specimen 829720705) loaded: 529 units across 5 probes
+2026-09-28 06:09:33,496 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 06:09:33,511 [INFO] src.opto_trials: Parsed opto trials: Total=300, Stimulus types={'5ms_pulse': 75, '10ms_pulse': 75, '2.5ms_train': 75, '1s_ramp': 75}
+2026-09-28 06:09:33,512 [INFO] batch_ingestion: Identified 75 primary 10-ms optical pulse trials
+2026-09-28 06:09:50,698 [INFO] src.spike_alignment: Aligned 529 units across 75 trials (39675 total unit-trial rows)
+2026-09-28 06:09:57,211 [INFO] batch_ingestion: Successfully extracted 529 units for session 829720705 (Directly optotagged: 36)
+2026-09-28 06:09:58,755 [INFO] batch_ingestion: Updated master ML dataset: 15127 total units across 23 sessions
+2026-09-28 06:09:58,758 [INFO] batch_ingestion: <<< Session 829720705 successfully processed in 8.6 minutes
+2026-09-28 06:09:58,758 [INFO] batch_ingestion: 
+>>> [21/25] Processing Session 831882777 ...
+2026-09-28 06:19:03,515 [INFO] batch_ingestion: Extracting features for session 831882777 ...
+2026-09-28 06:19:03,515 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_831882777\session_831882777.nwb ...
+2026-09-28 06:20:08,661 [INFO] batch_ingestion: Session 831882777 (Specimen 831882777) loaded: 657 units across 6 probes
+2026-09-28 06:20:12,282 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 06:20:12,299 [INFO] src.opto_trials: Parsed opto trials: Total=300, Stimulus types={'1s_ramp': 75, '5ms_pulse': 75, '2.5ms_train': 75, '10ms_pulse': 75}
+2026-09-28 06:20:12,300 [INFO] batch_ingestion: Identified 75 primary 10-ms optical pulse trials
+2026-09-28 06:20:34,353 [INFO] src.spike_alignment: Aligned 657 units across 75 trials (49275 total unit-trial rows)
+2026-09-28 06:20:41,170 [INFO] batch_ingestion: Successfully extracted 657 units for session 831882777 (Directly optotagged: 23)
+2026-09-28 06:20:42,791 [INFO] batch_ingestion: Updated master ML dataset: 15784 total units across 24 sessions
+2026-09-28 06:20:42,798 [INFO] batch_ingestion: <<< Session 831882777 successfully processed in 10.7 minutes
+2026-09-28 06:20:42,798 [INFO] batch_ingestion: 
+>>> [22/25] Processing Session 835479236 ...
+2026-09-28 06:29:26,177 [INFO] batch_ingestion: Extracting features for session 835479236 ...
+2026-09-28 06:29:26,178 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_835479236\session_835479236.nwb ...
+2026-09-28 06:30:16,014 [INFO] batch_ingestion: Session 835479236 (Specimen 835479236) loaded: 582 units across 5 probes
+2026-09-28 06:30:19,219 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 06:30:19,238 [INFO] src.opto_trials: Parsed opto trials: Total=300, Stimulus types={'5ms_pulse': 75, '1s_ramp': 75, '10ms_pulse': 75, '2.5ms_train': 75}
+2026-09-28 06:30:19,240 [INFO] batch_ingestion: Identified 75 primary 10-ms optical pulse trials
+2026-09-28 06:30:39,564 [INFO] src.spike_alignment: Aligned 582 units across 75 trials (43650 total unit-trial rows)
+2026-09-28 06:30:46,948 [INFO] batch_ingestion: Successfully extracted 582 units for session 835479236 (Directly optotagged: 2)
+2026-09-28 06:30:49,349 [INFO] batch_ingestion: Updated master ML dataset: 16366 total units across 25 sessions
+2026-09-28 06:30:49,355 [INFO] batch_ingestion: <<< Session 835479236 successfully processed in 10.1 minutes
+2026-09-28 06:30:49,355 [INFO] batch_ingestion: 
+>>> [23/25] Processing Session 839068429 ...
+2026-09-28 06:43:04,517 [INFO] batch_ingestion: Extracting features for session 839068429 ...
+2026-09-28 06:43:04,517 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_839068429\session_839068429.nwb ...
+2026-09-28 06:44:12,288 [INFO] batch_ingestion: Session 839068429 (Specimen 839068429) loaded: 742 units across 6 probes
+2026-09-28 06:44:15,768 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 06:44:15,775 [INFO] src.opto_trials: Parsed opto trials: Total=300, Stimulus types={'10ms_pulse': 75, '2.5ms_train': 75, '1s_ramp': 75, '5ms_pulse': 75}
+2026-09-28 06:44:15,776 [INFO] batch_ingestion: Identified 75 primary 10-ms optical pulse trials
+2026-09-28 06:44:45,955 [INFO] src.spike_alignment: Aligned 742 units across 75 trials (55650 total unit-trial rows)
+2026-09-28 06:44:56,019 [INFO] batch_ingestion: Successfully extracted 742 units for session 839068429 (Directly optotagged: 21)
+2026-09-28 06:44:58,857 [INFO] batch_ingestion: Updated master ML dataset: 17108 total units across 26 sessions
+2026-09-28 06:44:58,866 [INFO] batch_ingestion: <<< Session 839068429 successfully processed in 14.2 minutes
+2026-09-28 06:44:58,867 [INFO] batch_ingestion: 
+>>> [24/25] Processing Session 839557629 ...
+2026-09-28 06:53:15,058 [INFO] batch_ingestion: Extracting features for session 839557629 ...
+2026-09-28 06:53:15,059 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_839557629\session_839557629.nwb ...
+2026-09-28 06:54:05,095 [INFO] batch_ingestion: Session 839557629 (Specimen 839557629) loaded: 450 units across 5 probes
+2026-09-28 06:54:07,905 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 06:54:07,916 [INFO] src.opto_trials: Parsed opto trials: Total=300, Stimulus types={'1s_ramp': 75, '10ms_pulse': 75, '5ms_pulse': 75, '2.5ms_train': 75}
+2026-09-28 06:54:07,917 [INFO] batch_ingestion: Identified 75 primary 10-ms optical pulse trials
+2026-09-28 06:54:25,120 [INFO] src.spike_alignment: Aligned 450 units across 75 trials (33750 total unit-trial rows)
+2026-09-28 06:54:31,020 [INFO] batch_ingestion: Successfully extracted 450 units for session 839557629 (Directly optotagged: 34)
+2026-09-28 06:54:33,982 [INFO] batch_ingestion: Updated master ML dataset: 17558 total units across 27 sessions
+2026-09-28 06:54:33,987 [INFO] batch_ingestion: <<< Session 839557629 successfully processed in 9.6 minutes
+2026-09-28 06:54:33,988 [INFO] batch_ingestion: 
+>>> [25/25] Processing Session 840012044 ...
+2026-09-28 07:06:57,654 [INFO] batch_ingestion: Extracting features for session 840012044 ...
+2026-09-28 07:06:57,654 [INFO] batch_ingestion: Loading EcephysSession from data\raw\session_840012044\session_840012044.nwb ...
+2026-09-28 07:08:00,692 [INFO] batch_ingestion: Session 840012044 (Specimen 840012044) loaded: 758 units across 6 probes
+2026-09-28 07:08:03,551 [INFO] src.opto_trials: Opto epochs table columns: ['start_time', 'condition', 'level', 'stop_time', 'stimulus_name', 'duration']
+2026-09-28 07:08:03,567 [INFO] src.opto_trials: Parsed opto trials: Total=300, Stimulus types={'5ms_pulse': 75, '10ms_pulse': 75, '1s_ramp': 75, '2.5ms_train': 75}
+2026-09-28 07:08:03,568 [INFO] batch_ingestion: Identified 75 primary 10-ms optical pulse trials
+2026-09-28 07:08:33,860 [INFO] src.spike_alignment: Aligned 758 units across 75 trials (56850 total unit-trial rows)
+2026-09-28 07:08:44,495 [INFO] batch_ingestion: Successfully extracted 758 units for session 840012044 (Directly optotagged: 35)
+2026-09-28 07:08:47,214 [INFO] batch_ingestion: Updated master ML dataset: 18316 total units across 28 sessions
+2026-09-28 07:08:47,227 [INFO] batch_ingestion: <<< Session 840012044 successfully processed in 14.2 minutes
+2026-09-28 07:08:47,228 [INFO] batch_ingestion: ==================================================
+2026-09-28 07:08:47,228 [INFO] batch_ingestion: BATCH INGESTION COMPLETE in 6.5 hours
+2026-09-28 07:08:47,229 [INFO] batch_ingestion: Success: 25, Failed: 0, Total Master Units: 18316
+2026-09-28 07:08:47,230 [INFO] batch_ingestion: ==================================================
+2026-09-28 07:08:47,230 [INFO] batch_ingestion: 
+Triggering full-specimen ML benchmark across all 18316 units...
+2026-09-28 08:02:04,649 [INFO] batch_ingestion: Full ML benchmark and publication figures updated successfully.
