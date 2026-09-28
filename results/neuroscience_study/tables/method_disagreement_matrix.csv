@@ -1,0 +1,7 @@
+group_name,unit_count,percentage
+Consensus Non-Responsive,15566,84.99
+ZETA Only (Cumulative Deviation),1800,9.83
+SALT Only (Low-Jitter Response),510,2.78
+Heuristic Only (Failed SALT or ZETA),248,1.35
+Circuit/Network Responsive (Failed Heuristic),179,0.98
+Consensus Direct Positive (All Agree),13,0.07

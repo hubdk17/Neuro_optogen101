@@ -1,0 +1,6 @@
+metric,grand_mean,total_variance,between_specimen_variance,within_specimen_variance,intraclass_correlation_icc,conservation_status
+baseline_rate,8.643,106.206,0.976,106.379,0.0091,Highly Conserved Across Animals (Low Animal Variance)
+evoked_rate,9.519,287.686,4.277,300.983,0.014,Highly Conserved Across Animals (Low Animal Variance)
+modulation_ratio,1.102,18.273,0.225,19.131,0.0116,Highly Conserved Across Animals (Low Animal Variance)
+intensity_slope,2.821,2138.4,40.985,1950.9,0.0206,Highly Conserved Across Animals (Low Animal Variance)
+adaptation_index,-30.392,15033.825,128.337,14629.014,0.0087,Highly Conserved Across Animals (Low Animal Variance)

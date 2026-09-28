@@ -1,0 +1,2 @@
+total_units_with_latency,sub_8ms_count,supra_8ms_count,borderline_6_to_10ms_count,borderline_fraction_of_active,gmm_bic_1comp,gmm_bic_2comp,gmm_bic_3comp,optimal_gmm_components,bootstrap_median_latency_ci_low,bootstrap_median_latency_ci_high,distribution_verdict
+13643,13201,442,3193,0.234,53114.6,53017.9,52900.4,4,4.668,4.734,Multimodal / Continuous mixture with substantial overlap across 8-ms threshold (no sharp physical discontinuity)

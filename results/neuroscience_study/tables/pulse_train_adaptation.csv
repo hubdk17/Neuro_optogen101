@@ -1,0 +1,10 @@
+cre_line,adaptation_phenotype,unit_count,mean_adaptation_index,mean_evoked_rate,mean_median_latency
+Pvalb-IRES-Cre,Frequency-Following Stable (0.75-1.25),501,0.9660758483033932,5.839572854291418,4.261
+Pvalb-IRES-Cre,Quiescent / Non-Responsive,1170,-36.7790358974359,0.0,
+Pvalb-IRES-Cre,Strongly Depressing (< 0.75),2750,-25.55751563636364,17.037408000000003,4.48
+Sst-IRES-Cre,Frequency-Following Stable (0.75-1.25),1019,0.9638429833169774,5.713813542688911,4.629
+Sst-IRES-Cre,Quiescent / Non-Responsive,2304,-41.30829166666667,0.0,
+Sst-IRES-Cre,Strongly Depressing (< 0.75),5165,-39.205463504356246,13.859249757986445,4.747
+Vip-IRES-Cre,Frequency-Following Stable (0.75-1.25),540,0.9574481481481483,5.146640740740741,4.7505
+Vip-IRES-Cre,Quiescent / Non-Responsive,1257,-41.584413683373114,0.03820525059665871,4.638999999999999
+Vip-IRES-Cre,Strongly Depressing (< 0.75),3610,-26.422796121883653,12.280230193905817,4.8645

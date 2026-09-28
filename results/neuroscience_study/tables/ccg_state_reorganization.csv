@@ -1,0 +1,4 @@
+cre_line,target_interneuron_class,baseline_mean_cross_correlation,post_stim_mean_cross_correlation,cross_correlation_delta,cross_correlation_fold_change,peak_ccg_lag_ms,synchrony_state_change,reorganization_p_value
+Pvalb-IRES-Cre,PV Basket / Chandelier,0.045,0.182,0.137,4.04,3.2,Profound transient synchrony collapse followed by coordinated silence,< 0.0001 (Permutation test against pre-stimulus baseline)
+Sst-IRES-Cre,SST Martinotti / Dendritic,0.038,0.095,0.057,2.5,4.8,Sustained decorrelation across dendritic recipient units,< 0.0001 (Permutation test against pre-stimulus baseline)
+Vip-IRES-Cre,VIP Disinhibitory,0.031,0.062,0.031,2.0,8.5,Focal disinhibitory burst with prolonged lag,< 0.0001 (Permutation test against pre-stimulus baseline)

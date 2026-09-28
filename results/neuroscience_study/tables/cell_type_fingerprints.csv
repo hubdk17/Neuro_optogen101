@@ -1,0 +1,4 @@
+cre_line,n_specimens,total_units,mean_direct_pct,sem_direct_pct,mean_suppression_pct,sem_suppression_pct,mean_baseline_hz,mean_slope,mean_adaptation
+Pvalb-IRES-Cre,8,4421,17.03,0.94,53.33,2.16,8.94,8.058,-26.499
+Sst-IRES-Cre,12,8488,14.99,0.99,52.74,1.42,8.58,1.507,-35.012
+Vip-IRES-Cre,8,5407,14.36,0.89,0.0,0.0,8.62,-0.197,-26.06

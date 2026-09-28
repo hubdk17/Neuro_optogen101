@@ -1,0 +1,6 @@
+baseline_tier,total_units,units_with_spikes,mean_baseline_rate_hz,mean_evoked_rate_hz,mean_latency_jitter_ms,sub8ms_latency_pass_rate_pct,heuristic_direct_pass_rate_pct,salt_significant_rate_pct,zeta_significant_rate_pct,latency_bootstrap_se_ms,fragility_interpretation
+< 1 Hz,3867,1178,0.19,1.79,0.55,93.04,0.59,2.07,2.77,0.08,"Severe Latency Fragility (93% pass sub-8ms latency by chance alone, 0% meet full criteria)"
+1-2 Hz,1842,993,1.58,2.97,0.89,94.36,0.71,3.96,6.24,0.085,Moderate Stability
+2-4 Hz,1973,1441,3.02,4.03,1.18,95.0,0.56,5.02,9.38,0.062,Moderate Stability
+4-8 Hz,3711,3230,5.93,7.51,1.5,95.98,1.51,6.47,15.28,0.041,Moderate Stability
+> 8 Hz,6920,6798,18.26,18.18,2.01,98.5,2.28,3.14,16.84,0.023,Moderate Stability
