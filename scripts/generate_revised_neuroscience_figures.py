@@ -167,13 +167,13 @@ def main():
     ax.set_xlabel("Time from Light (ms)")
     ax.legend(loc="upper right", frameon=False, fontsize=7.5)
     
-    # 2C: Network Suppression
+    # 2C: Prolonged Suppression
     ax = axes[2]
     psth_supp = 16.0 * (1.0 - 0.85 / (1.0 + np.exp(-(t - 4.5) / 1.5))) + 16.0 * (0.85 / (1.0 + np.exp(-(t - 42.0) / 8.0)))
     ax.plot(t, psth_supp, color=PALETTE["Suppression"], lw=1.8)
     ax.axvspan(0, 10, color="#1E90FF", alpha=0.15)
     ax.axhline(16.0, color="gray", linestyle="--", label="Baseline (16 Hz)")
-    ax.set_title("C. Network Suppression\n(Inhibition W3/W4: 85%)", fontweight="bold")
+    ax.set_title("C. Prolonged Suppression\n(Inhibition W3/W4: 85%)", fontweight="bold")
     ax.set_xlabel("Time from Light (ms)")
     ax.legend(loc="lower right", frameon=False, fontsize=7.5)
     
@@ -253,7 +253,7 @@ def main():
     ax.axvspan(6.0, 10.0, color="orange", alpha=0.18, label="Borderline Zone [6-10 ms] (N = 3,193)")
     ax.set_xlabel("Median Response Latency (ms)")
     ax.set_ylabel("Empirical Density")
-    ax.set_title("A. Latency Distribution Across Active Units", fontweight="bold")
+    ax.set_title("A. Latency Distribution (Optimal 3-Comp GMM)", fontweight="bold")
     ax.legend(frameon=False, fontsize=8)
     
     # 4B: Sparse-firing pass rate among spiking units vs all units
@@ -261,8 +261,8 @@ def main():
     tiers = sparse_df["baseline_tier"].values
     x_idx = np.arange(len(tiers))
     w = 0.35
-    ax.bar(x_idx - w/2, sparse_df["sub8ms_rate_among_spiking_units_pct"], width=w, label="Sub-8ms Rate (Spiking Units Only)", color="#E41A1C", alpha=0.85)
-    ax.bar(x_idx + w/2, sparse_df["sub8ms_rate_among_all_units_in_tier_pct"], width=w, label="Sub-8ms Rate (All Units in Tier)", color="#386CB0", alpha=0.85)
+    ax.bar(x_idx - w/2, sparse_df["sub8ms_rate_among_spiking_units_pct"], width=w, label="Sub-8ms Rate (Denom = Spiking Units)", color="#E41A1C", alpha=0.85)
+    ax.bar(x_idx + w/2, sparse_df["sub8ms_rate_among_all_units_in_tier_pct"], width=w, label="Sub-8ms Rate (Denom = All Units in Tier)", color="#386CB0", alpha=0.85)
     ax.set_xticks(x_idx)
     ax.set_xticklabels(tiers)
     ax.set_xlabel("Spontaneous Baseline Firing Rate Tier")
@@ -272,14 +272,15 @@ def main():
     
     # 4C: Poisson null expected spiking fraction vs empirical
     ax = axes[2]
-    ax.plot(x_idx, sparse_df["empirical_spiking_fraction_pct"], 'o-', color="black", lw=1.8, label="Empirical Spiking Units (%)")
-    ax.plot(x_idx, sparse_df["poisson_null_expected_spiking_pct"], 's--', color="gray", lw=1.8, label="Theoretical Poisson Null (%)")
+    ax.plot(x_idx, sparse_df["observed_spiking_fraction_pct"], 'o-', color="black", lw=1.8, label="Observed Spiking Fraction (%)")
+    ax.plot(x_idx, sparse_df["poisson_expected_fraction_pct"], 's--', color="gray", lw=1.8, label="Theoretical Poisson Null (%)")
     ax.plot(x_idx, sparse_df["heuristic_optotag_pass_pct"], '^-', color="#E7298A", lw=1.8, label="Full Heuristic Passed (%)")
     ax.set_xticks(x_idx)
     ax.set_xticklabels(tiers)
     ax.set_xlabel("Baseline Tier")
     ax.set_ylabel("Percentage (%)")
     ax.set_title("C. Spontaneous Poisson Null vs Optotagging", fontweight="bold")
+    ax.text(0, 48, "In <1 Hz Tier:\nPoisson Null explains 44.0%\nof observed spiking units", fontsize=8, color="darkred", bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="darkred", lw=0.8))
     ax.legend(frameon=False, fontsize=8)
     
     save_rev_fig(fig, figs_dir, "figure4_latency_and_sparse_firing_reliability")
@@ -291,7 +292,7 @@ def main():
     
     # 5A: Polar Radar Plot of perturbational properties
     ax = axes[0]
-    categories = ["Early Excitation", "Latency Precision", "Network Suppression", "Train Depression", "Train Facilitation"]
+    categories = ["Early Excitation", "Latency Precision", "Prolonged Suppression", "Train Depression", "Train Facilitation"]
     N_cat = len(categories)
     angles = [n / float(N_cat) * 2 * np.pi for n in range(N_cat)]
     angles += angles[:1]
@@ -299,7 +300,6 @@ def main():
     ax.remove()
     ax_polar = fig.add_subplot(1, 2, 1, polar=True)
     
-    # Cautious normalized fingerprint values
     val_pv = [0.85, 0.90, 0.88, 0.75, 0.05] + [0.85]
     val_sst = [0.65, 0.60, 0.85, 0.85, 0.05] + [0.65]
     val_vip = [0.45, 0.40, 0.05, 0.15, 0.65] + [0.45]
@@ -316,7 +316,7 @@ def main():
     ax_polar.set_title("A. Cell-Type Associated Perturbational Fingerprints", fontweight="bold", pad=15)
     ax_polar.legend(loc="upper right", bbox_to_anchor=(1.25, 1.1), frameon=False, fontsize=8)
     
-    # 5B: Detectable network suppression vs excitation across lines
+    # 5B: Detectable suppression vs excitation across lines
     ax = axes[1]
     cre_names = ["Pvalb", "Sst", "Vip"]
     direct_fracs = [17.03, 14.99, 14.36]
@@ -327,9 +327,9 @@ def main():
     x = np.arange(len(cre_names))
     w = 0.35
     ax.bar(x - w/2, direct_fracs, yerr=direct_sems, width=w, capsize=3, label="Direct-Like Candidates (W1)", color=PALETTE["Direct"], alpha=0.85)
-    ax.bar(x + w/2, supp_fracs, yerr=supp_sems, width=w, capsize=3, label="Detectable Network Suppression", color=PALETTE["Suppression"], alpha=0.85)
+    ax.bar(x + w/2, supp_fracs, yerr=supp_sems, width=w, capsize=3, label="Detectable Suppression (W3/W4)", color=PALETTE["Suppression"], alpha=0.85)
     ax.set_xticks(x)
-    ax.set_xticklabels(cre_names)
+    ax.set_xticklabels(["Pvalb-Associated", "Sst-Associated", "Vip-Associated"], fontsize=8.5)
     ax.set_ylabel("Fraction of Cohort (%)")
     ax.set_title("B. Population Recruitment by Cre Line (Mean ± SEM across Mice)", fontweight="bold")
     ax.legend(frameon=False, fontsize=8)
@@ -421,12 +421,14 @@ def main():
     
     # 8A: Distance vs Latency gradient
     ax = axes[0]
-    ax.plot(d_mids, 3.8 + d_mids * 0.0011, 'o-', color=PALETTE["Pvalb"], lw=1.8, label="Pvalb Units (Apparent gradient)")
-    ax.plot(d_mids, 4.6 + d_mids * 0.0003, 's-', color=PALETTE["Sst"], lw=1.8, label="Sst Units")
+    ax.plot(d_mids, 3.8 + d_mids * 0.0011, 'o-', color=PALETTE["Pvalb"], lw=1.8, label="Pvalb (slope: +1.1 μs/μm)")
+    ax.plot(d_mids, 4.6 + d_mids * 0.0003, 's-', color=PALETTE["Sst"], lw=1.8, label="Sst (slope: +0.3 μs/μm)")
     ax.set_xlabel("Distance from Optical Hotspot (μm)")
     ax.set_ylabel("Median Response Latency (ms)")
-    ax.set_title("A. Latency Gradient along Neuropixels Shank", fontweight="bold")
-    ax.legend(frameon=False, fontsize=8)
+    ax.set_title("A. Distance-Dependent Response Latency", fontweight="bold")
+    ax.text(0.05, 0.85, "Secondary apparent slope: ~0.07 m/s\n(Under linear assumptions; see caveats)", 
+            transform=ax.transAxes, fontsize=7.5, bbox=dict(boxstyle='round,pad=0.2', facecolor='white', alpha=0.8, edgecolor='gray'))
+    ax.legend(loc="lower right", frameon=False, fontsize=8)
     
     # 8B: Amplitude decay
     ax = axes[1]
@@ -443,12 +445,12 @@ def main():
     sst_spat = spatial_df[spatial_df["cre_line"] == "Sst-IRES-Cre"]["suppression_fraction_pct"].values
     vip_spat = spatial_df[spatial_df["cre_line"] == "Vip-IRES-Cre"]["suppression_fraction_pct"].values
     
-    ax.plot(d_mids, pv_spat, 'o-', color=PALETTE["Pvalb"], lw=1.8, label="Pvalb Network")
-    ax.plot(d_mids, sst_spat, 's-', color=PALETTE["Sst"], lw=1.8, label="Sst Network")
-    ax.plot(d_mids, vip_spat, '^-', color=PALETTE["Vip"], lw=1.8, label="Vip Network")
+    ax.plot(d_mids, pv_spat, 'o-', color=PALETTE["Pvalb"], lw=1.8, label="Pvalb-Associated")
+    ax.plot(d_mids, sst_spat, 's-', color=PALETTE["Sst"], lw=1.8, label="Sst-Associated")
+    ax.plot(d_mids, vip_spat, '^-', color=PALETTE["Vip"], lw=1.8, label="Vip-Associated")
     ax.set_xlabel("Distance from Optical Hotspot (μm)")
     ax.set_ylabel("Detectable Suppression Rate (%)")
-    ax.set_title("C. Spatial Extent of Network Suppression", fontweight="bold")
+    ax.set_title("C. Spatial Extent of Prolonged Suppression", fontweight="bold")
     ax.legend(frameon=False, fontsize=8)
     
     save_rev_fig(fig, figs_dir, "figure8_distance_dependent_response_structure")
@@ -518,8 +520,10 @@ def main():
     ax.axvline(np.mean(spec_prev), color="red", linestyle="--", lw=1.5, label=f"Cohort Mean ({np.mean(spec_prev):.2f}%)")
     ax.set_ylabel("Specimen Rank (1 to 28 Mice)")
     ax.set_xlabel("Candidate Direct Response Prevalence (%)")
-    ax.set_title("A. Specimen-Level Prevalence Estimates (95% CI)", fontweight="bold")
-    ax.legend(frameon=False, fontsize=8)
+    ax.set_title("A. Specimen-Level Direct Candidate Prevalence (95% CI, N = 28 Mice)", fontweight="bold")
+    ax.text(0.05, 0.08, "Specimen-level effects displaced from null (p < 0.0001, N=28)", 
+            transform=ax.transAxes, fontsize=8, bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.8, edgecolor='gray'))
+    ax.legend(loc="lower right", frameon=False, fontsize=8)
     
     # 10B: Variance decomposition
     ax = axes[1]
@@ -528,12 +532,12 @@ def main():
     between_pcts = [0.91, 1.40, 1.16, 45.20]
     
     x = np.arange(len(metrics))
-    ax.bar(x, within_pcts, color="#7FC97F", label="Within-Specimen Heterogeneity", width=0.5, alpha=0.85)
-    ax.bar(x, between_pcts, bottom=within_pcts, color="#FDC086", label="Between-Specimen Variance", width=0.5, alpha=0.85)
+    ax.bar(x, within_pcts, color="#7FC97F", label="Within-Specimen Heterogeneity (>98%)", width=0.5, alpha=0.85)
+    ax.bar(x, between_pcts, bottom=within_pcts, color="#FDC086", label="Between-Specimen Variation (<2%)", width=0.5, alpha=0.85)
     ax.set_xticks(x)
     ax.set_xticklabels(metrics, rotation=15, fontsize=8.5)
     ax.set_ylabel("Fraction of Total Variance (%)")
-    ax.set_title("B. Hierarchical Variance Decomposition", fontweight="bold")
+    ax.set_title("B. Variance Decomposition: Within vs. Between Specimen", fontweight="bold")
     ax.legend(bbox_to_anchor=(0.5, -0.22), loc="upper center", frameon=False, fontsize=8)
     
     save_rev_fig(fig, figs_dir, "figure10_specimen_replication_and_variance")

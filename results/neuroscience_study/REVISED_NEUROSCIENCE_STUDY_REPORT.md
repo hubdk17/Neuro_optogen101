@@ -97,13 +97,13 @@ Cross-classification of the entire cohort into mutually exclusive Venn combinati
 The conventional 8.0 ms threshold is frequently assumed to isolate direct opsin activation from synaptic responses. We examined the empirical latency distribution across 13,643 active units with detectable post-stimulus spikes ([`latency_distribution_analysis.csv`](file:///d:/Desktop/NEUROSCIENCE/Optogenetics_1/results/neuroscience_study/tables/latency_distribution_analysis.csv)):
 
 - **Borderline Zone Concentration**: Exactly **3,193 units (23.40% of active units)** exhibited median latencies within the narrow borderline window of $[6.0\text{ ms}, 10.0\text{ ms}]$.
-- **Distributional Modeling**: Fitting Gaussian Mixture Models across $k \in \{1, 2, 3, 4\}$ components revealed that a single bimodal partition is statistically inferior to multi-component continuous models:
+- **Distributional Modeling**: The latency distribution was better described by a three-component Gaussian mixture than by simpler mixture models, indicating substantial heterogeneity in response latency:
   - $k=1$ Component BIC: $53,114.6$
   - $k=2$ Components BIC: $53,017.9$
-  - $k=3$ Components BIC: $52,900.4$ ($\Delta\text{BIC} = -117.5$ vs $k=2$)
+  - $k=3$ Components BIC: $52,900.4$ (Optimal, $\Delta\text{BIC} = -117.5$ vs $k=2$, $-214.2$ vs $k=1$)
 - **Bootstrap Uncertainty**: Non-parametric bootstrap resampling ($B=500$) yielded a median latency 95% confidence interval of $[4.668\text{ ms}, 4.734\text{ ms}]$.
 
-**Conclusion**: The latency distribution is continuous across the 8-ms boundary. While statistical multimodality is present (favoring 3 components), this does not by itself establish separate physiological pathways. Rather, it indicates that latency alone provides an incomplete separation of direct-like and network-associated responses.
+**Conclusion**: The latency distribution was better described by a three-component Gaussian mixture than by simpler mixture models, indicating substantial heterogeneity in response latency. This distributional structure does not by itself establish distinct physiological response classes or prove that underlying biology is continuous; rather, it demonstrates that latency alone provides an incomplete separation of direct-like and network-associated responses.
 
 ---
 
@@ -113,15 +113,19 @@ We stratified all 18,316 units into five spontaneous baseline tiers ($<1$, $1–
 
 - **The Poisson Null Model**: For a unit with baseline rate $\lambda$ (Hz), across $N=75$ trials of duration $T=0.010$ s (total exposure $\tau = 0.75$ s), the theoretical probability of observing at least one spontaneous spike by chance is:
   $$P(N \ge 1) = 1 - e^{-\lambda \tau}$$
-- **Low-Firing Tier ($<1$ Hz, $N=3,867$)**:
-  - The mean baseline rate was $\lambda = 0.192$ Hz, giving a theoretical chance spiking probability of $P(N \ge 1) = 1 - e^{-0.192 \times 0.75} = 13.41\%$.
-  - Empirically, 1,178 units ($30.46\%$) recorded at least one spike in the stimulus window.
-  - Of these 1,178 spiking units, **93.04% ($1,096$ units)** had a median latency $<8$ ms (accounting for $28.34\%$ of all units in the tier).
-  - Yet, only **0.59% ($23$ units)** passed the full operational heuristic, and only 2.07% achieved SALT significance.
+- **Quiescent Cortical Tier ($<1$ Hz, $N=3,867$ units, mean rate $\lambda = 0.192$ Hz)**:
+  - Total units in tier: $N = 3,867$
+  - Units with $\ge 1$ spike in window ($75\text{ trials} \times 10\text{ ms}$): $N_{\text{obs}} = 1,178$ ($30.46\%$)
+  - Expected spiking units under stationary Poisson null: $N_{\text{exp}} = 3,867 \times (1 - e^{-0.192 \times 0.75}) = 518.7$ units ($13.41\%$)
+  - Expected-to-observed ratio: $N_{\text{exp}} / N_{\text{obs}} = 518.7 / 1,178 = \mathbf{44.03\%}$
+  - Theoretical probability of $\ge 1$ spontaneous spike: $P(N \ge 1) = 13.41\%$
+  - Probability that latency is $<8$ ms conditional on $\ge 1$ spike under uniform chance arrival: $P(\text{latency} < 8\text{ ms} \mid \text{spike} \ge 1) = 8.0 / 10.0 = \mathbf{80.0\%}$ (expected arrival time $5.0$ ms)
+  - Empirically, among observed spiking units, **$93.04\%$ ($1,096$ units)** had a median latency $<8$ ms (accounting for $28.34\%$ of all units in the tier).
+  - Yet, only **$0.59\%$ ($23$ units)** passed the full operational heuristic, and only **$2.07\%$ ($80$ units)** achieved statistical significance under SALT.
 
-**Why does this occur?** Under a stationary Poisson process, when an isolated spike occurs within a 10-ms window, its expected arrival time under uniform chance is 5.0 ms. The probability of that single spike arriving before 8.0 ms is $8/10 = 80.0\%$. In quiescent neurons, isolated spontaneous spikes inevitably register apparent sub-8 ms latencies.
+**Scientific Interpretation**: Spontaneous Poisson spikes account for nearly half ($44.03\%$) of all observed spiking units in this tier. When an isolated spike arrives within an unmodulated 10-ms window, it has an $80.0\%$ chance of arriving before 8.0 ms by chance alone. In quiescent neurons, isolated spontaneous spikes inevitably register apparent sub-8 ms latencies.
 
-**Conclusion**: Early latency becomes substantially less informative when estimated from sparse spontaneous activity. Latency criteria must never be evaluated in isolation without joint constraints on trial reliability, Poisson null testing (SALT), and effect size.
+**Conclusion**: Early latency becomes substantially uninformative when estimated from sparse spontaneous activity. Latency criteria must never be evaluated in isolation without joint constraints on trial reliability, Poisson null testing (SALT), and effect size.
 
 ---
 
@@ -137,8 +141,8 @@ We partitioned the peri-stimulus response into five canonical temporal analysis 
 Unsupervised Gaussian Mixture Modeling on normalized 5-window trajectories $[W_1, W_2, W_3, W_4, W_5]$ partitioned the 18,316 units into 5 mutually exclusive dynamical archetypes ([`revised_population_response_archetypes.csv`](file:///d:/Desktop/NEUROSCIENCE/Optogenetics_1/results/neuroscience_study/tables/revised/revised_population_response_archetypes.csv)):
 
 1. **Rapid Direct-Like Excitation** ($N=386$, 2.11%): Characterized by rapid onset (median latency $2.85\text{ ms}$), high evoked firing ($58.20\text{ Hz}$ vs. $9.42\text{ Hz}$ baseline), and strong Window 1 modulation. Composed of $42.49\%$ PV, $43.52\%$ SST, and $13.99\%$ VIP units.
-2. **Prolonged Network Suppression** ($N=2,379$, 12.99%): Marked reduction in firing during Windows 3 and 4 ($5.80\text{ Hz}$ evoked vs. $11.20\text{ Hz}$ baseline). Exclusively observed in `Pvalb-IRES-Cre` sessions ($100.0\%$).
-3. **Prolonged Network Suppression (Variant 2)** ($N=4,499$, 24.56%): Deep suppression across Windows 3–5 ($5.40\text{ Hz}$ evoked vs. $9.15\text{ Hz}$ baseline). Exclusively observed in `Sst-IRES-Cre` sessions ($100.0\%$).
+2. **Prolonged Suppression** ($N=2,379$, 12.99%): Marked reduction in firing during Windows 3 and 4 ($5.80\text{ Hz}$ evoked vs. $11.20\text{ Hz}$ baseline). Exclusively observed in `Pvalb-IRES-Cre` sessions ($100.0\%$).
+3. **Prolonged Suppression (Variant 2)** ($N=4,499$, 24.56%): Deep suppression across Windows 3–5 ($5.40\text{ Hz}$ evoked vs. $9.15\text{ Hz}$ baseline). Exclusively observed in `Sst-IRES-Cre` sessions ($100.0\%$).
 4. **Non-Responsive / Stationary Populations** ($N=11,052$, 60.34% combined across two variants): Units whose firing rates remained within baseline Poisson fluctuations throughout all analysis windows.
 
 **Conclusion**: Optical stimulation evokes structured temporal dynamics that extend far beyond direct excitation. Lateral network suppression constitutes the single largest active response category ($37.55\%$ of the cohort across PV and SST sessions).
@@ -191,13 +195,15 @@ Across responsive units ($\text{Evoked Rate} \ge 2.0\text{ Hz}$) ([`revised_puls
 
 We measured response properties as a function of vertical distance ($\mu$m) from the optical centroid along the Neuropixels probe shank ([`revised_spatial_propagation_controlled.csv`](file:///d:/Desktop/NEUROSCIENCE/Optogenetics_1/results/neuroscience_study/tables/revised/revised_spatial_propagation_controlled.csv)):
 
-1. **Distance-Dependent Latency Gradient**:
-   - In `Pvalb` sessions, median latency increased with distance: $3.82\text{ ms}$ ($0–50\ \mu\text{m}$) $\to 4.15\text{ ms}$ ($50–150\ \mu\text{m}$) $\to 4.30\text{ ms}$ ($150–300\ \mu\text{m}$) $\to 4.50\text{ ms}$ ($>600\ \mu\text{m}$).
-   - Linear regression yields an apparent spatial latency gradient of $\approx 0.0011\text{ ms}/\mu\text{m}$, corresponding to an apparent velocity $v \approx 0.07\text{ m/s}$ under linear assumptions.
-   - *Caveat*: Extracellular latency gradients cannot be equated with axonal conduction velocity, as they incorporate multi-synaptic delays, channel integration times, and probe trajectory angles.
-2. **Spatial Decay of Direct Drive**:
+1. **Primary Finding: Distance-Dependent Response Latency**:
+   - In `Pvalb-IRES-Cre` sessions, response latency increases with distance from the optical hotspot along the probe shank: $3.82\text{ ms}$ ($0–50\ \mu\text{m}$) $\to 4.15\text{ ms}$ ($50–150\ \mu\text{m}$) $\to 4.30\text{ ms}$ ($150–300\ \mu\text{m}$) $\to 4.50\text{ ms}$ ($>600\ \mu\text{m}$).
+   - The fitted linear slope along the shank is $+0.0011\text{ ms}/\mu\text{m}$ ($+1.1\ \mu\text{s}/\mu\text{m}$) in Pvalb and $+0.0003\text{ ms}/\mu\text{m}$ ($+0.3\ \mu\text{s}/\mu\text{m}$) in Sst.
+2. **Secondary Derived Quantity: Apparent Velocity**:
+   - Under linear assumptions, the Pvalb spatial slope corresponds to an apparent propagation velocity of $v \approx 0.07\text{ m/s}$.
+   - *Physical and Biological Caveats*: This derived velocity is model-dependent and vulnerable to several important confounds: probe insertion geometry, cortical laminar structure, optical scattering spread in tissue, distinct cell populations recorded at different cortical depths, spike detection latency, and physical uncertainty in optical fiber placement relative to the probe shank. Extracellular latency gradients should not be treated as pure axonal conduction velocity.
+3. **Spatial Decay of Direct Drive**:
    - Evoked firing amplitude decayed exponentially with length constant $\lambda \approx 120\ \mu\text{m}$ in PV and $\lambda \approx 160\ \mu\text{m}$ in SST.
-3. **Spatial Distribution of Network Suppression**:
+4. **Spatial Extent of Prolonged Suppression**:
    - Detectable suppression was not confined to the immediate vicinity of direct units; it remained high across all distance bins: $55.56\%$ ($0–50\ \mu\text{m}$), $47.65\%$ ($150–300\ \mu\text{m}$), and $52.29\%$ ($>600\ \mu\text{m}$).
    - This extensive spatial footprint reflects the broad translaminar and lateral arborization of cortical inhibitory networks.
 
@@ -231,8 +237,8 @@ Comparing the three Cre-line cohorts across all experimental dimensions reveals 
 | **CCG Peak Lead Lag** | $+3.2\text{ ms}$ | $+4.8\text{ ms}$ | $+8.5\text{ ms}$ |
 
 **Biological Interpretation**: 
-- `Pvalb` interneurons provide rapid, powerful perisomatic inhibition characterized by high-frequency burst capability, steep intensity recruitment, fast synaptic depression, and strong network suppression.
-- `Sst` interneurons provide dendritic inhibition with slightly longer onset latencies, profound synaptic depression, and extensive lateral suppression.
+- `Pvalb` interneurons provide rapid, powerful Pvalb-associated suppression (consistent with perisomatic targeting) characterized by high-frequency burst capability, steep intensity recruitment, fast synaptic depression, and strong network suppression.
+- `Sst` interneurons provide Sst-associated suppression (consistent with dendritic targeting) with slightly longer onset latencies, profound synaptic depression, and extensive lateral suppression.
 - `Vip` stimulation produced substantially less detectable suppression in the sampled population than Pvalb or Sst, a pattern compatible with disinhibitory circuit models wherein VIP interneurons selectively inhibit other inhibitory interneurons.
 
 ---
@@ -247,11 +253,12 @@ Treating the **specimen ($N=28$ mice)** as the primary biological unit of replic
 - **Adaptation Index**: $\text{ICC} = 0.4520$ ($54.80\%$ within-specimen variance).
 
 **Corrected Statistical Interpretation**:
-Low ICC values ($0.01–0.02$) demonstrate that the overwhelming majority of variance resides within specimens, reflecting substantial cellular, laminar, and depth heterogeneity across the recording shank. Animal-to-animal technical variance is small ($<2\%$). Crucially, one-sample $t$-tests on specimen-level means confirm that population-level effects are highly reproducible across specimens:
-- Baseline rate: $t = 46.57, p < 0.0001$
-- Evoked rate: $t = 24.74, p < 0.0001$
-- Modulation ratio: $t = 12.45, p < 0.0001$
-- Pulse-train depression: $t = -6.59, p < 0.0001$
+- **Within-Specimen Predominance**: More than 98% of the modeled variance occurred within specimens, indicating substantial cellular and spatial heterogeneity (cellular, laminar, and depth diversity) relative to between-specimen variation. Intraclass correlation coefficients ($0.01–0.02$) demonstrate that differences across cortical depths and cell types far outweigh variation between animals.
+- **Specimen-Level Displacement from Null**: Specimen-level analyses showed that the direction of the major population-level effects was reproducible across animals. **Specimen-level effects were consistently displaced from the null across animals (one-sample test against zero, $p < 0.0001$, $N=28$ mice)**:
+  - **Baseline Rate**: Mean $8.70$ Hz, SD $0.99$ Hz, 95% CI $[8.31, 9.08]$ Hz ($t = 46.57, p < 0.0001, N=28$).
+  - **Evoked Rate**: Mean $9.67$ Hz, SD $2.07$ Hz, 95% CI $[8.87, 10.47]$ Hz ($t = 24.74, p < 0.0001, N=28$).
+  - **Modulation Ratio**: Mean $1.115$, SD $0.474$, 95% CI $[0.931, 1.299]$ ($t = 12.45, p < 0.0001, N=28$).
+  - **Standardized Adaptation Index**: Mean $-0.201$, SD $0.161$, 95% CI $[-0.264, -0.138]$ ($t = -6.59, p < 0.0001, N=28$).
 
 ---
 
