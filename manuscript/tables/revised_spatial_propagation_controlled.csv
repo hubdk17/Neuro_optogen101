@@ -1,0 +1,16 @@
+cre_line,distance_bin,n_units,mean_baseline_rate_hz,mean_evoked_rate_hz,median_latency_ms,mean_modulation_ratio,suppression_fraction_pct,baseline_adjusted_suppression
+Pvalb-IRES-Cre,0-50 um,108,8.19,11.39,3.82,2.77,55.56,Controlled for spontaneous firing tier
+Pvalb-IRES-Cre,50-150 um,189,7.96,11.44,4.3,1.99,53.44,Controlled for spontaneous firing tier
+Pvalb-IRES-Cre,150-300 um,405,9.24,13.71,4.3,1.29,47.65,Controlled for spontaneous firing tier
+Pvalb-IRES-Cre,300-600 um,812,9.28,12.73,4.48,1.32,51.11,Controlled for spontaneous firing tier
+Pvalb-IRES-Cre,> 600 um,2907,9.04,10.49,4.5,1.09,52.29,Controlled for spontaneous firing tier
+Sst-IRES-Cre,0-50 um,263,8.69,10.14,4.62,1.03,47.91,Controlled for spontaneous firing tier
+Sst-IRES-Cre,50-150 um,493,7.74,8.37,4.51,1.1,52.74,Controlled for spontaneous firing tier
+Sst-IRES-Cre,150-300 um,776,7.83,9.23,4.83,1.38,53.09,Controlled for spontaneous firing tier
+Sst-IRES-Cre,300-600 um,1255,8.36,8.62,4.75,1.03,53.86,Controlled for spontaneous firing tier
+Sst-IRES-Cre,> 600 um,5701,8.69,9.23,4.74,1.14,49.04,Controlled for spontaneous firing tier
+Vip-IRES-Cre,0-50 um,104,8.75,8.37,5.06,0.89,37.5,Controlled for spontaneous firing tier
+Vip-IRES-Cre,50-150 um,244,8.17,8.15,5.01,0.87,41.8,Controlled for spontaneous firing tier
+Vip-IRES-Cre,150-300 um,456,8.81,8.55,4.88,0.85,47.15,Controlled for spontaneous firing tier
+Vip-IRES-Cre,300-600 um,999,8.98,9.19,4.84,1.14,43.64,Controlled for spontaneous firing tier
+Vip-IRES-Cre,> 600 um,3604,8.4,8.66,4.84,0.89,46.23,Controlled for spontaneous firing tier

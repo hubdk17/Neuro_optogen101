@@ -1,0 +1,6 @@
+baseline_tier,total_units_in_tier,mean_baseline_rate_hz,observed_spiking_units,observed_spiking_fraction_pct,poisson_expected_spiking_units,poisson_expected_fraction_pct,expected_to_observed_ratio_pct,conditional_prob_latency_sub8ms_null_pct,sub8ms_latency_count,sub8ms_rate_among_spiking_units_pct,sub8ms_rate_among_all_units_in_tier_pct,heuristic_optotag_pass_pct,salt_significant_pct,zeta_significant_pct,latency_bootstrap_se_ms,methodological_interpretation
+< 1 Hz,3867,0.192,1178,30.46,518.7,13.41,44.03,80.02,1096,93.04,28.34,0.59,2.07,2.77,0.092,Spontaneous Poisson spikes explain 44.0% of observed spiking units; conditional chance of sub-8ms latency is 80.0%
+1-2 Hz,1842,1.579,993,53.91,1278.5,69.41,128.75,80.13,937,94.36,50.87,0.71,3.96,6.24,0.085,Increasing spike counts stabilize latency estimation
+2-4 Hz,1973,3.021,1441,73.04,1768.2,89.62,122.71,80.24,1369,95.0,69.39,0.56,5.02,9.38,0.067,Increasing spike counts stabilize latency estimation
+4-8 Hz,3711,5.934,3230,87.04,3667.7,98.83,113.55,80.47,3100,95.98,83.54,1.51,6.47,15.28,0.04,Increasing spike counts stabilize latency estimation
+> 8 Hz,6920,18.256,6798,98.24,6920.0,100.0,101.79,81.43,6696,98.5,96.76,2.28,3.14,16.84,0.023,Increasing spike counts stabilize latency estimation

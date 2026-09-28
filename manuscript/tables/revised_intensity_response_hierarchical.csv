@@ -1,0 +1,4 @@
+cre_line,n_specimens,total_units,mean_rate_1_0mw_hz,mean_rate_2_5mw_hz,mean_rate_4_0mw_hz,hierarchical_intensity_slope_hz_per_mw,slope_sem,slope_95ci_low,slope_95ci_high,scientific_interpretation
+Pvalb-IRES-Cre,8,4421,4.29,4.38,4.52,0.076,0.066,-0.08,0.232,Moderate positive intensity recruitment
+Sst-IRES-Cre,12,8488,5.98,6.02,6.1,0.039,0.069,-0.113,0.191,Moderate positive intensity recruitment
+Vip-IRES-Cre,8,5407,3.3,3.01,3.27,-0.009,0.012,-0.038,0.021,Net population rate stable or weakly modulated due to local recurrent balance

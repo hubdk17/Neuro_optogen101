@@ -114,6 +114,23 @@ Extracellular recording datasets possess an intrinsic three-level nested hierarc
 \end{equation}
 Statistical analyses that fail to account for this nested structure incur severe pseudo-replication errors by treating $18,316$ units as independent biological samples.
 
+% FIGURE 1: Paradigm and Cohort
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figure1_experimental_paradigm_and_cohort}
+\caption{\textbf{Experimental Paradigm, Cohort Architecture, and Computational Pipeline.} (A) Optogenetic stimulation paradigm during Neuropixels recording in mouse visual cortex. Optical pulses (10~ms, 1.0--4.0~mW) and 10-Hz trains were delivered to surface layers. (B) Hierarchical sampling architecture across 28 independent biological specimens (mice), 159 Neuropixels probes, and 18,316 units stratified by Cre driver line (\textit{Pvalb-IRES-Cre}, $N=8$; \textit{Sst-IRES-Cre}, $N=12$; \textit{Vip-IRES-Cre}, $N=8$). (C) Overview of the multi-stage computational framework, contrasting binary thresholding with multidimensional perturbational trajectory analysis.}
+\label{fig:paradigm}
+\end{figure*}
+
+% FIGURE 2: Perturbational Response Space
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figure2_perturbational_response_space}
+\caption{\textbf{Perturbational Response Space and Representative Single-Unit Trajectories.} Representative peri-stimulus time histograms (PSTHs, 1-ms bins, shaded bands: SEM across trials) illustrating diverse cortical dynamics elicited by a 10-ms optical pulse: rapid direct-like excitation, prolonged network suppression, delayed post-inhibitory rebound, and stationary non-responsiveness. Shaded vertical bar ($0$--$10$~ms) marks stimulus duration.}
+\label{fig:psth_examples}
+\end{figure*}
+
+
 % =========================================================================
 % 3. COMPUTATIONAL FRAMEWORK
 % =========================================================================
@@ -294,6 +311,15 @@ We explicitly distinguish completed controls from analyses marked as \textbf{[AD
 \subsection{Responsiveness Depends on Statistical Representation}
 \textit{Computational Problem: Does the choice of statistical responsiveness algorithm systematically bias the identified responsive subpopulation?}
 
+% FIGURE 3: Method Disagreement
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figure3_method_disagreement_and_divergence}
+\caption{\textbf{High Divergence Across Responsiveness Algorithms ($N=18,316$).} (A) 8-way Venn partition across the Operational Heuristic, SALT, and ZETA algorithms, highlighting that three-way consensus encompasses only 13 units ($0.07\%$). (B) Evoked firing rate versus trial reliability, showing that the operational heuristic (red) exclusively samples high-firing bursts, discarding 179 units that achieve dual statistical significance under SALT and ZETA (purple). (C) Baseline versus evoked rate distributions illustrating algorithmic ascertainment bias.}
+\label{fig:method_disagreement}
+\end{figure*}
+
+
 We evaluated all $N_{\text{unit}} = 18,316$ units across the Operational Heuristic, SALT, and ZETA frameworks (Table~\ref{tab:responsiveness}). The three methods exhibited stark divergence. The operational heuristic identified 261 units ($1.42\%$), SALT identified 702 units ($3.83\%$), and ZETA identified 1,992 units ($10.88\%$). Remarkably, three-way consensus across all three algorithms was achieved by only \textbf{13 units ($0.07\%$ of the cohort)}.
 
 % TABLE 2: Responsiveness Disagreement
@@ -325,6 +351,15 @@ The operational heuristic exclusively isolates extreme, high-firing bursts (mean
 \subsection{Latency Becomes Fragile Under Sparse Baseline Firing}
 \textit{Computational Problem: Why do deterministic latency thresholds fail in sparsely firing neurons?}
 
+% FIGURE 4: Latency & Poisson Null
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figure4_latency_and_sparse_firing_reliability}
+\caption{\textbf{Response Latency Heterogeneity and Sparse-Firing Poisson Fragility.} (A) Empirical first-spike latency histogram across 13,643 active units overlaid with a three-component Gaussian mixture model ($\Delta\text{BIC} = -117.5$ vs $k=2$). (B) The ambiguous borderline interval ($6.0$--$10.0$~ms, $N=3,193$, $23.40\%$). (C) Comparison of empirical spiking fraction versus the stationary Poisson null model ($P(N \ge 1) = 1 - e^{-\lambda \tau}$) across baseline firing tiers; in the quiescent tier ($<1$~Hz, $N=3,867$, $\lambda=0.192$~Hz), spontaneous Poisson events explain $44.03\%$ of observed spiking units ($518.7/1,178$). (D) Sub-8~ms latency rate ($93.04\%$) versus heuristic pass rate ($0.59\%$), demonstrating the mathematical fragility of unconditioned latency thresholds.}
+\label{fig:latency_poisson}
+\end{figure*}
+
+
 Across 13,643 active units with post-stimulus spikes, the empirical first-spike latency distribution was better described by a three-component Gaussian mixture model than by simpler models ($\Delta\text{BIC} = -117.5$ vs $k=2$, $-214.2$ vs $k=1$). Exactly \textbf{3,193 active units ($23.40\%$)} reside within the ambiguous $6.0–10.0\text{ ms}$ interval, demonstrating continuous distributional heterogeneity rather than a sharp physical boundary at 8.0~ms.
 
 % TABLE 3: Sparse Firing Poisson Analysis
@@ -354,6 +389,15 @@ Under the stationary Poisson null, approximately 518.7 units—\textbf{44.03\%} 
 \subsection{Temporal Trajectories Reveal Three Response Archetypes}
 \textit{Computational Problem: How do unconstrained peri-stimulus trajectories partition across the cortical population?}
 
+% FIGURE 5: Cell Type Fingerprints
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figure5_cell_type_fingerprints}
+\caption{\textbf{Cell-Type-Associated Perturbational Fingerprints.} Multi-channel radar and bar charts comparing the three transgenic cohorts across seven perturbational dimensions: direct candidate yield ($W_1$), detectable network suppression prevalence ($W_3$--$W_4$), peak evoked firing rate, first-spike latency, 10-Hz train adaptation index ($AI$), direct intensity-response slope, and CCG coincident synchrony fold-change. Values represent mean $\pm$ SEM across specimens.}
+\label{fig:fingerprints}
+\end{figure*}
+
+
 Unsupervised Gaussian Mixture Modeling on normalized five-window trajectories $\mathbf{x}_i \in \mathbb{R}^5$ partitioned the 18,316 units into three mutually exclusive response archetypes (Table~\ref{tab:archetypes}):
 \begin{enumerate}
     \item \textbf{Rapid Direct-Like Excitation} ($N=386$, $2.11\%$): Characterized by rapid onset ($L_i = 4.47\text{ ms}$), high evoked rates ($69.83\text{ Hz}$ vs. $7.17\text{ Hz}$ baseline), and strong Window 1 modulation. Composed of $42.5\%$ PV, $43.5\%$ SST, and $14.0\%$ VIP units.
@@ -380,6 +424,15 @@ Non-Responsive / Stationary  & 11,052 & 60.34\% & 7.15 & 8.50 & 4.75 & 17.0\% / 
 \subsection{Optical Intensity Modulates Both Direct Drive and Suppression}
 \textit{Computational Problem: How does optical power alter population response gain and recruitment?}
 
+% FIGURE 6: Intensity Response
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figure6_intensity_response_relationships}
+\caption{\textbf{Optical Intensity Modulates Both Direct Drive and Lateral Circuit Silence.} (A) Population-level and direct candidate firing rate scaling across calibrated optical power levels ($1.0$, $2.5$, and $4.0$~mW) for \textit{Pvalb-IRES-Cre}, \textit{Sst-IRES-Cre}, and \textit{Vip-IRES-Cre} sessions. Lines indicate hierarchical linear mixed-effects fits with random specimen intercepts. (B) Recruitment of non-tagged network units into lateral suppression as a function of optical power.}
+\label{fig:intensity}
+\end{figure*}
+
+
 Hierarchical linear mixed-effects modeling across $1.0, 2.5,$ and $4.0\text{ mW}$ revealed distinct gain profiles across Cre lines (Table~\ref{tab:intensity}). For candidate directly driven units ($N=386$), response slopes were positive: $+57.4\text{ Hz/mW}$ in \textit{Pvalb-IRES-Cre}, $+22.8\text{ Hz/mW}$ in \textit{Sst-IRES-Cre}, and $+1.8\text{ Hz/mW}$ in \textit{Vip-IRES-Cre}. Concurrently, increasing optical power recruited additional network units into lateral suppression, demonstrating that optical power does not simply scale direct firing but deepens circuit-level suppression.
 
 % TABLE 5: Intensity Response
@@ -400,6 +453,15 @@ Hierarchical linear mixed-effects modeling across $1.0, 2.5,$ and $4.0\text{ mW}
 
 \subsection{Pulse Trains Produce Cell-Type-Associated Adaptation}
 \textit{Computational Problem: Does repeated high-frequency stimulation separate functional interneuron classes?}
+
+% FIGURE 7: Pulse Train Adaptation
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figure7_pulse_train_dynamics_and_adaptation}
+\caption{\textbf{Pulse-Train Dynamics and Standardized Adaptation ($10$-Hz Train).} (A) Pulse-by-pulse normalized firing trajectories ($R_1 \dots R_{10}$) for responsive units ($\text{Evoked Rate} \ge 2.0$~Hz, $N=12,311$) across Cre lines. (B) Distribution of standardized adaptation index values ($AI = (R_{10} - R_1)/\max(R_1, 0.5)$), demonstrating marked depression in \textit{Pvalb} ($74.96\%$) and \textit{Sst} ($85.02\%$), and predominant stability ($65.73\%$) or facilitation ($23.77\%$) in \textit{Vip}.}
+\label{fig:adaptation}
+\end{figure*}
+
 
 Evaluating the standardized Adaptation Index $AI$ during 10-Hz stimulus trains across responsive units ($N=12,311$ with evoked rate $\ge 2.0\text{ Hz}$) revealed robust cell-type-associated divergence (Table~\ref{tab:train}):
 \begin{itemize}
@@ -430,6 +492,15 @@ Evaluating the standardized Adaptation Index $AI$ during 10-Hz stimulus trains a
 \subsection{Response Latency Varies with Distance from Hotspot}
 \textit{Computational Problem: How does the spatial distribution of response latency behave along linear multi-electrode arrays?}
 
+% FIGURE 8: Distance-Dependent Spatial Structure
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figure8_distance_dependent_response_structure}
+\caption{\textbf{Distance-Dependent Response Structure along Neuropixels Shanks.} (A) Primary finding: First-spike latency increases with physical distance from the optical hotspot along the probe shank (fitted slope: $+1.1~\mu\text{s}/\mu\text{m}$ in PV, $+0.3~\mu\text{s}/\mu\text{m}$ in SST; secondary apparent velocity $v \approx 0.07$~m/s under linear model). (B) Spatial decay of direct-like drive ($\lambda \approx 120$--$160~\mu\text{m}$). (C) Broad spatial extent of Prolonged Suppression, spanning $>50\%$ of units across all distance bins up to $>600~\mu\text{m}$.}
+\label{fig:spatial}
+\end{figure*}
+
+
 Physical distance analysis along the Neuropixels shank revealed that median first-spike latency increases with distance from the optical centroid (Table~\ref{tab:spatial}). In \textit{Pvalb} sessions, median latency shifted from $3.82\text{ ms}$ at $0–50\ \mu\text{m}$ to $4.50\text{ ms}$ at $>600\ \mu\text{m}$, yielding a linear slope of $+0.0011\text{ ms}/\mu\text{m}$ ($+1.1\ \mu\text{s}/\mu\text{m}$). In \textit{Sst} sessions, the slope was $+0.0003\text{ ms}/\mu\text{m}$. Under simple linear assumptions, this slope corresponds to an apparent propagation velocity of $v \approx 0.07\text{ m/s}$. However, this derived velocity must be interpreted with extreme caution and is vulnerable to probe geometry, cortical depth, laminar organization, optical scattering, and spike detection latency. Concurrently, Prolonged Suppression remained broadly distributed across all distance bins ($47–55\%$).
 
 % TABLE 7: Spatial Analysis
@@ -454,10 +525,28 @@ Physical distance analysis along the Neuropixels shank revealed that median firs
 \subsection{Perturbation Reorganizes Population Coordination}
 \textit{Computational Problem: Does optical perturbation alter fine-scale temporal coordination among simultaneously recorded units?}
 
+% FIGURE 9: Population Temporal Coordination
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figure9_population_temporal_coordination}
+\caption{\textbf{Population Temporal Coordination Shifts (Cross-Correlograms).} (A) Multi-unit cross-correlograms between direct candidates and network units in \textit{Pvalb} sessions during spontaneous baseline (dashed gray) versus post-stimulation intervals (solid blue), showing a $4.04$-fold surge in coincident synchrony at $+3.2$~ms peak lag followed by coordinated suppression. (B) Corresponding CCG in \textit{Sst} sessions displaying a $2.50$-fold synchrony shift at $+4.8$~ms lag. (C) Summary of synchrony fold-changes across Cre lines.}
+\label{fig:ccg}
+\end{figure*}
+
+
 Multi-unit cross-correlograms (CCGs) between direct candidates and network units revealed that optical perturbation induces a \textbf{4.04-fold surge} in coincident firing synchrony in \textit{Pvalb} sessions (direct units leading network modulation by an average of $+3.2\text{ ms}$) and a \textbf{2.50-fold surge} in \textit{Sst} sessions (lead $+4.8\text{ ms}$). These synchrony surges were followed by coordinated multi-unit pauses. These measurements are interpreted as population temporal coordination rather than proven synaptic connectivity.
 
 \subsection{Hierarchical Variance: Within-Specimen Predominance}
 \textit{Computational Problem: Does response variance reflect animal-to-animal technical variability or cellular/laminar diversity within specimens?}
+
+% FIGURE 10: Specimen Replication and Variance
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figure10_specimen_replication_and_variance}
+\caption{\textbf{Specimen-Level Replication and Hierarchical Variance Decomposition.} (A) Caterpillar plot of specimen-level direct candidate prevalence estimates across all 28 independent mice (points: specimen means, error bars: $95\%$ CI; red dashed line: cohort mean $1.42\%$). Specimen-level effects are consistently displaced from null ($p < 0.0001, N=28$). (B) Hierarchical variance decomposition via one-way random effects ANOVA and Intraclass Correlation Coefficients (ICC), demonstrating that $>98\%$ of modeled variance resides within specimens across recording depths, while between-specimen variation is small ($<2\%$).}
+\label{fig:reproducibility}
+\end{figure*}
+
 
 Hierarchical variance decomposition across all $N_{\text{specimen}}=28$ mice demonstrated that more than \textbf{98\% of modeled variance occurred within specimens} across baseline rate ($99.09\%$), evoked rate ($98.60\%$), and modulation ratio ($98.84\%$), with Intraclass Correlation Coefficients ($\text{ICC} = 0.009–0.014$) confirming the predominance of within-animal cellular and depth diversity (Table~\ref{tab:reproducibility}). Crucially, specimen-level effects were consistently displaced from the null across animals (one-sample $t$-test against zero, $p < 0.0001, N=28$): baseline rate ($t=46.57$), evoked rate ($t=24.74$), modulation ratio ($t=12.45$), and adaptation index ($t=-6.59$).
 
