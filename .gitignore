@@ -18,3 +18,4 @@ data/processed/*.parquet
 # OS files
 .DS_Store
 Thumbs.db
+data/derived/
