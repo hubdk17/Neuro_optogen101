@@ -1,0 +1,214 @@
+{
+  "n_units": 19005,
+  "n_sessions": 28,
+  "units_by_cre": {
+    "Sst-IRES-Cre": 8808,
+    "Vip-IRES-Cre": 5580,
+    "Pvalb-IRES-Cre": 4617
+  },
+  "animals_by_cre": {
+    "Pvalb-IRES-Cre": 8,
+    "Sst-IRES-Cre": 12,
+    "Vip-IRES-Cre": 8
+  },
+  "trials_p10_median": 45.0,
+  "baseline_exposure_s_median": 20.7,
+  "n_lfdr_lt_0.05_incl_artifacts": 375,
+  "n_onset_artifacts_in_lfdr_set": 25,
+  "onset_artifacts_by_cre": {
+    "Vip-IRES-Cre": 13,
+    "Sst-IRES-Cre": 7,
+    "Pvalb-IRES-Cre": 5
+  },
+  "onset_artifacts_by_structure": {
+    "VISam": 5,
+    "VISal": 3,
+    "LGd": 2,
+    "CA3": 2,
+    "DG": 2,
+    "VISp": 2,
+    "CA1": 2,
+    "LGv": 1,
+    "VISpm": 1,
+    "PPT": 1,
+    "VISl": 1,
+    "VISrl": 1,
+    "NOT": 1,
+    "SCiw": 1
+  },
+  "pi0": 1.0,
+  "n_lfdr_lt_0.05": 350,
+  "n_lfdr_lt_0.2": 412,
+  "est_FDR_of_driven_set": 0.002971722020199524,
+  "n_exact_BH_q05": 396,
+  "sham_fpr_exact_p05": 0.04026835043409629,
+  "units_matched_to_repo": 18316,
+  "zeta_sham_fpr_p05": 0.023520126282557223,
+  "zeta_real_p05": 0.039884240989213365,
+  "zeta50_sham_fpr_p05": 0.0303078137332281,
+  "zeta50_real_p05": 0.16258879242304658,
+  "zeta50_sham_BH_q05": 0,
+  "rep5_driven_p05": 0.92,
+  "rep5_null_p05": 0.034926470588235295,
+  "rep5_rho_spearman": 0.8413475462103599,
+  "rep5_delta_n": 300,
+  "rep5_delta_spearman": 0.7462374321065609,
+  "rep5_delta_median_diff_ms": -0.37861666510351255,
+  "driven_delta_median_ms": 4.937183337587823,
+  "driven_sigma_median_ms": 1.6809070453777855,
+  "driven_frac_direct_like": 0.24355300859598855,
+  "null_units_with_spike_frac_median_lat_lt8": 0.9668953176260066,
+  "null_units_with_spike_n": 13412,
+  "narrow_OR_Pvalb": 17.794972826086955,
+  "narrow_p_Pvalb": 1.100910044114059e-66,
+  "narrow_frac_driven_Pvalb": 0.8232044198895028,
+  "narrow_frac_all_Pvalb": 0.2315356291964479,
+  "narrow_OR_Sst": 3.9680758199276718,
+  "narrow_p_Sst": 2.178053664785482e-15,
+  "narrow_frac_driven_Sst": 0.5068493150684932,
+  "narrow_frac_all_Sst": 0.21071752951861944,
+  "narrow_OR_Vip": 0.8103242399191697,
+  "narrow_p_Vip": 1.0,
+  "narrow_frac_driven_Vip": 0.17391304347826086,
+  "narrow_frac_all_Vip": 0.2060931899641577,
+  "yield_perm_p": 0.022048897555122245,
+  "yield_by_cre": {
+    "Pvalb-IRES-Cre": [
+      0.039380876751866266,
+      0.01408674543746217,
+      8
+    ],
+    "Sst-IRES-Cre": [
+      0.016929302683357947,
+      0.0053947461721010675,
+      12
+    ],
+    "Vip-IRES-Cre": [
+      0.004560809162942544,
+      0.0019639749580355518,
+      8
+    ]
+  },
+  "yield_by_cre_counts": {
+    "Pvalb-IRES-Cre": 181,
+    "Sst-IRES-Cre": 146,
+    "Vip-IRES-Cre": 23
+  },
+  "archetype_k_bic_min": 16,
+  "archetype_bic_drop_1to2": 91919.58081758767,
+  "archetype_bic_drop_last": 3823.0331187322736,
+  "archetype_bootstrap_ARI": {
+    "4": [
+      0.733206337400151,
+      0.7447497457264619,
+      0.8050757877388948,
+      0.7475719685535096
+    ],
+    "6": [
+      0.9291403095271008,
+      0.9157946933161747,
+      0.9721745176516473,
+      0.8915317171519316
+    ],
+    "8": [
+      0.9265385914389599,
+      0.960547108498911,
+      0.8585467399518237,
+      0.911105102724004
+    ]
+  },
+  "archetype_k_displayed": 6,
+  "suppressed_n": 4224,
+  "suppressed_by_cre_all": {
+    "Pvalb-IRES-Cre": [
+      0.2682859255636541,
+      0.0289950753785923
+    ],
+    "Sst-IRES-Cre": [
+      0.23860809344679523,
+      0.040346066205814
+    ],
+    "Vip-IRES-Cre": [
+      0.15303458119601288,
+      0.014233890234493198
+    ]
+  },
+  "suppressed_by_cre_detectable": {
+    "Pvalb-IRES-Cre": [
+      0.32877200197003065,
+      0.036091922669782825
+    ],
+    "Sst-IRES-Cre": [
+      0.2945157113426757,
+      0.047613099226289354
+    ],
+    "Vip-IRES-Cre": [
+      0.17772615600103325,
+      0.016465188030581356
+    ]
+  },
+  "suppression_perm_p": 0.08929553522323884,
+  "suppression_detectable_perm_p": 0.050047497625118745,
+  "repo_prolonged_suppression_frac": 0.3619047619047619,
+  "suppressed_visctx_by_cre": {
+    "Pvalb-IRES-Cre": [
+      0.4062615396259051,
+      0.039302605058953985
+    ],
+    "Sst-IRES-Cre": [
+      0.35526069250111325,
+      0.05489330865968154
+    ],
+    "Vip-IRES-Cre": [
+      0.20425606791069495,
+      0.02250466572086238
+    ]
+  },
+  "suppressed_visctx_perm_p": 0.023998800059997,
+  "driven_visctx_by_cre": {
+    "Pvalb-IRES-Cre": [
+      0.07040445248529392,
+      0.023986601884851324
+    ],
+    "Sst-IRES-Cre": [
+      0.02488782623178455,
+      0.00691447715589492
+    ],
+    "Vip-IRES-Cre": [
+      0.007099549457574154,
+      0.0024237213836197707
+    ]
+  },
+  "driven_frac_in_visctx": 0.7857142857142857,
+  "light_level_sets": [
+    "0.6375/0.7375/0.82: 2 sessions",
+    "1.0/2.5/4.0: 15 sessions",
+    "1.3/1.7/2.0: 11 sessions"
+  ],
+  "dose_rho_by_rank_median": {
+    "low": 0.08071660140759146,
+    "mid": 0.47207688356169786,
+    "high": 0.7005180483299837
+  },
+  "dose_latency_by_rank_median": {
+    "low": 5.686133517883718,
+    "mid": 4.967473912984133,
+    "high": 4.137229174375534
+  },
+  "dose_frac_units_rho_increase": 0.9171428571428571,
+  "repo_units_in_sessions_without_1_2.5_4_levels": 8348,
+  "train_units": 350,
+  "train_frac_units_decline": 0.6,
+  "cortex_units": 8878,
+  "depth_logit_driven_per100um": [
+    -0.19307516789726717,
+    0.03795573536778818,
+    3.6405775205880324e-07
+  ],
+  "ccg_pairs": 15667,
+  "heuristic_direct_also_driven": 243,
+  "heuristic_direct_n": 261,
+  "driven_missed_by_heuristic": 107,
+  "driven_mean_flip_prob_rel030": 0.04753407498929834,
+  "driven_frac_flip_prob_gt_0.2": 0.08857142857142856
+}

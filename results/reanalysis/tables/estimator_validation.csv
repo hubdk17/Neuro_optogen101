@@ -1,0 +1,67 @@
+check,lam0,value
+null FPR exact test (p<0.05),1.0,0.02
+null FPR SALT port (p<0.05),1.0,0.01
+null FPR exact test (p<0.05),5.0,0.025
+null FPR SALT port (p<0.05),5.0,0.01
+null FPR exact test (p<0.05),20.0,0.03
+null FPR SALT port (p<0.05),20.0,0.0
+null FPR exact test (p<0.05),60.0,0.0275
+null FPR SALT port (p<0.05),60.0,0.0
+"power exact test, rho=0.3",1.0,1.0
+"power SALT port, rho=0.3",1.0,1.0
+"power exact test, rho=0.3",5.0,1.0
+"power SALT port, rho=0.3",5.0,1.0
+"power exact test, rho=0.3",20.0,0.98
+"power SALT port, rho=0.3",20.0,0.9
+"power exact test, rho=0.3",60.0,0.83
+"power SALT port, rho=0.3",60.0,0.305
+latency model rho bias (true 0.2),5.0,0.00017379241524403954
+latency model rho 95% coverage (true 0.2),5.0,0.8933333333333333
+"latency model delta bias ms (true 3.5, rho 0.2)",5.0,0.004607053476590295
+latency model delta 95% coverage (rho 0.2),5.0,0.8
+naive reliability bias (true 0.2),5.0,0.02385185185185179
+naive median-latency bias ms (rho 0.2),5.0,0.0560143848870438
+latency model rho bias (true 0.2),30.0,0.002169002523065011
+latency model rho 95% coverage (true 0.2),30.0,0.8333333333333334
+"latency model delta bias ms (true 3.5, rho 0.2)",30.0,0.04251289813080961
+latency model delta 95% coverage (rho 0.2),30.0,0.74
+naive reliability bias (true 0.2),30.0,0.1641481481481481
+naive median-latency bias ms (rho 0.2),30.0,0.2251667586812518
+latency model rho bias (true 0.5),5.0,0.004623994078549298
+latency model rho 95% coverage (true 0.5),5.0,0.9466666666666667
+"latency model delta bias ms (true 3.5, rho 0.5)",5.0,0.009155767800460346
+latency model delta 95% coverage (rho 0.5),5.0,0.9066666666666666
+naive reliability bias (true 0.5),5.0,0.02503703703703708
+naive median-latency bias ms (rho 0.5),5.0,0.025219310125878636
+latency model rho bias (true 0.5),30.0,0.012458453976072148
+latency model rho 95% coverage (true 0.5),30.0,0.94
+"latency model delta bias ms (true 3.5, rho 0.5)",30.0,0.03285164421708853
+latency model delta 95% coverage (rho 0.5),30.0,0.94
+naive reliability bias (true 0.5),30.0,0.10237037037037033
+naive median-latency bias ms (rho 0.5),30.0,0.014946755958490154
+latency model rho bias (true 0.9),5.0,0.002322403534500528
+latency model rho 95% coverage (true 0.9),5.0,0.9466666666666667
+"latency model delta bias ms (true 3.5, rho 0.9)",5.0,-0.00861222128661554
+latency model delta 95% coverage (rho 0.9),5.0,0.9466666666666667
+naive reliability bias (true 0.9),5.0,0.005185185185185293
+naive median-latency bias ms (rho 0.9),5.0,-0.003962019955404017
+latency model rho bias (true 0.9),30.0,0.0027794099713601694
+latency model rho 95% coverage (true 0.9),30.0,0.88
+"latency model delta bias ms (true 3.5, rho 0.9)",30.0,-0.005684288480286348
+latency model delta 95% coverage (rho 0.9),30.0,0.92
+naive reliability bias (true 0.9),30.0,0.027111111111111086
+naive median-latency bias ms (rho 0.9),30.0,-0.0788546439526363
+lfdr: estimated pi0 (true 0.97),,0.9615431393057818
+lfdr<0.05: realised FDR,,0.0
+lfdr<0.05: mean lfdr of selected (estimated FDR),,0.0021972788650982747
+lfdr<0.05: sensitivity,,0.8562091503267973
+BH q<0.05 on exact p: realised FDR,,0.014285714285714285
+BH q<0.05 on exact p: sensitivity,,0.9019607843137255
+"lfdr calibration: P(null | lfdr in [0,0.2))",,0.014285714285714285
+"lfdr calibration: P(null | lfdr in [0.5,0.8))",,0.8333333333333334
+"lfdr calibration: P(null | lfdr in [0.8,1.01))",,0.9984538739048273
+mixture: BIC-selected k (true 4),,4.0
+mixture: ARI vs truth at selected k,,0.825545040063278
+CCG test FPR excitation (p<0.01),,0.005
+CCG test FPR inhibition (p<0.01),,0.0
+"CCG test power, 50% inhibition 1-4 ms",,1.0
