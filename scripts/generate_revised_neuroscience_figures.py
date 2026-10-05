@@ -87,6 +87,9 @@ def main():
     # =========================================================================
     # FIGURE 1: EXPERIMENTAL PARADIGM & COHORT STRUCTURE
     # =========================================================================
+    # =========================================================================
+    # FIGURE 1: EXPERIMENTAL PARADIGM & COHORT STRUCTURE
+    # =========================================================================
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
     
     # 1A: Cohort composition
@@ -119,24 +122,24 @@ def main():
         
     # 1C: Optical Stimulation Protocol
     ax = axes[2]
-    ax.set_xlim(-5, 65)
-    ax.set_ylim(-0.5, 3.5)
+    ax.set_xlim(-8, 70)
+    ax.set_ylim(-0.6, 3.4)
     ax.axis("off")
     ax.set_title("C. Calibrated Optical Stimulus Protocol", fontweight="bold")
     
     # Single pulse
-    ax.add_patch(mpatches.Rectangle((0, 2.0), 10, 0.8, color="#1E90FF", alpha=0.8))
-    ax.text(5, 2.4, "10 ms Pulse\n(1.0, 2.5, 4.0 mW)", color="white", ha="center", va="center", fontsize=8, fontweight="bold")
-    ax.text(-4, 2.4, "Single Pulse:\n(75 trials)", va="center", ha="right", fontsize=8.5)
+    ax.add_patch(mpatches.Rectangle((0, 2.0), 16, 0.8, color="#1E90FF", alpha=0.85))
+    ax.text(8, 2.4, "10 ms Pulse\n(1.0, 2.5, 4.0 mW)", color="white", ha="center", va="center", fontsize=8, fontweight="bold")
+    ax.text(-2, 2.4, "Single Pulse (75/level):", va="center", ha="right", fontsize=8.5, fontweight="bold")
     
     # 10-Hz Train
     for p in range(5):
-        ax.add_patch(mpatches.Rectangle((p * 12, 0.5), 10, 0.8, color="#1E90FF", alpha=0.8))
-        ax.text(p * 12 + 5, 0.9, f"P{p+1}", color="white", ha="center", va="center", fontsize=7)
-    ax.text(5 * 12, 0.9, "...", fontsize=13, va="center")
-    ax.text(-4, 0.9, "10-Hz Train:\n(10 pulses)", va="center", ha="right", fontsize=8.5)
+        ax.add_patch(mpatches.Rectangle((p * 11, 0.5), 8, 0.8, color="#1E90FF", alpha=0.85))
+        ax.text(p * 11 + 4, 0.9, f"P{p+1}", color="white", ha="center", va="center", fontsize=7.5, fontweight="bold")
+    ax.text(5 * 11 + 2, 0.9, "... P10", fontsize=9, va="center", fontweight="bold")
+    ax.text(-2, 0.9, "10-Hz Train (10 pulses):", va="center", ha="right", fontsize=8.5, fontweight="bold")
     ax.plot([0, 58], [-0.1, -0.1], color="black", lw=1.2)
-    ax.text(29, -0.35, "Time (ms)", ha="center", fontsize=8.5)
+    ax.text(29, -0.38, "Time (ms)", ha="center", fontsize=8.5)
     
     save_rev_fig(fig, figs_dir, "figure1_experimental_paradigm_and_cohort")
 
@@ -152,10 +155,11 @@ def main():
     ax.plot(t, psth_direct, color=PALETTE["Direct"], lw=1.8)
     ax.axvspan(0, 10, color="#1E90FF", alpha=0.15, label="Laser (10 ms)")
     ax.axvline(3.6, color="black", linestyle=":", label="Peak: 3.6 ms")
-    ax.set_title("A. Direct-Like Excitation\n(Latency < 8 ms, Rel = 0.82)", fontweight="bold")
+    ax.set_title("A. Direct-Like Excitation\n(Latency < 8 ms, Rel = 0.82)", fontweight="bold", fontsize=9.5)
     ax.set_xlabel("Time from Light (ms)")
     ax.set_ylabel("Firing Rate (Hz)")
-    ax.legend(loc="upper right", frameon=False, fontsize=7.5)
+    ax.set_ylim(0, 105)
+    ax.legend(loc="upper right", frameon=False, fontsize=8)
     
     # 2B: Delayed Network Excitation
     ax = axes[1]
@@ -163,9 +167,10 @@ def main():
     ax.plot(t, psth_delayed, color=PALETTE["Delayed"], lw=1.8)
     ax.axvspan(0, 10, color="#1E90FF", alpha=0.15)
     ax.axvline(14.2, color="black", linestyle=":", label="Peak: 14.2 ms")
-    ax.set_title("B. Early Network Excitation\n(Latency = 11.5 ms)", fontweight="bold")
+    ax.set_title("B. Early Network Excitation\n(Latency = 11.5 ms)", fontweight="bold", fontsize=9.5)
     ax.set_xlabel("Time from Light (ms)")
-    ax.legend(loc="upper right", frameon=False, fontsize=7.5)
+    ax.set_ylim(0, 42)
+    ax.legend(loc="upper right", frameon=False, fontsize=8)
     
     # 2C: Prolonged Suppression
     ax = axes[2]
@@ -173,9 +178,10 @@ def main():
     ax.plot(t, psth_supp, color=PALETTE["Suppression"], lw=1.8)
     ax.axvspan(0, 10, color="#1E90FF", alpha=0.15)
     ax.axhline(16.0, color="gray", linestyle="--", label="Baseline (16 Hz)")
-    ax.set_title("C. Prolonged Suppression\n(Inhibition W3/W4: 85%)", fontweight="bold")
+    ax.set_title("C. Prolonged Suppression\n(Inhibition W3/W4: 85%)", fontweight="bold", fontsize=9.5)
     ax.set_xlabel("Time from Light (ms)")
-    ax.legend(loc="lower right", frameon=False, fontsize=7.5)
+    ax.set_ylim(0, 22)
+    ax.legend(loc="lower right", frameon=False, fontsize=8)
     
     # 2D: Biphasic Excitation -> Suppression
     ax = axes[3]
@@ -183,8 +189,9 @@ def main():
     psth_biphasic = np.clip(psth_biphasic, 0.5, None)
     ax.plot(t, psth_biphasic, color=PALETTE["Biphasic"], lw=1.8)
     ax.axvspan(0, 10, color="#1E90FF", alpha=0.15)
-    ax.set_title("D. Biphasic Dynamics\n(Early Burst → Circuit Pause)", fontweight="bold")
+    ax.set_title("D. Biphasic Dynamics\n(Early Burst → Circuit Pause)", fontweight="bold", fontsize=9.5)
     ax.set_xlabel("Time from Light (ms)")
+    ax.set_ylim(0, 58)
     
     # 2E: Train Dynamics (Normalized Rn / R1)
     ax = axes[4]
@@ -192,11 +199,12 @@ def main():
     ax.plot(pulses, np.exp(-pulses / 2.6) * 0.75 + 0.25, 'o-', color=PALETTE["Pvalb"], lw=1.8, label="Depressing (PV)")
     ax.plot(pulses, 1.0 + (1.0 - np.exp(-pulses / 3.0)) * 0.40, 's-', color=PALETTE["Vip"], lw=1.8, label="Facilitating (VIP)")
     ax.axhline(1.0, color="black", linestyle="--", alpha=0.5)
-    ax.set_title("E. 10-Hz Train Dynamics\n(Normalized Response $R_n / R_1$)", fontweight="bold")
+    ax.set_title("E. 10-Hz Train Dynamics\n(Normalized Response $R_n / R_1$)", fontweight="bold", fontsize=9.5)
     ax.set_xlabel("Pulse Number (n)")
     ax.set_ylabel("Normalized Ratio ($R_n / R_1$)")
     ax.set_xticks(pulses)
-    ax.legend(frameon=False, fontsize=7.5)
+    ax.set_ylim(0.15, 1.55)
+    ax.legend(loc="center right", frameon=False, fontsize=8)
     
     save_rev_fig(fig, figs_dir, "figure2_perturbational_response_space")
 
@@ -216,8 +224,8 @@ def main():
     ax.set_title("A. Responsiveness Disagreement Groups (Heuristic, SALT, ZETA)", fontweight="bold")
     for idx, count in enumerate(sub_dis["unit_count"]):
         pct = count / len(meta_df) * 100
-        ax.text(count + 20, idx, f"{count} ({pct:.2f}%)", va="center", fontsize=8)
-    ax.set_xlim(0, max(sub_dis["unit_count"]) * 1.18)
+        ax.text(count + 25, idx, f"{count} ({pct:.2f}%)", va="center", fontsize=8)
+    ax.set_xlim(0, max(sub_dis["unit_count"]) * 1.25)
     
     # 3B: Physiological feature divergence across groups
     ax = axes[1]
@@ -235,7 +243,7 @@ def main():
     ax.set_xticklabels([g[:18] + "..." for g in plot_groups], rotation=15, fontsize=8)
     ax.set_ylabel("Metric Value")
     ax.set_title("B. Physiological Profiles Explaining Method Divergence", fontweight="bold")
-    ax.legend(frameon=False, fontsize=8)
+    ax.legend(loc="upper right", frameon=False, fontsize=8)
     
     save_rev_fig(fig, figs_dir, "figure3_method_disagreement_and_divergence")
 
@@ -254,7 +262,7 @@ def main():
     ax.set_xlabel("Median Response Latency (ms)")
     ax.set_ylabel("Empirical Density")
     ax.set_title("A. Latency Distribution (Optimal 3-Comp GMM)", fontweight="bold")
-    ax.legend(frameon=False, fontsize=8)
+    ax.legend(loc="upper right", frameon=False, fontsize=8)
     
     # 4B: Sparse-firing pass rate among spiking units vs all units
     ax = axes[1]
@@ -268,9 +276,10 @@ def main():
     ax.set_xlabel("Spontaneous Baseline Firing Rate Tier")
     ax.set_ylabel("Pass Rate (%)")
     ax.set_title("B. Explicit Denominators: Sub-8ms Latency", fontweight="bold")
-    ax.legend(frameon=False, fontsize=8)
+    ax.set_ylim(0, 110)
+    ax.legend(loc="upper right", frameon=False, fontsize=8)
     
-    # 4C: Poisson null expected spiking fraction vs empirical
+    # 4C: Poisson null expected spiking fraction vs empirical (CLEAN, NO OVERLAPPING TEXT)
     ax = axes[2]
     ax.plot(x_idx, sparse_df["observed_spiking_fraction_pct"], 'o-', color="black", lw=1.8, label="Observed Spiking Fraction (%)")
     ax.plot(x_idx, sparse_df["poisson_expected_fraction_pct"], 's--', color="gray", lw=1.8, label="Theoretical Poisson Null (%)")
@@ -280,8 +289,8 @@ def main():
     ax.set_xlabel("Baseline Tier")
     ax.set_ylabel("Percentage (%)")
     ax.set_title("C. Spontaneous Poisson Null vs Optotagging", fontweight="bold")
-    ax.text(0, 48, "In <1 Hz Tier:\nPoisson Null explains 44.0%\nof observed spiking units", fontsize=8, color="darkred", bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="darkred", lw=0.8))
-    ax.legend(frameon=False, fontsize=8)
+    ax.set_ylim(0, 115)
+    ax.legend(loc="center right", frameon=False, fontsize=8.5)
     
     save_rev_fig(fig, figs_dir, "figure4_latency_and_sparse_firing_reliability")
 
@@ -314,7 +323,7 @@ def main():
     ax_polar.set_xticks(angles[:-1])
     ax_polar.set_xticklabels(categories, fontsize=8.5)
     ax_polar.set_title("A. Cell-Type Associated Perturbational Fingerprints", fontweight="bold", pad=15)
-    ax_polar.legend(loc="upper right", bbox_to_anchor=(1.25, 1.1), frameon=False, fontsize=8)
+    ax_polar.legend(loc="upper right", bbox_to_anchor=(1.28, 1.12), frameon=False, fontsize=8)
     
     # 5B: Detectable suppression vs excitation across lines
     ax = axes[1]
@@ -332,14 +341,15 @@ def main():
     ax.set_xticklabels(["Pvalb-Associated", "Sst-Associated", "Vip-Associated"], fontsize=8.5)
     ax.set_ylabel("Fraction of Cohort (%)")
     ax.set_title("B. Population Recruitment by Cre Line (Mean ± SEM across Mice)", fontweight="bold")
-    ax.legend(frameon=False, fontsize=8)
+    ax.set_ylim(0, 65)
+    ax.legend(loc="upper right", frameon=False, fontsize=8)
     
     save_rev_fig(fig, figs_dir, "figure5_cell_type_fingerprints")
 
     # =========================================================================
-    # FIGURE 6: OPTICAL INTENSITY-RESPONSE RELATIONSHIPS
+    # FIGURE 6: OPTICAL INTENSITY-RESPONSE RELATIONSHIPS (CLEAR SEPARATE SCALES)
     # =========================================================================
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4.5), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(15, 4.5), sharey=False)
     powers = [1.0, 2.5, 4.0]
     
     # 6A: Direct units intensity response
@@ -349,9 +359,10 @@ def main():
     ax.plot(powers, [7.8, 18.5, 26.2], '^-', color=PALETTE["Vip"], lw=2.0, label="Vip Direct")
     ax.set_xlabel("Optical Power (mW)")
     ax.set_ylabel("Evoked Firing Rate (Hz)")
-    ax.set_title("A. Direct Candidates: Monotonic Recruitment", fontweight="bold")
+    ax.set_title("A. Direct Candidates: Monotonic Drive", fontweight="bold")
     ax.set_xticks(powers)
-    ax.legend(frameon=False, fontsize=8)
+    ax.set_ylim(0, 60)
+    ax.legend(loc="upper left", frameon=False, fontsize=8)
     
     # 6B: Network excited units
     ax = axes[1]
@@ -359,9 +370,11 @@ def main():
     ax.plot(powers, [1.4, 4.8, 10.5], 's--', color=PALETTE["Sst"], lw=1.8, label="Sst Network")
     ax.plot(powers, [3.0, 10.5, 21.0], '^--', color=PALETTE["Vip"], lw=1.8, label="Vip Network")
     ax.set_xlabel("Optical Power (mW)")
+    ax.set_ylabel("Evoked Firing Rate (Hz)")
     ax.set_title("B. Indirect Circuit Recruitment", fontweight="bold")
     ax.set_xticks(powers)
-    ax.legend(frameon=False, fontsize=8)
+    ax.set_ylim(0, 26)
+    ax.legend(loc="upper left", frameon=False, fontsize=8)
     
     # 6C: Network suppressed units
     ax = axes[2]
@@ -369,14 +382,16 @@ def main():
     ax.plot(powers, [13.5, 6.2, 2.2], 's:', color=PALETTE["Sst"], lw=1.8, label="Sst Suppressed")
     ax.plot(powers, [10.5, 8.8, 7.9], '^:', color=PALETTE["Vip"], lw=1.8, label="Vip Non-Tagged")
     ax.set_xlabel("Optical Power (mW)")
+    ax.set_ylabel("Firing Rate During W3/W4 (Hz)")
     ax.set_title("C. Deepening Network Suppression", fontweight="bold")
     ax.set_xticks(powers)
-    ax.legend(frameon=False, fontsize=8)
+    ax.set_ylim(0, 16)
+    ax.legend(loc="upper right", frameon=False, fontsize=8)
     
     save_rev_fig(fig, figs_dir, "figure6_intensity_response_relationships")
 
     # =========================================================================
-    # FIGURE 7: PULSE-TRAIN DYNAMICS AND ADAPTATION
+    # FIGURE 7: PULSE-TRAIN DYNAMICS AND ADAPTATION (CLEAN NO OVERLAP)
     # =========================================================================
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
     pulses = np.arange(1, 11)
@@ -391,7 +406,9 @@ def main():
     ax.set_ylabel("Normalized Response ($R_n / R_1$)")
     ax.set_title("A. 10-Hz Train Dynamics Across Cell Classes", fontweight="bold")
     ax.set_xticks(pulses)
-    ax.legend(frameon=False, fontsize=8)
+    ax.set_ylim(0.15, 1.65)
+    # Place legend at upper left: pulses 1 to 4 have y < 1.1, so y from 1.15 to 1.65 is completely clear
+    ax.legend(loc="upper left", frameon=False, fontsize=8.5)
     
     # 7B: Distribution of adaptation categories
     ax = axes[1]
@@ -409,26 +426,26 @@ def main():
     ax.set_xticklabels(["Depressing\n(AI < -0.20)", "Stable\n(|AI| <= 0.20)", "Facilitating\n(AI > +0.20)"], fontsize=8.5)
     ax.set_ylabel("Percentage of Responsive Units (%)")
     ax.set_title("B. Adaptation Category Proportions by Cre Line", fontweight="bold")
-    ax.legend(frameon=False, fontsize=8)
+    ax.set_ylim(0, 95)
+    ax.legend(loc="upper right", frameon=False, fontsize=8.5)
     
     save_rev_fig(fig, figs_dir, "figure7_pulse_train_dynamics_and_adaptation")
 
     # =========================================================================
-    # FIGURE 8: DISTANCE-DEPENDENT RESPONSE STRUCTURE
+    # FIGURE 8: DISTANCE-DEPENDENT RESPONSE STRUCTURE (CLEAN NO OVERLAP)
     # =========================================================================
     fig, axes = plt.subplots(1, 3, figsize=(16, 4.5))
     d_mids = np.array([25, 100, 225, 450, 750])
     
-    # 8A: Distance vs Latency gradient
+    # 8A: Distance vs Latency gradient (REMOVED IN-GRAPH TEXT BOX)
     ax = axes[0]
     ax.plot(d_mids, 3.8 + d_mids * 0.0011, 'o-', color=PALETTE["Pvalb"], lw=1.8, label="Pvalb (slope: +1.1 μs/μm)")
     ax.plot(d_mids, 4.6 + d_mids * 0.0003, 's-', color=PALETTE["Sst"], lw=1.8, label="Sst (slope: +0.3 μs/μm)")
     ax.set_xlabel("Distance from Optical Hotspot (μm)")
     ax.set_ylabel("Median Response Latency (ms)")
     ax.set_title("A. Distance-Dependent Response Latency", fontweight="bold")
-    ax.text(0.05, 0.85, "Secondary apparent slope: ~0.07 m/s\n(Under linear assumptions; see caveats)", 
-            transform=ax.transAxes, fontsize=7.5, bbox=dict(boxstyle='round,pad=0.2', facecolor='white', alpha=0.8, edgecolor='gray'))
-    ax.legend(loc="lower right", frameon=False, fontsize=8)
+    ax.set_ylim(3.5, 5.0)
+    ax.legend(loc="lower right", frameon=False, fontsize=8.5)
     
     # 8B: Amplitude decay
     ax = axes[1]
@@ -437,7 +454,8 @@ def main():
     ax.set_xlabel("Distance from Optical Hotspot (μm)")
     ax.set_ylabel("Evoked Response (Hz)")
     ax.set_title("B. Spatial Attenuation of Direct-Like Drive", fontweight="bold")
-    ax.legend(frameon=False, fontsize=8)
+    ax.set_ylim(0, 48)
+    ax.legend(loc="upper right", frameon=False, fontsize=8.5)
     
     # 8C: Suppression fraction vs distance
     ax = axes[2]
@@ -451,12 +469,13 @@ def main():
     ax.set_xlabel("Distance from Optical Hotspot (μm)")
     ax.set_ylabel("Detectable Suppression Rate (%)")
     ax.set_title("C. Spatial Extent of Prolonged Suppression", fontweight="bold")
-    ax.legend(frameon=False, fontsize=8)
+    ax.set_ylim(35, 60)
+    ax.legend(loc="upper right", frameon=False, fontsize=8.5)
     
     save_rev_fig(fig, figs_dir, "figure8_distance_dependent_response_structure")
 
     # =========================================================================
-    # FIGURE 9: POPULATION TEMPORAL COORDINATION (CCGs)
+    # FIGURE 9: POPULATION TEMPORAL COORDINATION (CCGs, GENEROUS HEADROOM)
     # =========================================================================
     fig, axes = plt.subplots(1, 3, figsize=(16, 4.5))
     lags = np.linspace(-25, 25, 101)
@@ -473,7 +492,8 @@ def main():
     ax.set_xlabel("Spike Lag (ms)")
     ax.set_ylabel("Coincident Rate")
     ax.set_title("A. Pvalb: Early Synchrony Shift", fontweight="bold")
-    ax.legend(frameon=False, fontsize=7.5)
+    ax.set_ylim(0, 0.22)
+    ax.legend(loc="upper right", frameon=False, fontsize=8)
     
     # 9B: Sst pre vs post CCG
     ax = axes[1]
@@ -486,7 +506,8 @@ def main():
     ax.axvline(4.8, color="purple", linestyle=":", label="Peak Lag: +4.8 ms")
     ax.set_xlabel("Spike Lag (ms)")
     ax.set_title("B. Sst: Delayed Synchrony Shift", fontweight="bold")
-    ax.legend(frameon=False, fontsize=7.5)
+    ax.set_ylim(0, 0.13)
+    ax.legend(loc="upper right", frameon=False, fontsize=8)
     
     # 9C: Synchrony fold-change
     ax = axes[2]
@@ -498,16 +519,16 @@ def main():
         yval = bar.get_height()
         ax.text(bar.get_x() + bar.get_width()/2.0, yval + 0.08, f"{yval:.2f}x", ha="center", va="bottom", fontsize=8.5)
     ax.set_ylim(0, 4.8)
-    ax.legend(frameon=False, fontsize=8)
+    ax.legend(loc="upper right", frameon=False, fontsize=8)
     
     save_rev_fig(fig, figs_dir, "figure9_population_temporal_coordination")
 
     # =========================================================================
-    # FIGURE 10: SPECIMEN-LEVEL REPLICATION & HIERARCHICAL REPRODUCIBILITY
+    # FIGURE 10: SPECIMEN-LEVEL REPLICATION & HIERARCHICAL REPRODUCIBILITY (CLEAN)
     # =========================================================================
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
     
-    # 10A: Caterpillar plot of specimen-level direct candidate prevalence
+    # 10A: Caterpillar plot of specimen-level direct candidate prevalence (REMOVED IN-GRAPH TEXT BOX)
     ax = axes[0]
     rng = np.random.RandomState(42)
     spec_indices = np.arange(1, 29)
@@ -520,10 +541,9 @@ def main():
     ax.axvline(np.mean(spec_prev), color="red", linestyle="--", lw=1.5, label=f"Cohort Mean ({np.mean(spec_prev):.2f}%)")
     ax.set_ylabel("Specimen Rank (1 to 28 Mice)")
     ax.set_xlabel("Candidate Direct Response Prevalence (%)")
-    ax.set_title("A. Specimen-Level Direct Candidate Prevalence (95% CI, N = 28 Mice)", fontweight="bold")
-    ax.text(0.05, 0.08, "Specimen-level effects displaced from null (p < 0.0001, N=28)", 
-            transform=ax.transAxes, fontsize=8, bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.8, edgecolor='gray'))
-    ax.legend(loc="lower right", frameon=False, fontsize=8)
+    ax.set_title("A. Specimen-Level Direct Candidate Prevalence (95% CI)", fontweight="bold")
+    ax.set_xlim(0.2, 2.6)
+    ax.legend(loc="lower right", frameon=False, fontsize=8.5)
     
     # 10B: Variance decomposition
     ax = axes[1]
@@ -538,6 +558,7 @@ def main():
     ax.set_xticklabels(metrics, rotation=15, fontsize=8.5)
     ax.set_ylabel("Fraction of Total Variance (%)")
     ax.set_title("B. Variance Decomposition: Within vs. Between Specimen", fontweight="bold")
+    ax.set_ylim(0, 105)
     ax.legend(bbox_to_anchor=(0.5, -0.22), loc="upper center", frameon=False, fontsize=8)
     
     save_rev_fig(fig, figs_dir, "figure10_specimen_replication_and_variance")
