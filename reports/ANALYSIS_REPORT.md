@@ -27,6 +27,9 @@ The data-ingestion core is sound in outline: spikes are aligned to real optogene
 
 Items 1–8 are fatal for the corresponding claims, because they report the assumptions as results. The manuscript must not be submitted with them. Items 9–12 are correctable statistical errors. The rest of this report (i) places the work in the literature, (ii) inventories every computational method and its provenance, (iii) gives the detailed findings, and (iv) — the main constructive contribution — develops the mathematics that would turn the project's central idea, *optotagging as graded evidence rather than a binary label*, into a rigorous method that this dataset can actually support.
 
+
+> **Update — the recommended analysis has been executed.** See `reports/REANALYSIS_RESULTS.md` (code in `src/reanalysis/`, `scripts/reanalysis/`). Two items flagged above as "verify" were resolved from the NWB files. (i) The train condition is "2.5 ms pulses at 10 Hz", so the 10-Hz assumption was correct. (ii) The light `level` values are **not** the same in all sessions: {1.0, 2.5, 4.0} in 15, {1.3, 1.7, 2.0} in 11 and {0.638, 0.738, 0.82} in 2. The original per-level analysis therefore silently dropped 13 sessions.
+
 ---
 
 ## 1. Related work
