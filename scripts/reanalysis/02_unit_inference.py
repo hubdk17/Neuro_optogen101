@@ -38,7 +38,6 @@ EV = (0.001, 0.009)
 SHAMS = [(-0.480 + 0.04 * i, -0.472 + 0.04 * i) for i in range(10)]
 WINDOWS = {"w1": (0.001, 0.009), "w2": (0.011, 0.020), "w3": (0.020, 0.050),
            "w4": (0.050, 0.200), "w5": (0.200, 0.500)}
-LEVELS = (1.0, 2.5, 4.0)
 W_E = EV[1] - EV[0]
 W_B = BASE[1] - BASE[0]
 FIT_P = 0.01  # latency model is fitted only where a response is detectable
@@ -152,19 +151,23 @@ def process(path):
             row["exp_base"] = n * W_B
             # per light level
             lv = opto.loc[p10, "level"].values
-            for L in LEVELS:
+            # light levels differ between sessions ({1,2.5,4}, {1.3,1.7,2}, {0.638,0.738,0.82});
+            # index them by within-session rank
+            uniq = np.sort(np.unique(np.round(opto.loc[opto["kind"] == "pulse10", "level"].values, 4)))
+            for rank, L in zip(("low", "mid", "high"), uniq[:3]):
+                row[f"p10_{rank}_level"] = float(L)
                 sel = np.nonzero(np.isclose(lv, L))[0]
                 nl = len(sel)
                 fl = first[first.index.isin(sel)]
                 kl = len(fl)
                 rho_l, se_l, _, _ = chance_corrected_reliability(kl, nl, lam0, W_E)
-                row[f"p10_L{L}_n"] = nl
-                row[f"p10_L{L}_k"] = kl
-                row[f"p10_L{L}_rho"] = float(rho_l)
-                row[f"p10_L{L}_rho_se"] = float(se_l)
-                row[f"p10_L{L}_median_first_ms"] = float(fl.median()) if kl else np.nan
+                row[f"p10_{rank}_n"] = nl
+                row[f"p10_{rank}_k"] = kl
+                row[f"p10_{rank}_rho"] = float(rho_l)
+                row[f"p10_{rank}_rho_se"] = float(se_l)
+                row[f"p10_{rank}_median_first_ms"] = float(fl.median()) if kl else np.nan
                 ne_l = int(np.count_nonzero(np.isin(ti, sel) & (r >= EV[0]) & (r < EV[1])))
-                row[f"p10_L{L}_ne"] = ne_l
+                row[f"p10_{rank}_ne"] = ne_l
 
         # 10-Hz trains: 10 pulses of 2.5 ms, onsets every 100 ms
         tr = opto.index[(opto["kind"] == "train10hz").values & valid].values

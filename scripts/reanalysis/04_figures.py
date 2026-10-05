@@ -171,18 +171,20 @@ save(fig, "R4_archetypes")
 
 # ---------------------------------------------------------------- R5 dose & trains
 fig, ax = plt.subplots(1, 3, figsize=(13, 3.6))
-lv = [1.0, 2.5, 4.0]
+lv = ["low", "mid", "high"]
 for c in CRES:
     s = d[d.cre_line == c]
     if len(s) < 3:
         continue
-    ax[0].plot(lv, [s[f"p10_L{L}_rho"].median() for L in lv], marker="o", lw=2, color=COL[c], label=f"{SHORT[c]} (n={len(s)})")
-    ax[1].plot(lv, [s[f"p10_L{L}_median_first_ms"].median() for L in lv], marker="o", lw=2, color=COL[c], label=SHORT[c])
-ax[0].set_xlabel("light level (NWB 'level')")
+    ax[0].plot(range(3), [s[f"p10_{L}_rho"].median() for L in lv], marker="o", lw=2, color=COL[c], label=f"{SHORT[c]} (n={len(s)})")
+    ax[1].plot(range(3), [s[f"p10_{L}_median_first_ms"].median() for L in lv], marker="o", lw=2, color=COL[c], label=SHORT[c])
+for a_ in ax[:2]:
+    a_.set_xticks(range(3), lv)
+ax[0].set_xlabel("light level, within-session rank")
 ax[0].set_ylabel(r"median chance-corrected $\hat\rho$")
 ax[0].legend(fontsize=8)
 label(ax[0], "A  Reliability vs light level")
-ax[1].set_xlabel("light level (NWB 'level')")
+ax[1].set_xlabel("light level, within-session rank")
 ax[1].set_ylabel("median first-spike latency (ms)")
 label(ax[1], "B  Latency vs light level")
 for c in CRES:

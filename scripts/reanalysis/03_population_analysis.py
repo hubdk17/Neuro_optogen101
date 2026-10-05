@@ -72,7 +72,13 @@ def main():
     df["lfdr"] = lf
     df["evidence"] = 1 - lf
     df["q_exact"] = bh(df["p10_p_exc"].values)
-    df["driven"] = df["lfdr"] < 0.05
+    # light-onset artifact: latency at the window edge with jitter at the 0.1-ms floor
+    df["onset_artifact"] = (df["p10_fit_delta"] < 1.5) & (df["p10_fit_sigma"] < 0.3)
+    df["driven"] = (df["lfdr"] < 0.05) & ~df["onset_artifact"]
+    S["n_lfdr_lt_0.05_incl_artifacts"] = int((df["lfdr"] < 0.05).sum())
+    S["n_onset_artifacts_in_lfdr_set"] = int(((df["lfdr"] < 0.05) & df["onset_artifact"]).sum())
+    S["onset_artifacts_by_cre"] = df[(df["lfdr"] < 0.05) & df["onset_artifact"]].cre_line.value_counts().to_dict()
+    S["onset_artifacts_by_structure"] = df[(df["lfdr"] < 0.05) & df["onset_artifact"]].structure.value_counts().to_dict()
     S["pi0"] = pi0
     S["n_lfdr_lt_0.05"] = int(df.driven.sum())
     S["n_lfdr_lt_0.2"] = int((df.lfdr < 0.2).sum())
@@ -273,28 +279,34 @@ def main():
     S["driven_frac_in_visctx"] = float(df[df.driven].region_group.eq("visual cortex").mean())
 
     # ------------------------------------------------------------ I. dose-response (driven units)
-    lv = [1.0, 2.5, 4.0]
-    x = np.log2(lv)
+    ranks = ["low", "mid", "high"]
+    S["light_level_sets"] = df.groupby(["p10_low_level", "p10_mid_level", "p10_high_level"]).session_id.nunique().reset_index(
+        ).astype(str).apply(lambda r: f"{r.p10_low_level}/{r.p10_mid_level}/{r.p10_high_level}: {r.session_id} sessions", axis=1).tolist()
     dd = df[df.driven].copy()
-    R = dd[[f"p10_L{L}_rho" for L in lv]].values
-    dd["dose_slope_rho_per_log2"] = [np.polyfit(x, r, 1)[0] if np.isfinite(r).all() else np.nan for r in R]
-    Lt = dd[[f"p10_L{L}_median_first_ms" for L in lv]].values
-    dd["dose_slope_latency_ms_per_log2"] = [np.polyfit(x, r, 1)[0] if np.isfinite(r).all() else np.nan for r in Lt]
+    R = dd[[f"p10_{r}_rho" for r in ranks]].values
+    dd["dose_slope_rho_per_step"] = [np.polyfit([0, 1, 2], r, 1)[0] if np.isfinite(r).all() else np.nan for r in R]
+    dd["dose_delta_rho_high_low"] = dd.p10_high_rho - dd.p10_low_rho
+    dd["dose_delta_latency_high_low_ms"] = dd.p10_high_median_first_ms - dd.p10_low_median_first_ms
     dose_rows = []
-    for col in ["dose_slope_rho_per_log2", "dose_slope_latency_ms_per_log2"]:
+    for col in ["dose_slope_rho_per_step", "dose_delta_rho_high_low", "dose_delta_latency_high_low_ms"]:
         a_d = dd.groupby(["specimen_id", "cre_line"])[col].mean().reset_index().dropna()
         for c in CRES + ["all"]:
             v = a_d[col] if c == "all" else a_d[a_d.cre_line == c][col]
             if len(v) >= 3:
                 t, p = st.ttest_1samp(v, 0)
-                dose_rows.append(dict(metric=col, cre_line=c, n_animals=len(v), mean=v.mean(), sem=v.sem(), t=t, p=p))
-            elif len(v):
-                dose_rows.append(dict(metric=col, cre_line=c, n_animals=len(v), mean=v.mean(), sem=np.nan, t=np.nan, p=np.nan))
+            else:
+                t, p = np.nan, np.nan
+            dose_rows.append(dict(metric=col, cre_line=c, n_animals=len(v),
+                                  n_units=int(dd[col].notna().sum()) if c == "all" else int(dd[dd.cre_line == c][col].notna().sum()),
+                                  mean=v.mean() if len(v) else np.nan, sem=v.sem() if len(v) > 1 else np.nan, t=t, p=p))
     pd.DataFrame(dose_rows).to_csv(T / "dose_response_animal_level.csv", index=False)
-    dd[["unit_id", "specimen_id", "cre_line"] + [f"p10_L{L}_rho" for L in lv] + [f"p10_L{L}_median_first_ms" for L in lv]
-       ].groupby("cre_line").median(numeric_only=True).to_csv(T / "dose_response_medians.csv")
-    S["dose_rho_by_level_median"] = {str(L): float(dd[f"p10_L{L}_rho"].median()) for L in lv}
-    S["dose_latency_by_level_median"] = {str(L): float(dd[f"p10_L{L}_median_first_ms"].median()) for L in lv}
+    S["dose_rho_by_rank_median"] = {r: float(dd[f"p10_{r}_rho"].median()) for r in ranks}
+    S["dose_latency_by_rank_median"] = {r: float(dd[f"p10_{r}_median_first_ms"].median()) for r in ranks}
+    S["dose_frac_units_rho_increase"] = float(np.mean(dd.dose_delta_rho_high_low > 0))
+    rep_lv = pd.read_parquet(ROOT / "results/ml_final/master_ml_dataset_28spec.parquet", columns=["session_id", "unit_id", "response_at_each_light_level"])
+    zero = rep_lv.response_at_each_light_level.str.contains('"evoked_rate_hz": 0.0') | (rep_lv.response_at_each_light_level == "{}")
+    S["repo_units_in_sessions_without_1_2.5_4_levels"] = int(rep_lv.session_id.isin(
+        df[df.p10_high_level != 4.0].session_id.unique()).sum())
 
     # ------------------------------------------------------------ J. 10-Hz trains (driven units)
     tt = dd[dd.train_n > 0].copy()
