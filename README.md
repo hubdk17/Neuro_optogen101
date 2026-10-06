@@ -60,7 +60,13 @@ make test                              # unit tests incl. archive isolation
 * **PV units show local inhibition.** PV-activated units show short-latency CCG troughs in 7.7% of partners, against 2.5% in the anticausal control.
 * **Fragile:** the Cre-line difference in light-activated yield (Pvalb 3.9 ± 1.4%, Sst 1.7 ± 0.5%, Vip 0.46 ± 0.20% per animal) is a **trend**, not a result. The between-animal permutation test gives p = 0.024, but Kruskal–Wallis gives p = 0.10. Dropping one animal at a time moves the Kruskal–Wallis p between 0.03 and 0.17, and the permutation p between 0.006 and 0.07. Six of 28 animals supply 69% of light-activated units, and four have none.
 
-Calibration results (criterion sensitivity and specificity, the latency/jitter validity test and its positive control, the visual-flash confound, label-noise propagation) are reported, including all nulls, in [`reports/CALIBRATION_RESULTS.md`](reports/CALIBRATION_RESULTS.md).
+## Headline results (calibration)
+
+Full details, including every null result, are in [`reports/CALIBRATION_RESULTS.md`](reports/CALIBRATION_RESULTS.md).
+
+* **Latency/jitter does not identify cells with inhibitory output.** The "direct-like" latency/jitter criterion (δ̂ < 5 ms, σ̂ < 1.5 ms) does not predict monosynaptic inhibitory output. The animal-level difference is −0.011 [−0.036, +0.013], p = 0.31, across 10 animals. The CCG probe itself is validated by a pre-registered positive control: driven vs matched non-driven units, PV +0.047 [0.012, 0.081], p = 0.018, 6 animals. Narrow waveform and dose slope do predict inhibitory output. Reliability ρ̂ does not, once animal is accounted for.
+* **The standard criterion is well calibrated; others are not.** The standard conjunctive heuristic has an implied FDR of about 2% against sham trials, but misses 29% of light-activated units. Latency < 8 ms alone passes 71% of sham trials. A raw-probability reading of the "≥ 4 of 5 pulses" criterion has an implied FDR of 74%; a significance-based reading has 5%.
+* **Part of the network response is not opsin-mediated.** Thalamic suppression after a light pulse is Cre-independent (VIP mice included). It overlaps with the visual-flash response beyond chance, but it is faster. Without opsin-negative controls its origin cannot be resolved.
 
 ## Data availability
 
