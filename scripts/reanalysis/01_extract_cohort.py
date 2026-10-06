@@ -48,6 +48,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--nwb-dir", default="/home/user/nwb")
     ap.add_argument("--keep", action="store_true")
+    ap.add_argument("--min-version", type=int, default=2,
+                    help="re-extract sessions whose record is older than this extract_version")
     args = ap.parse_args()
     nwb_dir = Path(args.nwb_dir)
     nwb_dir.mkdir(parents=True, exist_ok=True)
@@ -56,7 +58,13 @@ def main():
 
     manifest = pd.read_csv(ROOT / "results/cohort/full_28_specimen_manifest.csv")
     sids = [int(s) for s in manifest["session_id"]]
-    todo = [s for s in sids if not (out_dir / f"session_{s}.pkl.gz").exists()]
+    def needs(s):
+        f = out_dir / f"session_{s}.pkl.gz"
+        if not f.exists():
+            return True
+        with gzip.open(f, "rb") as fh:
+            return pickle.load(fh).get("extract_version", 1) < args.min_version
+    todo = [s for s in sids if needs(s)]
     log.info("%d sessions to extract", len(todo))
 
     prefetch = {}

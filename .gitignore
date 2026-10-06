@@ -19,3 +19,4 @@ data/processed/*.parquet
 .DS_Store
 Thumbs.db
 data/derived/
+data/derived_v1/
