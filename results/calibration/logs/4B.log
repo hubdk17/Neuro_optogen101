@@ -1,0 +1,91 @@
+               region cre  n_units  n_animals  opto_suppressed_frac_animal_mean  opto_sem  flash_suppressed_frac_animal_mean  flash_sem  both_frac  both_expected_if_independent  frac_opto_suppressed_also_flash_suppressed  frac_flash_suppressed_among_not_opto  overlap_OR  overlap_fisher_p  spearman_opto_vs_flash_lrr  spearman_p
+hippocampal formation  PV     1278          8                             0.043     0.014                              0.016      0.004      0.001                         0.001                                       0.020                                 0.017       1.173             0.587                       0.027       0.330
+hippocampal formation SST     2343         11                             0.076     0.037                              0.016      0.003      0.003                         0.001                                       0.029                                 0.015       2.038             0.133                       0.038       0.066
+hippocampal formation VIP     1319          7                             0.026     0.005                              0.022      0.007      0.001                         0.001                                       0.028                                 0.019       1.438             0.516                       0.032       0.249
+             midbrain  PV      129          7                             0.226     0.084                              0.052      0.036      0.054                         0.024                                       0.189                                 0.043       5.133             0.013                       0.031       0.725
+             midbrain SST      568         10                             0.181     0.060                              0.146      0.029      0.044                         0.021                                       0.278                                 0.109       3.151             0.000                       0.195       0.000
+             midbrain VIP      200          6                             0.064     0.026                              0.076      0.030      0.020                         0.006                                       0.308                                 0.070       5.949             0.016                       0.212       0.003
+   other / unassigned  PV      304          2                             0.040     0.040                              0.283      0.217      0.016                         0.005                                       0.208                                 0.057       4.342             0.017                       0.117       0.042
+   other / unassigned SST      671          5                             0.174     0.103                              0.160      0.086      0.048                         0.013                                       0.478                                 0.094       8.774             0.000                       0.176       0.000
+   other / unassigned VIP      435          4                             0.012     0.012                              0.119      0.034      0.018                         0.004                                       0.421                                 0.079       8.441             0.000                       0.091       0.058
+             thalamus  PV      675          7                             0.258     0.058                              0.237      0.046      0.098                         0.066                                       0.359                                 0.200       2.243             0.000                       0.186       0.000
+             thalamus SST     1243         10                             0.234     0.054                              0.151      0.037      0.076                         0.047                                       0.279                                 0.136       2.463             0.000                       0.096       0.001
+             thalamus VIP      910          7                             0.271     0.073                              0.199      0.031      0.080                         0.037                                       0.360                                 0.112       4.464             0.000                       0.196       0.000
+        visual cortex  PV     2231          8                             0.398     0.039                              0.226      0.026      0.117                         0.090                                       0.289                                 0.179       1.867             0.000                       0.241       0.000
+        visual cortex SST     3900         12                             0.345     0.055                              0.204      0.030      0.110                         0.074                                       0.316                                 0.155       2.510             0.000                       0.289       0.000
+        visual cortex VIP     2716          8                             0.201     0.023                              0.202      0.021      0.070                         0.040                                       0.349                                 0.164       2.742             0.000                       0.281       0.000
+               region  n_animals  kruskal_p  perm_p  opto_sup_PV  opto_sup_SST  opto_sup_VIP  flash_sup_PV  flash_sup_SST  flash_sup_VIP
+hippocampal formation         26      0.885   0.524        0.043         0.076         0.026         0.016          0.016          0.022
+             midbrain         23      0.353   0.275        0.226         0.181         0.064         0.052          0.146          0.076
+   other / unassigned         11      0.130   0.292        0.040         0.174         0.012         0.283          0.160          0.119
+             thalamus         24      0.798   0.908        0.258         0.234         0.271         0.237          0.151          0.199
+        visual cortex         28      0.024   0.035        0.398         0.345         0.201         0.226          0.204          0.202
+                group  n_animals  opto_onset_median  flash_onset_median  median_diff_opto_minus_flash  wilcoxon_p
+                  LGd         11               27.5                57.5                         -30.0       0.020
+                   LP         11               17.5                62.5                         -45.0       0.007
+hippocampal formation         11               12.5                22.5                         -10.0       0.361
+             midbrain          9               17.5                82.5                         -60.0       0.004
+   other / unassigned          5               17.5                67.5                         -40.0       0.062
+             thalamus         13               22.5                52.5                           0.0       0.369
+        visual cortex         28               12.5                52.5                         -45.0       0.000
+{
+ "units_with_both": 18922,
+ "flashes_per_session_median": 150.0,
+ "overlap_rate_adjusted": [
+  {
+   "region": "hippocampal formation",
+   "n_units": 4940,
+   "n_animals": 26,
+   "overlap_OR_rate_adjusted": 1.5835471205816432,
+   "ci_low": 0.838802613337782,
+   "ci_high": 2.989525119770466,
+   "p": 0.15625174384776572
+  },
+  {
+   "region": "midbrain",
+   "n_units": 897,
+   "n_animals": 23,
+   "overlap_OR_rate_adjusted": 3.289314203325946,
+   "ci_low": 2.31814727673461,
+   "ci_high": 4.6673427684208635,
+   "p": 2.5688657842457864e-11
+  },
+  {
+   "region": "other / unassigned",
+   "n_units": 1410,
+   "n_animals": 11,
+   "overlap_OR_rate_adjusted": 5.624826646216421,
+   "ci_low": 2.12953699041251,
+   "ci_high": 14.857067495154231,
+   "p": 0.0004915686748267749
+  },
+  {
+   "region": "thalamus",
+   "n_units": 2828,
+   "n_animals": 24,
+   "overlap_OR_rate_adjusted": 2.60778635635996,
+   "ci_low": 2.072343860852843,
+   "ci_high": 3.2815739747063457,
+   "p": 2.9759570473550995e-16
+  },
+  {
+   "region": "visual cortex",
+   "n_units": 8847,
+   "n_animals": 28,
+   "overlap_OR_rate_adjusted": 2.119870373594897,
+   "ci_low": 1.760907722678968,
+   "ci_high": 2.552007889435922,
+   "p": 2.061191877567526e-15
+  }
+ ],
+ "opto_suppressed_units": 4075,
+ "frac_opto_suppressed_also_flash_suppressed": 0.2952147239263804,
+ "frac_flash_suppressed_among_non_opto_suppressed": 0.1036573045059608,
+ "by_region_shared": {
+  "hippocampal formation": 0.02640518367115199,
+  "midbrain": 0.27170751919915803,
+  "other / unassigned": 0.40210556029111627,
+  "thalamus": 0.32392967139315526,
+  "visual cortex": 0.31926361972323525
+ }
+}

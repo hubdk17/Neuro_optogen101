@@ -1,0 +1,158 @@
+{
+  "performance": [
+    {
+      "label_source": "calibrated (lfdr<0.05, artifacts excluded)",
+      "task": "PV vs non-PV",
+      "n_train_units": 348,
+      "own_n": 348,
+      "own_balanced_accuracy": 0.6046415456380058,
+      "own_auc": 0.5986038971780197,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.6046415456380058,
+      "common_test_auc": 0.5986038971780197
+    },
+    {
+      "label_source": "calibrated (lfdr<0.05, artifacts excluded)",
+      "task": "3-class Cre",
+      "n_train_units": 348,
+      "own_n": 348,
+      "own_balanced_accuracy": 0.37367239334998364,
+      "own_auc": 0.5418041977123765,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.37367239334998364,
+      "common_test_auc": 0.5418041977123765
+    },
+    {
+      "label_source": "operational heuristic (original pipeline)",
+      "task": "PV vs non-PV",
+      "n_train_units": 264,
+      "own_n": 264,
+      "own_balanced_accuracy": 0.6473913792113872,
+      "own_auc": 0.717212879527062,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.6396764482085553,
+      "common_test_auc": 0.6848182088860952
+    },
+    {
+      "label_source": "operational heuristic (original pipeline)",
+      "task": "3-class Cre",
+      "n_train_units": 264,
+      "own_n": 264,
+      "own_balanced_accuracy": 0.4431052185170305,
+      "own_auc": 0.6255293510645632,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.4282398647796362,
+      "common_test_auc": 0.6288034986797268
+    },
+    {
+      "label_source": "Allen/Lakunina (>=4/5 pulses, rel>=0.3, lat<8)",
+      "task": "PV vs non-PV",
+      "n_train_units": 124,
+      "own_n": 124,
+      "own_balanced_accuracy": 0.525578231292517,
+      "own_auc": 0.5842176870748299,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.5335792503391008,
+      "common_test_auc": 0.6265259536176266
+    },
+    {
+      "label_source": "Allen/Lakunina (>=4/5 pulses, rel>=0.3, lat<8)",
+      "task": "3-class Cre",
+      "n_train_units": 124,
+      "own_n": 124,
+      "own_balanced_accuracy": 0.3534282133906194,
+      "own_auc": 0.5315129736104968,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.3905244834632559,
+      "common_test_auc": 0.515377017949741
+    },
+    {
+      "label_source": "reliability>=0.3 & modulation>2",
+      "task": "PV vs non-PV",
+      "n_train_units": 265,
+      "own_n": 265,
+      "own_balanced_accuracy": 0.6640749601275917,
+      "own_auc": 0.7207792207792209,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.6532570218678665,
+      "common_test_auc": 0.6869686042280081
+    },
+    {
+      "label_source": "reliability>=0.3 & modulation>2",
+      "task": "3-class Cre",
+      "n_train_units": 265,
+      "own_n": 265,
+      "own_balanced_accuracy": 0.4437799043062201,
+      "own_auc": 0.6293332963839386,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.4282398647796362,
+      "common_test_auc": 0.6310902542514051
+    },
+    {
+      "label_source": "SALT p<0.01",
+      "task": "PV vs non-PV",
+      "n_train_units": 450,
+      "own_n": 450,
+      "own_balanced_accuracy": 0.492620809317724,
+      "own_auc": 0.517939410861371,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.49784960465808714,
+      "common_test_auc": 0.526582194726569
+    },
+    {
+      "label_source": "SALT p<0.01",
+      "task": "3-class Cre",
+      "n_train_units": 450,
+      "own_n": 450,
+      "own_balanced_accuracy": 0.26889827675935646,
+      "own_auc": 0.4604823335561952,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.2836900647390317,
+      "common_test_auc": 0.4602101362688947
+    },
+    {
+      "label_source": "ZETA [1,51) ms BH",
+      "task": "PV vs non-PV",
+      "n_train_units": 1077,
+      "own_n": 1077,
+      "own_balanced_accuracy": 0.5006029288354968,
+      "own_auc": 0.22726069962425627,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.5,
+      "common_test_auc": 0.35865286002580476
+    },
+    {
+      "label_source": "ZETA [1,51) ms BH",
+      "task": "3-class Cre",
+      "n_train_units": 1077,
+      "own_n": 1077,
+      "own_balanced_accuracy": 0.20704763535729684,
+      "own_auc": 0.2339885802698206,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.22923611786852538,
+      "common_test_auc": 0.2604928358745396
+    },
+    {
+      "label_source": "latency<8 ms alone",
+      "task": "PV vs non-PV",
+      "n_train_units": 13343,
+      "own_n": 13343,
+      "own_balanced_accuracy": 0.5,
+      "own_auc": 0.1331431307469761,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.5,
+      "common_test_auc": 0.35031594270023486
+    },
+    {
+      "label_source": "latency<8 ms alone",
+      "task": "3-class Cre",
+      "n_train_units": 13343,
+      "own_n": 13343,
+      "own_balanced_accuracy": 0.32379747258691216,
+      "own_auc": 0.25593675158294144,
+      "common_test_n": 348,
+      "common_test_balanced_accuracy": 0.33322461404653186,
+      "common_test_auc": 0.3439415119518426
+    }
+  ]
+}
