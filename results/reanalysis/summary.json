@@ -43,10 +43,10 @@
   "n_exact_BH_q05": 396,
   "sham_fpr_exact_p05": 0.04026835043409629,
   "units_matched_to_repo": 18316,
-  "zeta_sham_fpr_p05": 0.023520126282557223,
-  "zeta_real_p05": 0.039884240989213365,
-  "zeta50_sham_fpr_p05": 0.0303078137332281,
-  "zeta50_real_p05": 0.16258879242304658,
+  "zeta_sham_fpr_p05": 0.023730597211260196,
+  "zeta_real_p05": 0.03962115232833465,
+  "zeta50_sham_fpr_p05": 0.030255196001052354,
+  "zeta50_real_p05": 0.1620099973691134,
   "zeta50_sham_BH_q05": 0,
   "rep5_driven_p05": 0.92,
   "rep5_null_p05": 0.034926470588235295,
@@ -149,7 +149,6 @@
   },
   "suppression_perm_p": 0.08929553522323884,
   "suppression_detectable_perm_p": 0.050047497625118745,
-  "repo_prolonged_suppression_frac": 0.3619047619047619,
   "suppressed_visctx_by_cre": {
     "Pvalb-IRES-Cre": [
       0.4062615396259051,
