@@ -96,4 +96,8 @@ Montijn, J. S., Seignette, K., Howlett, M. H., et al. (2021). A parameter-free s
 
 ## Legacy code
 
-`src/*.py` (outside `src/reanalysis/`), `scripts/run_*ml*`, the leakage audits and related `results/` folders belong to an earlier machine-learning layer that predicts the operational label from the same features it was defined by. They are not part of the current pipeline, have not been re-audited line by line, and need `requirements-legacy.txt`.
+`src/*.py` (outside `src/reanalysis/`), `scripts/run_*ml*`, the leakage audits and related `results/` folders belong to an earlier machine-learning layer that predicts the operational label from the same features it was defined by. They are not part of the current pipeline and need `requirements-legacy.txt`. This layer has been audited line by line (see the second part of [`archive/README.md`](archive/README.md)):
+
+* The per-unit features in `results/ml_final/master_ml_dataset_28spec.parquet` are computed from the NWB files. They match the independent re-extraction unit by unit (`tests/test_legacy_master_table.py`).
+* Scripts and reports whose numbers were typed in, filled with constants, or relabelled were moved to `archive/`. These include the literal cross-validation table, the constant-filled sham controls, the `*_28spec` tables (2-specimen results relabelled), and the typed leakage-audit verdicts.
+* The remaining legacy code computes its outputs. Its known defects are listed with file:line in `archive/README.md`.

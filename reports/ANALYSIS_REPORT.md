@@ -119,7 +119,7 @@ Legend: **S** = computed from spike times; **D** = derived from S-features; **R*
 | Operational label | Conjunctive thresholds (latency < 8, reliability ≥ 0.30, MR > 2, p < 0.05, d > 0.1) | `src/labeling.py` | D | No multiplicity control. |
 | Evidence score | Weighted sum of 5 squashed sub-scores × artifact gate | `scripts/compute_evidence_scores.py` | D | Arbitrary weights; `s_S ≤ 0.731` because of the p floor; `trial_var` hard-codes n = 45. |
 | ML benchmark | 9 classifiers predicting the operational label, with LOSO/LOGO | `src/models.py`, `src/validation.py`, `scripts/run_full_specimen_ml_benchmark.py` | D | Circular target, which the repo acknowledges. |
-| SALT / ZETA | Custom functions | `src/responsiveness_methods.py` | **N inputs** | Run on `rng.normal(median, sd)` pseudo-latencies (`stage1_methods.py:116`). |
+| SALT / ZETA | Custom functions | `archive/src/responsiveness_methods.py` | **N inputs** | Run on `rng.normal(median, sd)` pseudo-latencies (`stage1_methods.py:116`). |
 | Latency multimodality | 1-D GMM with BIC on median latencies | `stage1_methods.py` | D | Data bounded to [1, 9] ms; Section 5.7. |
 | W1–W5 windows | Rates in 0–8 / 8–20 / 20–50 / 50–200 / 200–500 ms | `stage2_phenotypes.py:63-92` | **R** | Never computed from spikes, even though the PSTH window only extends to +30 ms. |
 | Archetype GMM (k = 5) | GMM on clipped log-ratios of W1–W5 | `run_rigorous_neuroscience_reanalysis.py` | **R** | Recovers the generating rules. |

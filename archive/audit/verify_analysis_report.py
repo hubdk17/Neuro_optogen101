@@ -19,7 +19,7 @@ Sections:
  8. Adaptation-index pathologies
  9. Cluster/Cre cross-tabulation of the GMM archetypes
 10. Spatial "conduction velocity" arithmetic
-11. Null calibration of src/responsiveness_methods.py (SALT-/ZETA-like tests)
+11. Null calibration of archive/src/responsiveness_methods.py (SALT-/ZETA-like tests)
 """
 
 import argparse
@@ -31,7 +31,7 @@ import pandas as pd
 import scipy.stats as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from src.responsiveness_methods import compute_salt, compute_zeta  # noqa: E402
+from archive.src.responsiveness_methods import compute_salt, compute_zeta  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 TABLE = ROOT / "archive/results/neuroscience_study/tables/revised/master_neuroscience_phenotypes_revised.parquet"

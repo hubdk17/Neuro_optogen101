@@ -54,3 +54,112 @@ Line numbers refer to the files as they sit in this directory.
 ## Historical note on the superseded "SALT" and "ZETA" columns
 
 When the spike-based reanalysis was first run, the archived method columns were compared with properly computed tests on the same units. The archived "SALT" positives (711 units) overlapped the calibrated light-activated set (350 units) in 40 units, and the archived "ZETA" positives (2,139) in 204, compared with 331 for a faithful SALT port. Those comparison numbers are recorded in `reports/REANALYSIS_RESULTS.md` §2. The live pipeline no longer reads the archived columns.
+
+---
+
+# Audit of the legacy ML / feature-extraction layer
+
+This section covers the older machine-learning layer: `src/*.py` outside `src/reanalysis/`, the `scripts/run_*`, `scripts/build_*`, leakage-audit and figure scripts, and their outputs in `results/` and `reports/`. Every file was read line by line. For each output, the question was whether its numbers are computed from the NWB-derived features or are simulated values, typed-in constants or fallbacks that stand in for a computation.
+
+**Rule applied.** A script was archived when its headline output is not computed. That covers typed metric literals, negative controls whose inputs are filled with constants, results relabelled as something they are not, and typed audit verdicts claiming checks that were never run. All of that script's outputs were archived with it. A script that does compute its results but contains an isolated typed constant was kept. Only the affected output was archived, and the defect is listed under "Retained with defects" below. Prose reports that restate archived numbers or typed verdicts were archived too.
+
+Line numbers refer to the files as they sit now (archived files in this directory, retained files at their live paths).
+
+## How the per-unit features were verified
+
+The per-unit feature tables are data-derived. `results/ml_final/master_ml_dataset_28spec.parquet` (18,316 units, 28 sessions) was produced from the NWB files by `scripts/batch_download_and_process_cohort.py` → `src/spike_alignment.py` → `src/feature_extraction.py` → `src/labeling.py`. It was checked unit by unit against the independent re-extraction in `results/reanalysis/tables/unit_results.parquet`:
+
+- every unit matches and sits in the same session;
+- median first-spike latency agrees (r = 0.99999998, median |Δ| 0.0002 ms, i.e. rounding);
+- evoked spike counts in [1, 9) ms agree (r ≈ 1.0);
+- trial reliability agrees to the stored 3-decimal rounding;
+- trial counts agree for 99.5% of units;
+- `modulation_ratio` follows from the stored rates;
+- re-running `src/labeling.py` on the stored features reproduces all 18,316 `reference_class` labels.
+
+`tests/test_legacy_master_table.py` pins all of these checks. The 2-session tables (`results/tables/unit_features*.csv`, `results/unit_features.parquet`, `results/cohort/unit_feature_table.csv`, `results/ml/master_ml_dataset.parquet`) match the master table exactly on every shared unit. `scripts/reanalysis/03_population_analysis.py` therefore keeps reading the master table, and only the data-derived columns listed in that test.
+
+The master table also carries columns that are **not** data-derived. Do not use them:
+
+| Column(s) | Mechanism | Source |
+|---|---|---|
+| `optical_intensity` | Typed string `"1.0, 2.5, 4.0 mW calibrated"` for every unit. The light levels actually recorded are 1.3/1.7/2.0 in 11 sessions and 0.6375/0.7375/0.82 in 2 (see `response_at_each_light_level`). | `scripts/batch_download_and_process_cohort.py:172`, `scripts/build_master_ml_dataset.py:75` |
+| `protocol` | Typed string. | `batch_download_and_process_cohort.py:166` |
+| `evoked_spike_count`, `baseline_spike_count` | Rate × **0.010 s** × n_trials. The windows are 0.008 s and 0.015 s, so both counts are wrong. | `batch_download_and_process_cohort.py:173–174` |
+| `label_confidence` | Typed constants per branch (0.0, 0.30, 0.65), or clipped ad-hoc formulas. Not a probability. | `src/labeling.py:58, 62, 77, 93, 107` |
+| `evidence_score`, `subscore_*`, `composite_uncertainty`, `trial_sampling_variance`, `evidence_regime`, … | Hand-weighted formula (see `compute_evidence_scores.py` below). The variance uses a typed n = 45 although 46% of units have 75 or 151 trials. | `scripts/compute_evidence_scores.py:61–66, 80, 96` |
+
+## Archived code
+
+| File | Mechanism | Lines |
+|---|---|---|
+| `scripts/run_leakage_and_crossval_audit.py` | Every metric of the four-regime "cross-validation" table is a **dictionary literal** (e.g. `"balanced_accuracy": 0.8205`, `"ece": 0.0096`). The specimen-held-out row is a copy of the session row. The inflation figures are arithmetic on further literals (`random_bal_acc = 0.8205`, `heldout_bal_acc = 0.5625`, …). Figure 6 panel D bars are typed values, and the "+45.9% Inflation" annotation is typed. Table 5 is read but never used. Nothing is computed. | 43–108 (88, 104); 116–125; 202–207; 232–239; 40 |
+| `scripts/run_sham_and_artifact_audit.py` | The "matched sham control" never looks at sham-window spikes. Sham **latency is the constant 4.0 ms** whenever a unit has any sham spike, so the < 8 ms criterion always passes. The sham p-value is invented as `1 − 2·reliability` clipped to [0.01, 1]. The sham rate is reliability ÷ 0.008 (a fraction treated as a count). Jitter sub-score is the constant 0.20. The artifact fraction is a typed 0.15 for fast reliable units. (Outputs were already archived as `results/sham_control*.csv`.) | 44; 69; 73; 77; 103 |
+| `scripts/run_scientific_audit.py` | The negative control feeds the classifiers **constant-filled sham features**: latency 4.0 ms, SD 2.0, IQR 2.5, CV 0.5, Fano 1.0, intensity slope 0.0, adaptation 0.0. This produced the "0.0% false-positive rate" claim. The "heuristic as a model" baseline predicts its own labels, with probabilities taken from the typed `label_confidence`. (The LOFFO ablation and the label permutation in this file do run on data, but their only output is the table below.) | 260–280; 100–118 (107, 115) |
+| `scripts/run_feature_ablation_analysis.py` | Reads the archived LOFFO table. Figure 7 draws a typed baseline (`0.7789`) and typed findings ("Critical Anchor (−22.0%)", "Noise Distractor (+4.2%)"). | 31; 76; 97–98 |
+| `scripts/build_28spec_tables_and_manifest.py` | Produces the `*_28spec` tables by **copying the 2-specimen result files and relabelling them as 28-specimen results** (`cohort_scope` string). The per-session table is a copy of the per-specimen table. Typed fallback values for the evidence-score robustness table. The `full_28_execution_manifest.json` is a typed dictionary: package versions, cohort counts, transfer speeds, and 21 `stop_conditions` set to `True`, including "sham_negative_control_complete" and "secondary_stimulation_validation_complete". Fallback git hash `"fcc4e78"`. | 42–107 (43, 86); 114–127; 134; 139–209 |
+| `scripts/run_leakage_audit_data_dependencies.py` | Writes **typed audit verdicts** as Markdown and CSV. It claims inner-CV hyperparameter selection ("Inner 3-fold Stratified CV") that no benchmark script performs, and a `nested_cv_audit.csv` of typed rows. It claims "Cross-Specimen Edge Leakage: PASS — graphs are constructed strictly per session", but `run_full_specimen_ml_benchmark.py:434` builds one kNN graph in CCF space over all 27 training animals. It cites a non-existent `src/graph_benchmark.py`. It states the sham window as [−17, −9] ms (the code uses [−18, −10]). It types "PASS" for Platt scaling and threshold optimisation, which are not used. The GNN numbers at 750–751 are transcribed from a CSV. The per-column dependency table is typed descriptions. | 523; 600–615; 652–660; 674–686; 715; 739; 750–751; 38–230 |
+| `scripts/update_cohort_summary_28spec.py` | The Markdown summary **types headline counts that contradict the table it reads**: 258 positives / 15,622 negatives / 2,436 insufficient, against 260 / 15,565 / 2,269 in the master table. It also types storage figures (62.77 GB, 425.18 GB free), wrong analysis windows ("−50 to 0 ms", "0 to 10 ms") and "0 network timeouts, 0 corrupted files". The "insufficient" count is computed as `operational_label == −1`, which is always 0. `data_status` is set to "Empirically Processed & Verified" for every row. | 74–78; 112–114; 26, 50; 34 |
+| `scripts/build_full_28_cohort_report.py` | The Markdown report types the Cre-line unit table, the per-session positive counts, the transfer-speed narrative and the "143 units, 15.13%" QC count instead of computing them. It asserts "zero information leakage into … hyperparameter selection". Session 746083955 is hard-coded as "In-Progress". | 136–139; 162–176; 183; 187; 81 |
+| `src/responsiveness_methods.py` | Not SALT and not ZETA. `compute_salt` compares the latency histogram with a **parametric exponential "baseline" with a 0.1 Hz rate floor**, and its null is drawn from that model (`rng.exponential`, with a `rng.uniform` fallback) rather than from recorded baseline windows. `compute_zeta` is a one-sample KS-type deviation of first-spike latencies from uniform on [0, 10] ms, with a normal p-value. `p_value` and `effect_size` arguments are accepted and unused. In `archive/audit/verify_analysis_report.py` §11 on Poisson null data, the "ZETA" false-positive rate is 0.17–0.65 at nominal 0.05, and "SALT" is 0.000. Its only user was the archived stage-1 script. | 67–70; 80, 83; 133–165 (148, 159); 105–106 |
+
+`archive/audit/verify_analysis_report.py` and `archive/scripts/run_neuroscience_study_stage1_methods.py` now import it as `archive.src.responsiveness_methods`.
+
+## Archived outputs
+
+| Path | Produced by / reason |
+|---|---|
+| `results/cross_validation.csv` | `run_leakage_and_crossval_audit.py` (all literals) |
+| `results/SCIENTIFIC_AUDIT.md` | Hand-written. Reports the constant-filled sham control ("0.0% false-positive rate", §6, line 239) and the session-721123822 probe-fold analysis as an audit verdict. |
+| `results/tables/Table_audit_loffo_ablation.csv`, `results/feature_ablation.csv` | `run_scientific_audit.py`, `run_feature_ablation_analysis.py` |
+| `results/computational_benchmark.csv` | `archive/scripts/generate_primary_figures_and_benchmarks.py` (archived in the first pass; output missed) |
+| `results/ml_final/*_28spec.csv` (9 files: model comparison, per-specimen, per-session, leakage, label circularity, feature/graph ablation, graph shuffle, evidence robustness) | `build_28spec_tables_and_manifest.py`. These are 2-specimen results (2 folds; 26 of 28 specimens NaN) labelled as 28-specimen. The real 28-specimen benchmark is in the same folder without the suffix. |
+| `results/validation/full_28_execution_manifest.json` | `build_28spec_tables_and_manifest.py` (typed) |
+| `results/leakage_audit_28spec/{label_dependency_graph, temporal_window_audit, preprocessing_leakage_audit, hyperparameter_selection_audit, gnn_leakage_audit}.md`, `nested_cv_audit.csv`, `feature_dependency_audit.csv`, `feature_redundancy_report.csv`, `duplicate_unit_audit.csv` | `run_leakage_audit_data_dependencies.py` |
+| `results/leakage_audit_28spec/FINAL_LEAKAGE_AUDIT_REPORT.md` | Hand-written. Q1 answers "no hyperparameter leakage / no graph edge leakage" from the typed audits above. |
+| `results/leakage_audit_28spec/figures/fig_audit8_graph_leakage.{png,pdf}` | `scripts/generate_leakage_audit_figures.py:246–249`. Each bar is `.values[0]`, the **first fold** (specimen 707296982; e.g. XGBoost AUPRC 1.0, GCN 0.232), labelled "Held-Out AUPRC (Specimen LOSO)". The typed fallbacks (0.9958, 0.2489, 0.6003, 0.9161) are the cohort means that should have been plotted. |
+| `results/ml_final/hyperparameter_log.csv` | `scripts/run_full_specimen_ml_benchmark.py:905–915`. Typed rows claim "Nested CV L2 regularization" and "Grid restricted inside inner fold"; the models are fitted once with fixed settings (`:271–299`). |
+| `results/ml_final/final_ml_summary.md`, `final_ml_summary_28spec.md` | Hand-written. Quote the constant-filled sham control ("0 / 945 false positives") and stale 2-specimen numbers. |
+| `results/validation/data_provenance.md` | `scripts/run_full_ml_and_leakage_suite.py:534–588`. Typed "VERIFIED CLEAN" verdicts, a hyperparameter-selection step that does not exist (558), and the literals 0.5625 / 0.5494 from the archived cross-validation table as the held-out baseline (582–584). The run itself gives 0.7292. |
+| `results/cohort/full_28_cohort_report.md`, `results/cohort/full_28_cohort_summary.csv` | `update_cohort_summary_28spec.py` / `build_full_28_cohort_report.py` |
+| `results/final/full_cohort_analysis_summary.md` | Hand-written. Reports the archived secondary-stimulation latencies (5.06 / 5.16 ms), an adaptation index of 0.42, and the sham "0 / 945". |
+| `reports/leakage_audit.md`, `reports/robustness_audit.md`, `reports/statistical_audit.md`, `reports/tcbb_readiness.md` | Hand-written write-ups of this layer. They repeat the literal cross-validation numbers (0.8205 → 0.5625, "+45.87%"), the sham "0.00% false-positive rate", and the archived secondary-stimulation results. |
+
+## Retained: computed from data
+
+These scripts compute their outputs from the feature tables. Their results are real, but note the caveat in the root `README.md`: the classifiers predict the operational label from the same features it is defined by, so the near-perfect scores reconstruct a threshold rule. They do not identify cells.
+
+`src/feature_extraction.py`, `src/spike_alignment.py`, `src/artifact_control.py`, `src/labeling.py` (labels; not `label_confidence`), `src/statistics.py`, `src/models.py`, `src/validation.py`, `src/tables.py`, `src/visualization.py`, `src/pipeline.py`, `scripts/batch_download_and_process_cohort.py`, `scripts/run_ml_experiments.py`, `scripts/run_cross_session_audit.py`, `scripts/run_full_ml_and_leakage_suite.py`, `scripts/run_full_specimen_ml_benchmark.py`, `scripts/run_leakage_audit_experiments.py`, `scripts/finish_leakage_audit_experiments.py`, `scripts/run_threshold_sensitivity.py`, `scripts/run_full_threshold_analysis.py`, `scripts/compute_evidence_scores.py`, `scripts/run_evidence_score_analysis.py`, `scripts/generate_ml_figures.py`, `scripts/generate_leakage_audit_figures.py`, and the metadata builders (`build_full_28_manifest_and_access.py`, `build_full_cohort_tables.py`, `build_cohort_inventory.py`, `build_data_access_status.py`, `build_master_ml_dataset.py`). Their outputs: `results/ml/`, `results/ml_final/` (unsuffixed), the remaining `results/leakage_audit_28spec/`, `results/threshold_sensitivity*`, `results/evidence*`, `results/uncertainty_analysis.csv`, `results/tables/`, `results/cohort/`, and `results/validation/leakage_audit.csv`.
+
+`results/cohort/full_28_specimen_manifest.csv` is read by `scripts/reanalysis/01` and `02` for session, specimen, Cre line, sex and age only. Those columns match Allen's `data/metadata/sessions.csv` (tested). Its status columns are bookkeeping from the original machine (see below).
+
+## Retained with defects
+
+These are typed constants or fallbacks in otherwise computed code. None of them affects an output the current pipeline reads. Fix them before reusing the code.
+
+| File:line | Defect |
+|---|---|
+| `src/labeling.py:58, 62, 77, 93, 107` | `label_confidence` is typed per branch; it is not a calibrated probability. |
+| `src/opto_trials.py:84, 104` | If the stimulus table lacks a stop column or a level column, `stop = start + 10 ms` and `level = 1.0` are substituted silently. It did not fire for this cohort: the levels in the master table come from the NWB files. |
+| `src/session_discovery.py:135–138` | `has_10ms_pulse`, `has_5ms_pulse`, `has_2p5ms_train`, `has_1s_ramp` are set to `is_opto` (asserted, not read from the stimulus table). |
+| `src/data_access.py:131–136` | `estimate_session_storage` returns typed sizes (only logged). |
+| `src/feature_extraction.py:62–85` | Units with zero trials get placeholder zeros, with p = 1. They are labelled "insufficient evidence" (`labeling.py:57`). |
+| `scripts/batch_download_and_process_cohort.py:166, 172–174, 281, 288` | Typed master-table columns (see the table above). The status strings "Verified HDF5" / QC "Passed" are written without a checksum or QC computation. |
+| `scripts/build_master_ml_dataset.py:75, 78–79, 85` | Same typed `optical_intensity` and 10-ms spike counts. `uncertainty_score = 0.0` fallback (the 2-session table has it from the evidence script). |
+| `scripts/build_full_28_manifest_and_access.py:115–125` | "Verified (Valid HDF5/NWB)" means "file > 100 MB". "Passed Frozen QC" means "session present in master table". |
+| `scripts/build_full_cohort_tables.py:134–136`, `scripts/build_cohort_inventory.py:89–90` | Typed protocol and light-level strings (wrong levels for 13 of 28 sessions). |
+| `scripts/build_data_access_status.py:16–` | Typed S3 file sizes. |
+| `scripts/compute_evidence_scores.py:61–66, 80, 96, 50, 54, 58` (and `run_evidence_score_analysis.py:53, 56, 59, 65, 74`) | Weights are typed, although the comment says "based on LOFFO ablation findings". The trial-sampling variance uses a typed n = 45 instead of `n_trials` (46% of units have 75 or 151). The uncertainty is normalised by a typed 0.0055. Missing latency/jitter become 25 ms / 10 ms. Artifact gating reads an `artifact_fraction` column that no table has, so the gate is always 1. |
+| `scripts/run_full_ml_and_leakage_suite.py:406` | `label_circularity.csv` column `circularity_status` types "ZERO CIRCULARITY" for Setting B. Setting B keeps `evoked_rate` and `baseline_rate`, from which `modulation_ratio = evoked/(baseline+1)` is exact. |
+| `scripts/run_full_ml_and_leakage_suite.py:519–528` | The "Session vs Specimen" leakage row is hard-wired to 0. The numbers are correct here only because every specimen has one session. |
+| `scripts/run_full_ml_and_leakage_suite.py:534–588`, `scripts/run_full_specimen_ml_benchmark.py:905–917`, `scripts/generate_leakage_audit_figures.py:246–249` | Write the archived outputs listed above. Re-running these scripts recreates those files. |
+| `scripts/run_full_specimen_ml_benchmark.py:472–474, 890` | "Session LOSO" is a relabelled copy of specimen LOSO. It is correct here only because sessions and specimens are 1:1. |
+| `scripts/run_full_specimen_ml_benchmark.py:434, 536, 622, 791` | The GNN training graph is one kNN graph in CCF space across all 27 training animals, so edges join different mice. The docstring says "strict within-session". |
+| `scripts/run_full_specimen_ml_benchmark.py:437` | The progress line says "Fold n/2" (left over from the 2-specimen run). |
+| `scripts/run_cross_session_audit.py:192–206` | The specimen-held-out row of Table 5 is a copy of the session row. That is correct only because the 2 sessions are 2 specimens. |
+| `scripts/generate_ml_figures.py:99–105` | Fig. ML2 shows 2 of 28 specimens, with typed legend counts (444/7, 501/1). The counts are correct. |
+| `scripts/run_threshold_sensitivity.py:206–207` | Typed specimen IDs in the legend (correct for the 2-session input). |
+
+## Not audited here
+
+`scripts/build_literature_audit.py`, `scripts/literature_survey.py` and `results/literature/` hold typed literature summaries, not data analysis. Several entries look wrong, for example the title, venue and cell counts attributed to Lima et al. 2009. They should be checked against the papers before any use. `results/validation/frozen_analysis_specification.md` is a methods specification and contains no results.

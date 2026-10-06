@@ -23,7 +23,7 @@ import numpy as np
 import pandas as pd
 import scipy.stats as stats
 
-from src.responsiveness_methods import compute_salt, compute_zeta
+from archive.src.responsiveness_methods import compute_salt, compute_zeta
 
 logging.basicConfig(
     level=logging.INFO,
