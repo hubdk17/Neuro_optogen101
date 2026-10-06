@@ -30,18 +30,50 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
 log = logging.getLogger("extract")
 
 
-def download(sid: int, nwb_dir: Path) -> Path:
+def _content_length(url: str) -> int:
+    r = subprocess.run(["curl", "-sSI", "--fail", url], capture_output=True, text=True)
+    for line in r.stdout.splitlines():
+        if line.lower().startswith("content-length:"):
+            return int(line.split(":")[1])
+    raise RuntimeError(f"no content-length for {url}")
+
+
+def download(sid: int, nwb_dir: Path, n_streams: int = 8) -> Path:
+    """Segmented parallel download (S3 throttles single connections); each segment
+    and the assembled file are checked against Content-Length."""
     out = nwb_dir / f"session_{sid}.nwb"
-    if out.exists() and out.stat().st_size > 1e8:
+    url = URL.format(sid=sid)
+    size = _content_length(url)
+    if out.exists() and out.stat().st_size == size:
         return out
-    tmp = out.with_suffix(".part")
+    seg = -(-size // n_streams)
+    parts = [nwb_dir / f"session_{sid}.part{i}" for i in range(n_streams)]
+    ranges = [(i * seg, min(size, (i + 1) * seg) - 1) for i in range(n_streams)]
     for attempt in range(5):
-        r = subprocess.run(["curl", "-sS", "--fail", "-o", str(tmp), URL.format(sid=sid)])
-        if r.returncode == 0:
-            tmp.rename(out)
-            return out
-        time.sleep(2 ** attempt)
-    raise RuntimeError(f"download failed for {sid}")
+        todo = [i for i, (a, b) in enumerate(ranges) if not (parts[i].exists() and parts[i].stat().st_size == b - a + 1)]
+        if not todo:
+            break
+        procs = [subprocess.Popen(["curl", "-sS", "--fail", "-r", f"{ranges[i][0]}-{ranges[i][1]}", "-o", str(parts[i]), url])
+                 for i in todo]
+        for pr in procs:
+            pr.wait()
+        time.sleep(2 ** attempt if attempt else 0)
+    if any(not (parts[i].exists() and parts[i].stat().st_size == b - a + 1) for i, (a, b) in enumerate(ranges)):
+        raise RuntimeError(f"download failed for {sid}")
+    tmp = out.with_suffix(".tmp")
+    with open(tmp, "wb") as fo:
+        for pth in parts:
+            with open(pth, "rb") as fi:
+                while True:
+                    buf = fi.read(1 << 24)
+                    if not buf:
+                        break
+                    fo.write(buf)
+            pth.unlink()
+    if tmp.stat().st_size != size:
+        raise RuntimeError(f"size mismatch for {sid}")
+    tmp.rename(out)
+    return out
 
 
 def main():

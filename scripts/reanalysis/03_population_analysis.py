@@ -92,8 +92,8 @@ def main():
     salt_p = df["p10_salt_p"].clip(lower=1 / 1771).values
     df["salt_sig"] = df["p10_salt_p"] < 0.01
     df["salt_q"] = bh(salt_p)
-    df["zeta_q"] = bh(df["zeta_p"].values)
-    df["zeta_sig_pos"] = (df["zeta_q"] < 0.05) & (df["zeta_sign"] > 0)
+    df["zeta_q"] = bh(df["zeta9_p"].values)
+    df["zeta_sig_pos"] = (df["zeta_q"] < 0.05) & (df["zeta9_sign"] > 0)
     df["zeta50_q"] = bh(df["zeta50_p"].values)
     df["zeta50_sig"] = df["zeta50_q"] < 0.05
     # Operational heuristic of the original pipeline, recomputed from its data-derived
@@ -126,8 +126,8 @@ def main():
                          **{f"n_{c.split('-')[0]}": int(m[df.cre_line.values == c].sum()) for c in CRES}))
     mc = pd.DataFrame(rows)
     mc.to_csv(T / "method_comparison.csv", index=False)
-    S["zeta_sham_fpr_p05"] = float(np.mean(df.zeta_sham_p < 0.05))
-    S["zeta_real_p05"] = float(np.mean(df.zeta_p < 0.05))
+    S["zeta_sham_fpr_p05"] = float(np.mean(df.zeta9_sham_p < 0.05))
+    S["zeta_real_p05"] = float(np.mean(df.zeta9_p < 0.05))
     S["zeta50_sham_fpr_p05"] = float(np.mean(df.zeta50_sham_p < 0.05))
     S["zeta50_real_p05"] = float(np.mean(df.zeta50_p < 0.05))
     S["zeta50_sham_BH_q05"] = int((bh(df.zeta50_sham_p.values) < 0.05).sum())

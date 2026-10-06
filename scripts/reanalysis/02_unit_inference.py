@@ -87,8 +87,9 @@ def pulse_block(rel, ep, trials, prefix, fit_model=True):
     return out, (r, ti, first)
 
 
-def zeta_from_aligned(rel, ep, onsets, trials, shift=0.0, start=0.001, dur=0.050, n_res=250):
-    """Reference ZETA (zetapy) on absolute spike times rebuilt from the aligned record."""
+def zeta_from_aligned(rel, ep, onsets, trials, shift=0.0, start=0.001, dur=0.050, n_res=250, seed=0):
+    """Reference ZETA (zetapy) on absolute spike times rebuilt from the aligned record.
+    zetapy resamples with NumPy's global RNG, so it is seeded per call for reproducibility."""
     import logging
     import warnings
     from zetapy import zetatest
@@ -97,6 +98,7 @@ def zeta_from_aligned(rel, ep, onsets, trials, shift=0.0, start=0.001, dur=0.050
     s = np.sort(onsets[ep] + rel)
     s = np.unique(s)
     ev = np.sort(onsets[trials]) + start + shift
+    np.random.seed(seed % (2 ** 32))
     try:
         out = zetatest(s, ev, max_duration=dur, resampling_number=n_res)
         d = out[1]
@@ -133,8 +135,12 @@ def process(path):
         row.update(b10)
         if len(p10):
             on = opto["start_time"].values
-            row["zeta50_p"], row["zeta50_sign"] = zeta_from_aligned(rel, ep, on, p10)
-            row["zeta50_sham_p"], row["zeta50_sham_sign"] = zeta_from_aligned(rel, ep, on, p10, shift=-0.5)
+            row["zeta50_p"], row["zeta50_sign"] = zeta_from_aligned(rel, ep, on, p10, seed=uid)
+            row["zeta50_sham_p"], row["zeta50_sham_sign"] = zeta_from_aligned(rel, ep, on, p10, shift=-0.5, seed=uid + 1)
+            # [1, 9) ms window, recomputed here with a fixed seed (the extraction-time
+            # zeta_p / zeta_sham_p columns are unseeded and kept only as legacy fields)
+            row["zeta9_p"], row["zeta9_sign"] = zeta_from_aligned(rel, ep, on, p10, dur=0.008, seed=uid + 2)
+            row["zeta9_sham_p"], row["zeta9_sham_sign"] = zeta_from_aligned(rel, ep, on, p10, shift=-0.5, dur=0.008, seed=uid + 3)
         b5, _ = pulse_block(rel, ep, p5, "p5")
         row.update(b5)
 
