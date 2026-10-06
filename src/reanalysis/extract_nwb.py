@@ -21,6 +21,14 @@ For one session this produces a compact, self-contained record:
 * ``ccg``      spontaneous-epoch cross-correlograms (+/-30 ms, 0.5-ms bins) from
                each light-driven candidate unit to all units on the same probe
                within 300 um along the shank.
+* ``spont_spikes``  (v2) each unit's full spike train restricted to the valid
+               spontaneous epochs of its probe (float64 s). Lets CCGs be computed
+               afterwards for any reference set (e.g. matched non-driven controls,
+               scripts/calibration/) without re-reading the NWB.
+* ``flashes`` / ``aligned_flash`` / ``valid_flash``  (v2) full-field flash
+               presentations and spikes aligned to flash onset in
+               [ALIGN_PRE, ALIGN_POST] s, with the same per-probe invalid-interval
+               rule as the optogenetic epochs.
 
 No numbers are synthesised: every value is a function of the NWB file.
 """
@@ -123,6 +131,17 @@ def load_session(path: str) -> Dict:
            np.where(np.isclose(opto["duration"], 0.005), "pulse5", "other"))))
     opto["kind"] = kind
 
+    flashes = pd.DataFrame(columns=["start_time", "stop_time", "duration", "color"])
+    if "intervals/flashes_presentations" in f:
+        fg = f["intervals/flashes_presentations"]
+        flashes = pd.DataFrame({
+            "start_time": fg["start_time"][:], "stop_time": fg["stop_time"][:],
+            "duration": fg["stop_time"][:] - fg["start_time"][:],
+            "color": fg["color"][:] if "color" in fg else np.full(len(fg["start_time"]), np.nan),
+        }).sort_values("start_time").reset_index(drop=True)
+        flashes["color"] = pd.to_numeric(pd.Series([c.decode() if isinstance(c, bytes) else c for c in flashes["color"]]),
+                                         errors="coerce")
+
     sp = f["intervals/spontaneous_presentations"]
     spont = np.column_stack([sp["start_time"][:], sp["stop_time"][:]])
 
@@ -141,7 +160,7 @@ def load_session(path: str) -> Dict:
     spikes = {int(unit_ids[i]): st_data[starts[i]:st_idx[i]] for i in pos}
     invalid = _invalid_intervals(f)
     f.close()
-    return dict(units=units, opto=opto, spont=spont, spikes=spikes, invalid=invalid, meta=meta)
+    return dict(units=units, opto=opto, flashes=flashes, spont=spont, spikes=spikes, invalid=invalid, meta=meta)
 
 
 def _interval_mask(t: np.ndarray, intervals) -> np.ndarray:
@@ -187,23 +206,16 @@ def _ccg_counts(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     return np.bincount(k, minlength=nb).astype(np.int32)
 
 
-def process_session(path: str, session_id: int, zeta_resamples: int = 250) -> Dict:
-    from zetapy import zetatest
-
-    S = load_session(path)
-    units, opto, spikes = S["units"], S["opto"], S["spikes"]
-    onsets = opto["start_time"].values
-    block = (onsets.min() - 2.0, opto["stop_time"].max() + 2.0)
-
-    # epochs invalid for each probe
+def _align_to_events(units, spikes, onsets, invalid):
+    """Spikes relative to each onset in [ALIGN_PRE, ALIGN_POST]; events overlapping an
+    invalid interval for the unit's probe are dropped. Returns (aligned, valid_by_probe)."""
     bad_by_probe: Dict[str, np.ndarray] = {}
     for pname in units["probe_name"].unique():
-        bad = np.zeros(len(opto), dtype=bool)
-        for s, e, probe in S["invalid"]:
+        bad = np.zeros(len(onsets), dtype=bool)
+        for s, e, probe in invalid:
             if probe is None or probe == pname:
-                bad |= (opto["start_time"].values + ALIGN_PRE < e) & (opto["start_time"].values + ALIGN_POST > s)
+                bad |= (onsets + ALIGN_PRE < e) & (onsets + ALIGN_POST > s)
         bad_by_probe[pname] = bad
-
     aligned: Dict[int, Tuple[np.ndarray, np.ndarray]] = {}
     for uid, pname in zip(units["unit_id"].values, units["probe_name"].values):
         s = spikes[int(uid)]
@@ -218,7 +230,23 @@ def process_session(path: str, session_id: int, zeta_resamples: int = 250) -> Di
             ep.append(np.full(hi[k] - lo[k], k, dtype=np.int16))
         aligned[int(uid)] = (np.concatenate(rel).astype(np.float32) if rel else np.zeros(0, np.float32),
                              np.concatenate(ep) if ep else np.zeros(0, np.int16))
-    valid_epochs = {p: ~b for p, b in bad_by_probe.items()}
+    return aligned, {p: ~b for p, b in bad_by_probe.items()}
+
+
+def process_session(path: str, session_id: int, zeta_resamples: int = 250) -> Dict:
+    from zetapy import zetatest
+
+    S = load_session(path)
+    units, opto, spikes = S["units"], S["opto"], S["spikes"]
+    onsets = opto["start_time"].values
+    block = (onsets.min() - 2.0, opto["stop_time"].max() + 2.0)
+
+    aligned, valid_epochs = _align_to_events(units, spikes, onsets, S["invalid"])
+    flashes = S["flashes"]
+    if len(flashes):
+        aligned_flash, valid_flash = _align_to_events(units, spikes, flashes["start_time"].values, S["invalid"])
+    else:
+        aligned_flash, valid_flash = {}, {}
 
     # spontaneous-epoch counts (invalid intervals removed, per probe)
     spont_rows = []
@@ -233,6 +261,10 @@ def process_session(path: str, session_id: int, zeta_resamples: int = 250) -> Di
         cnt = int(sum(np.searchsorted(s, e) - np.searchsorted(s, b) for b, e in iv))
         spont_rows.append((int(uid), cnt, dur))
     spont = pd.DataFrame(spont_rows, columns=["unit_id", "spont_count", "spont_duration_s"])
+    spont_spikes = {}
+    for uid, pname in zip(units["unit_id"].values, units["probe_name"].values):
+        s = spikes[int(uid)]
+        spont_spikes[int(uid)] = s[_interval_mask(s, spont_good[pname])].astype(np.float64)
 
     # reference ZETA on 10-ms pulses (window [+1, +9) ms) and a sham event set at -500 ms
     p10 = opto.index[opto["kind"] == "pulse10"].values
@@ -295,4 +327,6 @@ def process_session(path: str, session_id: int, zeta_resamples: int = 250) -> Di
     units["session_id"] = session_id
     return dict(session_id=session_id, meta=S["meta"], units=units, opto=opto, aligned=aligned,
                 valid_epochs=valid_epochs, spont=spont, zeta=zeta, ccg=ccg, ccg_bins=nbins,
-                spont_duration_by_probe=spont_T, candidates=cand)
+                spont_duration_by_probe=spont_T, candidates=cand,
+                extract_version=2, spont_spikes=spont_spikes, spont_intervals=spont_good,
+                flashes=flashes, aligned_flash=aligned_flash, valid_flash=valid_flash)

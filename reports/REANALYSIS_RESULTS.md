@@ -60,7 +60,9 @@ Simulated units used the real trial structure (45 trials, [−480, −20) ms bas
 
 **Result.** π₀ = 1.0, the null proportion at the precision available. 375 units have lfdr < 0.05. Of these, 25 are **light-onset artifacts**: fitted latency at the window edge (δ̂ < 1.5 ms), jitter at the 0.1-ms bound, and locations that surface light cannot reach (LGd, LGv, CA3, DG, PPT, SCiw, NOT). Ten come from a single Vip session (819701982) and appear simultaneously across regions. The repository's artifact rule (median raw latency < 1.2 ms and SD < 0.1 ms) cannot catch them, because spontaneous first spikes pull the raw median towards 5 ms. After excluding them, **350 units are light-activated** (estimated FDR 0.3%): 79% in visual cortex and 17% in CA1 and other hippocampal areas.
 
-**Method comparison** (`method_comparison.csv`, `method_overlap_patterns.csv`):
+**Method comparison** (`method_comparison.csv`, `method_overlap_patterns.csv`).
+
+*Update (calibration rebuild):* ZETA is now recomputed with a fixed per-unit seed. zetapy resamples with NumPy's global RNG, and unseeded p-values moved by up to 0.10 between runs. The ZETA rows below are the seeded values. The two rows for the original synthetic-latency "SALT"/"ZETA" are historical. Those columns are now in `archive/` and are no longer read by the pipeline, so they no longer appear in `method_comparison.csv`. Independent seeded ZETA runs in `scripts/calibration/04_criteria_calibration.py` give 17 and 1,085 positives, which shows the Monte Carlo spread of zetapy p-values near the threshold.
 
 | Method (raw spikes) | Positives | ∩ light-activated | Jaccard |
 |---|---|---|---|
@@ -68,16 +70,16 @@ Simulated units used the real trial structure (45 trials, [−480, −20) ms bas
 | exact test, BH q < 0.05 | 396 | 350 | 0.88 |
 | SALT port, p < 0.01 | 454 | 331 | 0.70 |
 | SALT port, BH q < 0.05 | 381 | 310 | 0.74 |
-| ZETA (zetapy), window [1, 9) ms, positive, BH | 20 | 18 | 0.05 |
-| ZETA (zetapy), window [1, 51) ms, any sign, BH | 1,082 | 327 | 0.30 |
+| ZETA (zetapy), window [1, 9) ms, positive, BH | 15 | 13 | 0.04 |
+| ZETA (zetapy), window [1, 51) ms, any sign, BH | 1,091 | 328 | 0.29 |
 | original heuristic label | 261 | 243 | 0.66 |
-| original "SALT" (synthetic latencies) | 711 | 40 | 0.04 |
-| original "ZETA" (synthetic latencies) | 2,139 | 204 | 0.09 |
+| original "SALT" (synthetic latencies; now in `archive/`) | 711 | 40 | 0.04 |
+| original "ZETA" (synthetic latencies; now in `archive/`) | 2,139 | 204 | 0.09 |
 
 Interpretation:
 * **Correct implementations largely agree.** The real disagreements are interpretable:
   * SALT adds units whose latency distribution changes without a large rate change, and loses high-rate units (Sec. 1).
-  * ZETA over [1, 51) ms is a general *responsiveness* test. It flags 1,082 units, mostly network-modulated (excitation or suppression), and gives zero sham discoveries at BH q < 0.05.
+  * ZETA over [1, 51) ms is a general *responsiveness* test. It flags 1,091 units, mostly network-modulated (excitation or suppression), and gives zero sham discoveries at BH q < 0.05.
 * **ZETA confined to the direct window has almost no power** (20 units). ZETA measures non-uniformity of spike timing *within* its window, so a window filled by the response leaves nothing to detect. This is a practical caveat for anyone applying ZETA to optotagging.
 * **The original SALT/ZETA columns are essentially unrelated to light activation** (Jaccard 0.04 and 0.09), which confirms that the "method disagreement" result came from the synthetic inputs.
 * **The operational heuristic is specific but insensitive.** 243/261 of its units are confirmed, and 17 of its 18 non-confirmed units still have p < 0.05 but lfdr ≥ 0.05. It misses 107 light-activated units, mostly through the reliability ≥ 0.30 and modulation > 2 thresholds.

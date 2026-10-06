@@ -1,0 +1,61 @@
+{
+  "units_with_both": 18922,
+  "flashes_per_session_median": 150.0,
+  "overlap_rate_adjusted": [
+    {
+      "region": "hippocampal formation",
+      "n_units": 4940,
+      "n_animals": 26,
+      "overlap_OR_rate_adjusted": 1.5835471205816432,
+      "ci_low": 0.838802613337782,
+      "ci_high": 2.989525119770466,
+      "p": 0.15625174384776572
+    },
+    {
+      "region": "midbrain",
+      "n_units": 897,
+      "n_animals": 23,
+      "overlap_OR_rate_adjusted": 3.289314203325946,
+      "ci_low": 2.31814727673461,
+      "ci_high": 4.6673427684208635,
+      "p": 2.5688657842457864e-11
+    },
+    {
+      "region": "other / unassigned",
+      "n_units": 1410,
+      "n_animals": 11,
+      "overlap_OR_rate_adjusted": 5.624826646216421,
+      "ci_low": 2.12953699041251,
+      "ci_high": 14.857067495154231,
+      "p": 0.0004915686748267749
+    },
+    {
+      "region": "thalamus",
+      "n_units": 2828,
+      "n_animals": 24,
+      "overlap_OR_rate_adjusted": 2.60778635635996,
+      "ci_low": 2.072343860852843,
+      "ci_high": 3.2815739747063457,
+      "p": 2.9759570473550995e-16
+    },
+    {
+      "region": "visual cortex",
+      "n_units": 8847,
+      "n_animals": 28,
+      "overlap_OR_rate_adjusted": 2.119870373594897,
+      "ci_low": 1.760907722678968,
+      "ci_high": 2.552007889435922,
+      "p": 2.061191877567526e-15
+    }
+  ],
+  "opto_suppressed_units": 4075,
+  "frac_opto_suppressed_also_flash_suppressed": 0.2952147239263804,
+  "frac_flash_suppressed_among_non_opto_suppressed": 0.1036573045059608,
+  "by_region_shared": {
+    "hippocampal formation": 0.02640518367115199,
+    "midbrain": 0.27170751919915803,
+    "other / unassigned": 0.40210556029111627,
+    "thalamus": 0.32392967139315526,
+    "visual cortex": 0.31926361972323525
+  }
+}

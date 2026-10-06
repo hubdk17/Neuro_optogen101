@@ -1,23 +1,19 @@
-# Core scientific and neurophysiology stack
-allensdk>=2.16.2
-numpy>=1.24.0,<2.0.0
-scipy>=1.10.0
-pandas>=2.0.0
-scikit-learn>=1.3.0
-xgboost>=2.0.0
-
-# File formats and serialization
-pyyaml>=6.0
-pyarrow>=14.0.0
-h5py>=3.8.0
-pynwb>=2.6.0
-
-# Visualization
-matplotlib>=3.8.0
-seaborn>=0.13.0
-
-# Utilities and testing
-pytest>=7.4.0
-tqdm>=4.66.0
-ipykernel>=6.25.0
-jupyter>=1.0.0
+# Pinned environment for the spike-based reanalysis and calibration pipeline
+# (src/reanalysis, scripts/reanalysis, scripts/calibration, tests).
+# These are the exact versions the committed results were produced with
+# (Python 3.11.15, Linux x86_64). See results/calibration/run_log/ for the
+# environment recorded at run time.
+#
+# The older ML / feature-extraction layer has separate, unpinned dependencies
+# in requirements-legacy.txt.
+numpy==2.4.6
+scipy==1.17.1
+pandas==3.0.6
+pyarrow==25.0.1
+h5py==3.16.0
+statsmodels==0.15.0
+patsy==1.0.3
+zetapy==4.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
+pytest==9.1.1

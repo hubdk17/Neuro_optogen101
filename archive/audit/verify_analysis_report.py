@@ -1,10 +1,12 @@
 """
 verify_analysis_report.py
 =========================
-Reproduces every number quoted in reports/ANALYSIS_REPORT.md from the stored
-28-specimen unit table. Run from the repository root:
+AUDIT OF ARCHIVED (non-data-derived) MATERIAL. Reproduces every number quoted in
+reports/ANALYSIS_REPORT.md about the superseded analysis, reading the archived
+unit table. Kept with the archive for provenance; nothing in src/ or scripts/
+uses it. Run from the repository root:
 
-    python scripts/verify_analysis_report.py [--sims 300]
+    python archive/audit/verify_analysis_report.py [--sims 300]
 
 Sections:
  1. Multiple-comparison control of the per-unit permutation p-values
@@ -28,10 +30,11 @@ import numpy as np
 import pandas as pd
 import scipy.stats as st
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from src.responsiveness_methods import compute_salt, compute_zeta  # noqa: E402
 
-TABLE = "results/neuroscience_study/tables/revised/master_neuroscience_phenotypes_revised.parquet"
+ROOT = Path(__file__).resolve().parents[2]
+TABLE = ROOT / "archive/results/neuroscience_study/tables/revised/master_neuroscience_phenotypes_revised.parquet"
 W_EVOKED_S = 0.008   # [+1, +9) ms
 W_BASE_S = 0.015     # [-20, -5) ms
 

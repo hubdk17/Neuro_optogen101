@@ -1,0 +1,303 @@
+mkdir -p results/calibration/run_log && echo "=== $(date -u +%FT%TZ) scripts/calibration/08_environment.py" >> results/calibration/run_log/run.log && python3 scripts/calibration/08_environment.py 2>&1 | tee -a results/calibration/run_log/run.log; test ${PIPESTATUS[0]} -eq 0
+{
+  "timestamp_utc": "2026-10-06T19:35:57.344273+00:00",
+  "python": "3.11.15 (main, Mar  3 2026, 09:26:23) [GCC 13.3.0]",
+  "platform": "Linux-6.18.44-fc-v70-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "packages": {
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "pandas": "3.0.6",
+    "pyarrow": "25.0.1",
+    "h5py": "3.16.0",
+    "statsmodels": "0.15.0",
+    "patsy": "1.0.3",
+    "zetapy": "4.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "pytest": "9.1.1"
+  },
+  "git_commit": "13db05f431ac541bd32ca8cafb25800f40e7780f",
+  "git_branch": "claude/stoic-mayer-wg47zc",
+  "git_dirty": true,
+  "data_source": "s3://allen-brain-observatory/visual-coding-neuropixels/ecephys-cache/ (NWB read with h5py)",
+  "mismatches_vs_requirements": {}
+}
+mkdir -p results/calibration/run_log && echo "=== $(date -u +%FT%TZ) scripts/calibration/00_regression_baseline.py" >> results/calibration/run_log/run.log && python3 scripts/calibration/00_regression_baseline.py 2>&1 | tee -a results/calibration/run_log/run.log; test ${PIPESTATUS[0]} -eq 0
+                                                                     quantity      computed      expected    tolerance   ok                                                            note
+                                                                        units  1.900500e+04  1.900500e+04 0.000000e+00 True                                                                
+                                                                     sessions  2.800000e+01  2.800000e+01 0.000000e+00 True                                                                
+                                                       animals Pvalb-IRES-Cre  8.000000e+00  8.000000e+00 0.000000e+00 True                                                                
+                                                         animals Sst-IRES-Cre  1.200000e+01  1.200000e+01 0.000000e+00 True                                                                
+                                                         animals Vip-IRES-Cre  8.000000e+00  8.000000e+00 0.000000e+00 True                                                                
+                            max |recomputed p - stored p| (pi0 = 0.008/0.468)  3.219647e-15  0.000000e+00 1.000000e-14 True                                                                
+              max |p - stored| with WRONG pi0 = 0.008/0.488 (480-ms baseline)  1.410666e-01           NaN          NaN True informational: the 480-ms constant is wrong; baseline is 460 ms
+                                                         exact test BH q<0.05  3.960000e+02  3.960000e+02 0.000000e+00 True                                                                
+                                                        exact test Bonferroni  3.040000e+02  3.040000e+02 0.000000e+00 True                                                                
+                                                                    lfdr<0.05  3.750000e+02  3.750000e+02 0.000000e+00 True                                                                
+                                             onset artifacts within lfdr<0.05  2.500000e+01  2.500000e+01 0.000000e+00 True                                                                
+                                                                       driven  3.500000e+02  3.500000e+02 0.000000e+00 True                                                                
+                                           5-ms replication, driven (p5<0.05)  9.200000e-01  9.200000e-01 5.000000e-03 True                                                                
+                                            5-ms replication, null (lfdr>0.5)  3.492647e-02  3.500000e-02 1.000000e-03 True                                                                
+                                              Spearman rho10 vs rho5 (driven)  8.413475e-01  8.400000e-01 5.000000e-03 True                                                                
+                                                                dose: animals  2.400000e+01  2.400000e+01 0.000000e+00 True                                                                
+                                                      dose: mean high-low rho  4.068580e-01  4.100000e-01 5.000000e-03 True                                                                
+                                                                  dose: t(23)  1.149184e+01  1.150000e+01 5.000000e-02 True                                                                
+                                                                      dose: p  5.215445e-11  5.200000e-11 1.000000e-12 True                                                                
+                                    train log-ratio, pooled counts per animal -5.181176e-02 -5.000000e-02 5.000000e-03 True      definition: log((sum k10 + 0.5)/(sum k1 + 0.5)) per animal
+                                                          train t(23), pooled -7.016269e-01 -7.000000e-01 1.000000e-02 True                                                                
+                                                              train p, pooled  4.899512e-01  4.900000e-01 5.000000e-03 True                                                                
+train log-ratio, mean of unit log-ratios per animal (stored-table definition) -3.185130e-02           NaN          NaN True              t(23)=-0.529, p=0.602; null under both definitions
+                                            narrow-waveform OR Pvalb-IRES-Cre  1.779497e+01  1.780000e+01 1.000000e-02 True                                                                
+                                              narrow-waveform OR Sst-IRES-Cre  3.968076e+00  3.970000e+00 1.000000e-02 True                                                                
+                                              narrow-waveform OR Vip-IRES-Cre  8.103242e-01  8.100000e-01 1.000000e-02 True                                                                
+                                                    yield mean Pvalb-IRES-Cre  3.938088e-02  3.940000e-02 1.000000e-04 True                                                                
+                                                     yield SEM Pvalb-IRES-Cre  1.408675e-02  1.410000e-02 1.000000e-04 True                                                                
+                                                      yield mean Sst-IRES-Cre  1.692930e-02  1.690000e-02 1.000000e-04 True                                                                
+                                                       yield SEM Sst-IRES-Cre  5.394746e-03  5.400000e-03 1.000000e-04 True                                                                
+                                                      yield mean Vip-IRES-Cre  4.560809e-03  4.600000e-03 1.000000e-04 True                                                                
+                                                       yield SEM Vip-IRES-Cre  1.963975e-03  2.000000e-03 1.000000e-04 True                                                                
+                                                       yield Kruskal-Wallis p  9.957114e-02  1.000000e-01 1.000000e-02 True                  fragile: treat Cre yield difference as a trend
+                                         CCG inhibition causal Pvalb-IRES-Cre  7.743711e-02  7.740000e-02 5.000000e-04 True                                                                
+                                     CCG inhibition anticausal Pvalb-IRES-Cre  2.541929e-02  2.540000e-02 5.000000e-04 True                                                                
+                                           CCG inhibition causal Sst-IRES-Cre  3.895751e-02  3.900000e-02 5.000000e-04 True                                                                
+                                       CCG inhibition anticausal Sst-IRES-Cre  1.683182e-02  1.680000e-02 5.000000e-04 True                                                                
+                                           CCG inhibition causal Vip-IRES-Cre  1.047904e-02  1.050000e-02 5.000000e-04 True                                                                
+                                       CCG inhibition anticausal Vip-IRES-Cre  1.047904e-02  1.050000e-02 5.000000e-04 True                                                                
+                                       direct-like count (delta<5, sigma<1.5)  8.500000e+01  8.500000e+01 0.000000e+00 True                                                                
+                                               direct-like fraction of driven  2.428571e-01  2.430000e-01 1.000000e-03 True                                                                
+
+All regression checks passed.
+mkdir -p results/calibration/run_log && echo "=== $(date -u +%FT%TZ) scripts/calibration/01_matched_ccg.py" >> results/calibration/run_log/run.log && python3 scripts/calibration/01_matched_ccg.py 2>&1 | tee -a results/calibration/run_log/run.log; test ${PIPESTATUS[0]} -eq 0
+driven units: 350; strict: 211 units / 448 controls; relaxed: 98 units / 213 controls; still unmatched: 41
+                                ref_units  pairs       inh
+cre_line       ref_type                                   
+Pvalb-IRES-Cre control                205   9645  0.018455
+               control_relaxed        115   5037  0.013699
+               driven                 179   7632  0.077437
+Sst-IRES-Cre   control                217  12920  0.016331
+               control_relaxed         86   4112  0.033560
+               driven                 144   7367  0.038958
+Vip-IRES-Cre   control                 24    958  0.008351
+               control_relaxed          8    304  0.019737
+               driven                  21    668  0.010479
+mkdir -p results/calibration/run_log && echo "=== $(date -u +%FT%TZ) scripts/calibration/02_latency_validity.py" >> results/calibration/run_log/run.log && python3 scripts/calibration/02_latency_validity.py 2>&1 | tee -a results/calibration/run_log/run.log; test ${PIPESTATUS[0]} -eq 0
+                                                          model      term  n_pairs  n_ref_units  n_animals  log_or     se  odds_ratio  or_ci_low  or_ci_high      p  driven_rate  control_rate  animal_n  animal_mean  animal_ci_low  animal_ci_high  animal_t_p  animal_wilcoxon_p
+                   positive control PV, strict (pre-registered) is_driven    13903          301          6  1.5440 0.0779      4.6832     4.0202      5.4556 0.0000       0.0780        0.0185         6       0.0467         0.0122          0.0813      0.0176             0.0625
+                  positive control SST, strict (pre-registered) is_driven    18406          316         11  0.7449 0.2216      2.1061     1.3642      3.2516 0.0008       0.0381        0.0163        11       0.0140         0.0031          0.0250      0.0172             0.0195
+                  positive control VIP, strict (pre-registered) is_driven     1471           38          5  0.1681 0.7224      1.1830     0.2871      4.8745 0.8160       0.0097        0.0084         5       0.0060        -0.0223          0.0343      0.5872             0.6250
+ positive control PV, strict + relaxed (sensitivity, deviation) is_driven    20990          468          6  1.5438 0.0997      4.6823     3.8515      5.6923 0.0000       0.0726        0.0168         6       0.0416         0.0083          0.0748      0.0236             0.0625
+positive control SST, strict + relaxed (sensitivity, deviation) is_driven    24195          439         11  0.6464 0.1191      1.9086     1.5114      2.4102 0.0000       0.0394        0.0205        11       0.0051        -0.0067          0.0170      0.3561             0.3203
+positive control VIP, strict + relaxed (sensitivity, deviation) is_driven     1922           52          7 -0.0515 0.6781      0.9498     0.2514      3.5880 0.9395       0.0106        0.0111         7      -0.0025        -0.0277          0.0227      0.8167             0.6875
+                                                    model            term  n_pairs  n_ref_units  n_animals  log_or     se  odds_ratio  or_ci_low  or_ci_high      p  mean_diff  ci_low  ci_high  wilcoxon_p
+                    direct-like vs indirect-like (PV+SST)   direct_like_i  14999.0        323.0         17  0.0165 0.2019      1.0166     0.6844      1.5102 0.9348        NaN     NaN      NaN         NaN
+                        continuous p10_fit_delta (per SD) z_p10_fit_delta  14999.0        323.0         17  0.1187 0.1276      1.1260     0.8769      1.4458 0.3521        NaN     NaN      NaN         NaN
+                        continuous p10_fit_sigma (per SD) z_p10_fit_sigma  14999.0        323.0         17 -0.0405 0.0796      0.9603     0.8215      1.1226 0.6113        NaN     NaN      NaN         NaN
+                        direct-like vs indirect-like (PV)   direct_like_i   7632.0        179.0          6 -0.0807 0.1092      0.9224     0.7448      1.1425 0.4595        NaN     NaN      NaN         NaN
+                       direct-like vs indirect-like (SST)   direct_like_i   7367.0        144.0         11  0.1544 0.4375      1.1670     0.4951      2.7507 0.7241        NaN     NaN      NaN         NaN
+animal-level paired difference direct - indirect (PV+SST)             NaN      NaN          NaN         10     NaN    NaN         NaN        NaN         NaN 0.3119    -0.0114 -0.0356   0.0127       0.625
+            model term  n_pairs  n_ref_units  n_animals  log_or     se  odds_ratio  or_ci_low  or_ci_high      p  spearman_rho_unit  spearman_p_unit  n_units  p_holm
+          rho_hat    z    14999          323         17  0.0871 0.0627      1.0910     0.9649      1.2336 0.1646             0.2009           0.0003      323  0.2403
+       dose_slope    z    14999          323         17  0.2989 0.0840      1.3483     1.1436      1.5897 0.0004             0.2076           0.0002      323  0.0011
+  train_following    z    14999          323         17 -0.1214 0.0781      0.8857     0.7599      1.0322 0.1201             0.0463           0.4069      323  0.2403
+waveform_duration    z    14999          323         17 -1.0913 0.1026      0.3358     0.2746      0.4106 0.0000            -0.4106           0.0000      323  0.0000
+            model  n_animals  mean_within_animal_spearman  ci_low  ci_high    t_p  wilcoxon_p
+          rho_hat         10                       0.0837 -0.0424   0.2099 0.1676      0.2324
+       dose_slope         10                       0.1689  0.0467   0.2911 0.0122      0.0137
+  train_following         10                       0.0427 -0.0609   0.1464 0.3752      0.3223
+waveform_duration         10                      -0.2708 -0.3863  -0.1553 0.0005      0.0020
+                                             model          term  n_pairs  n_ref_units  n_animals  log_or     se  odds_ratio  or_ci_low  or_ci_high      p
+                target rate driven vs control (PV)     is_driven    17277          384          6  0.0061 0.0966      1.0062     0.8326      1.2159 0.9494
+               driven units: source vs target (PV)     is_source    15264          179          6  1.1732 0.0976      3.2324     2.6695      3.9140 0.0000
+               target rate driven vs control (SST)     is_driven    20287          361         11 -0.3044 0.2263      0.7376     0.4734      1.1493 0.1786
+              driven units: source vs target (SST)     is_source    14734          144         11  0.8836 0.1198      2.4196     1.9131      3.0601 0.0000
+target rate: direct-like vs indirect-like (PV+SST) direct_like_i    14999          323         17  0.3526 0.1644      1.4228     1.0309      1.9636 0.0319
+cre ref_type   n  source_rate  target_rate
+ PV   driven 179       0.0774       0.0254
+ PV  control 205       0.0185       0.0252
+SST   driven 144       0.0390       0.0168
+SST  control 217       0.0163       0.0209
+VIP   driven  21       0.0105       0.0105
+VIP  control  24       0.0084       0.0094
+{
+ "base_rate": 0.058537235815721046,
+ "intra_unit_icc": 0.0942843199002252,
+ "n_direct_like": 73,
+ "n_indirect_like": 250,
+ "mdd_unit_level_80pct": 0.04,
+ "mdd_animal_level_80pct": 0.03356936960654555,
+ "n_animals_paired": 10,
+ "method": "beta-binomial simulation, Welch t on unit rates; animal-level from observed SD of paired differences"
+}
+mkdir -p results/calibration/run_log && echo "=== $(date -u +%FT%TZ) scripts/calibration/03_flash_confound.py" >> results/calibration/run_log/run.log && python3 scripts/calibration/03_flash_confound.py 2>&1 | tee -a results/calibration/run_log/run.log; test ${PIPESTATUS[0]} -eq 0
+               region cre  n_units  n_animals  opto_suppressed_frac_animal_mean  opto_sem  flash_suppressed_frac_animal_mean  flash_sem  both_frac  both_expected_if_independent  frac_opto_suppressed_also_flash_suppressed  frac_flash_suppressed_among_not_opto  overlap_OR  overlap_fisher_p  spearman_opto_vs_flash_lrr  spearman_p
+hippocampal formation  PV     1278          8                             0.043     0.014                              0.016      0.004      0.001                         0.001                                       0.020                                 0.017       1.173             0.587                       0.027       0.330
+hippocampal formation SST     2343         11                             0.076     0.037                              0.016      0.003      0.003                         0.001                                       0.029                                 0.015       2.038             0.133                       0.038       0.066
+hippocampal formation VIP     1319          7                             0.026     0.005                              0.022      0.007      0.001                         0.001                                       0.028                                 0.019       1.438             0.516                       0.032       0.249
+             midbrain  PV      129          7                             0.226     0.084                              0.052      0.036      0.054                         0.024                                       0.189                                 0.043       5.133             0.013                       0.031       0.725
+             midbrain SST      568         10                             0.181     0.060                              0.146      0.029      0.044                         0.021                                       0.278                                 0.109       3.151             0.000                       0.195       0.000
+             midbrain VIP      200          6                             0.064     0.026                              0.076      0.030      0.020                         0.006                                       0.308                                 0.070       5.949             0.016                       0.212       0.003
+   other / unassigned  PV      304          2                             0.040     0.040                              0.283      0.217      0.016                         0.005                                       0.208                                 0.057       4.342             0.017                       0.117       0.042
+   other / unassigned SST      671          5                             0.174     0.103                              0.160      0.086      0.048                         0.013                                       0.478                                 0.094       8.774             0.000                       0.176       0.000
+   other / unassigned VIP      435          4                             0.012     0.012                              0.119      0.034      0.018                         0.004                                       0.421                                 0.079       8.441             0.000                       0.091       0.058
+             thalamus  PV      675          7                             0.258     0.058                              0.237      0.046      0.098                         0.066                                       0.359                                 0.200       2.243             0.000                       0.186       0.000
+             thalamus SST     1243         10                             0.234     0.054                              0.151      0.037      0.076                         0.047                                       0.279                                 0.136       2.463             0.000                       0.096       0.001
+             thalamus VIP      910          7                             0.271     0.073                              0.199      0.031      0.080                         0.037                                       0.360                                 0.112       4.464             0.000                       0.196       0.000
+        visual cortex  PV     2231          8                             0.398     0.039                              0.226      0.026      0.117                         0.090                                       0.289                                 0.179       1.867             0.000                       0.241       0.000
+        visual cortex SST     3900         12                             0.345     0.055                              0.204      0.030      0.110                         0.074                                       0.316                                 0.155       2.510             0.000                       0.289       0.000
+        visual cortex VIP     2716          8                             0.201     0.023                              0.202      0.021      0.070                         0.040                                       0.349                                 0.164       2.742             0.000                       0.281       0.000
+               region  n_animals  kruskal_p  perm_p  opto_sup_PV  opto_sup_SST  opto_sup_VIP  flash_sup_PV  flash_sup_SST  flash_sup_VIP
+hippocampal formation         26      0.885   0.524        0.043         0.076         0.026         0.016          0.016          0.022
+             midbrain         23      0.353   0.275        0.226         0.181         0.064         0.052          0.146          0.076
+   other / unassigned         11      0.130   0.292        0.040         0.174         0.012         0.283          0.160          0.119
+             thalamus         24      0.798   0.908        0.258         0.234         0.271         0.237          0.151          0.199
+        visual cortex         28      0.024   0.035        0.398         0.345         0.201         0.226          0.204          0.202
+                group  n_animals  opto_onset_median  flash_onset_median  median_diff_opto_minus_flash  wilcoxon_p
+                  LGd         11               27.5                57.5                         -30.0       0.020
+                   LP         11               17.5                62.5                         -45.0       0.007
+hippocampal formation         11               12.5                22.5                         -10.0       0.361
+             midbrain          9               17.5                82.5                         -60.0       0.004
+   other / unassigned          5               17.5                67.5                         -40.0       0.062
+             thalamus         13               22.5                52.5                           0.0       0.369
+        visual cortex         28               12.5                52.5                         -45.0       0.000
+{
+ "units_with_both": 18922,
+ "flashes_per_session_median": 150.0,
+ "overlap_rate_adjusted": [
+  {
+   "region": "hippocampal formation",
+   "n_units": 4940,
+   "n_animals": 26,
+   "overlap_OR_rate_adjusted": 1.5835471205816432,
+   "ci_low": 0.838802613337782,
+   "ci_high": 2.989525119770466,
+   "p": 0.15625174384776572
+  },
+  {
+   "region": "midbrain",
+   "n_units": 897,
+   "n_animals": 23,
+   "overlap_OR_rate_adjusted": 3.289314203325946,
+   "ci_low": 2.31814727673461,
+   "ci_high": 4.6673427684208635,
+   "p": 2.5688657842457864e-11
+  },
+  {
+   "region": "other / unassigned",
+   "n_units": 1410,
+   "n_animals": 11,
+   "overlap_OR_rate_adjusted": 5.624826646216421,
+   "ci_low": 2.12953699041251,
+   "ci_high": 14.857067495154231,
+   "p": 0.0004915686748267749
+  },
+  {
+   "region": "thalamus",
+   "n_units": 2828,
+   "n_animals": 24,
+   "overlap_OR_rate_adjusted": 2.60778635635996,
+   "ci_low": 2.072343860852843,
+   "ci_high": 3.2815739747063457,
+   "p": 2.9759570473550995e-16
+  },
+  {
+   "region": "visual cortex",
+   "n_units": 8847,
+   "n_animals": 28,
+   "overlap_OR_rate_adjusted": 2.119870373594897,
+   "ci_low": 1.760907722678968,
+   "ci_high": 2.552007889435922,
+   "p": 2.061191877567526e-15
+  }
+ ],
+ "opto_suppressed_units": 4075,
+ "frac_opto_suppressed_also_flash_suppressed": 0.2952147239263804,
+ "frac_flash_suppressed_among_non_opto_suppressed": 0.1036573045059608,
+ "by_region_shared": {
+  "hippocampal formation": 0.02640518367115199,
+  "midbrain": 0.27170751919915803,
+  "other / unassigned": 0.40210556029111627,
+  "thalamus": 0.32392967139315526,
+  "visual cortex": 0.31926361972323525
+ }
+}
+mkdir -p results/calibration/run_log && echo "=== $(date -u +%FT%TZ) scripts/calibration/04_criteria_calibration.py" >> results/calibration/run_log/run.log && python3 scripts/calibration/04_criteria_calibration.py 2>&1 | tee -a results/calibration/run_log/run.log; test ${PIPESTATUS[0]} -eq 0
+         criterion  n_pass_real  sham_fpr  implied_fdr  sensitivity  specificity  precision
+    allen_lakunina          126    0.0003       0.0476       0.3057       0.9994     0.8492
+allen_lakunina_raw          235    0.0092       0.7404       0.1514       0.9905     0.2255
+       latency_lt8        13472    0.7060       0.9960       0.9914       0.2989     0.0258
+       rel030_mod2          266    0.0003       0.0188       0.7057       0.9997     0.9286
+    heuristic_full          265    0.0003       0.0189       0.7057       0.9998     0.9321
+          salt_p01          454    0.0025       0.1035       0.9457       0.9979     0.7291
+           salt_bh          381    0.0000       0.0000       0.8857       0.9987     0.8136
+          zeta9_bh           17    0.0000       0.0000       0.0429       1.0000     0.8824
+         zeta51_bh         1085    0.0000       0.0000       0.9286       0.9628     0.2995
+          exact_bh          396    0.0000       0.0000       1.0000       1.0000     0.8838
+            lfdr05          375    0.0001       0.0053       1.0000       1.0000     0.9333
+{
+ "n_units": 19005,
+ "n_driven": 350,
+ "n_null_ref": 18496,
+ "latency_lt8_among_null_with_spike": 0.9668953176260066,
+ "n_null_with_spike": 13412,
+ "latency_lt8_sham_among_units_with_spike": 0.9580863977151017,
+ "recomputed_exact_p_max_abs_diff_vs_stored": 0.0
+}
+mkdir -p results/calibration/run_log && echo "=== $(date -u +%FT%TZ) scripts/calibration/05_label_noise.py" >> results/calibration/run_log/run.log && python3 scripts/calibration/05_label_noise.py 2>&1 | tee -a results/calibration/run_log/run.log; test ${PIPESTATUS[0]} -eq 0
+                                  label_source  n_units  n_sessions  frac_pv  frac_sst  frac_vip  n_also_calibrated
+    calibrated (lfdr<0.05, artifacts excluded)      348          24    0.520     0.420     0.060                348
+     operational heuristic (original pipeline)      264          23    0.496     0.432     0.072                246
+Allen/Lakunina (>=4/5 pulses, rel>=0.3, lat<8)      124          19    0.395     0.452     0.153                106
+               reliability>=0.3 & modulation>2      265          24    0.498     0.430     0.072                246
+                                   SALT p<0.01      450          26    0.451     0.407     0.142                329
+                             ZETA [1,51) ms BH     1077          28    0.352     0.393     0.255                323
+                            latency<8 ms alone    13343          28    0.241     0.453     0.306                345
+                                  label_source         task  n_train_units  own_n  own_balanced_accuracy  own_auc  common_test_n  common_test_balanced_accuracy  common_test_auc
+    calibrated (lfdr<0.05, artifacts excluded) PV vs non-PV            348    348                  0.605    0.599            348                          0.605            0.599
+    calibrated (lfdr<0.05, artifacts excluded)  3-class Cre            348    348                  0.374    0.542            348                          0.374            0.542
+     operational heuristic (original pipeline) PV vs non-PV            264    264                  0.647    0.717            348                          0.640            0.685
+     operational heuristic (original pipeline)  3-class Cre            264    264                  0.443    0.626            348                          0.428            0.629
+Allen/Lakunina (>=4/5 pulses, rel>=0.3, lat<8) PV vs non-PV            124    124                  0.526    0.584            348                          0.534            0.627
+Allen/Lakunina (>=4/5 pulses, rel>=0.3, lat<8)  3-class Cre            124    124                  0.353    0.532            348                          0.391            0.515
+               reliability>=0.3 & modulation>2 PV vs non-PV            265    265                  0.664    0.721            348                          0.653            0.687
+               reliability>=0.3 & modulation>2  3-class Cre            265    265                  0.444    0.629            348                          0.428            0.631
+                                   SALT p<0.01 PV vs non-PV            450    450                  0.493    0.518            348                          0.498            0.527
+                                   SALT p<0.01  3-class Cre            450    450                  0.269    0.460            348                          0.284            0.460
+                             ZETA [1,51) ms BH PV vs non-PV           1077   1077                  0.501    0.227            348                          0.500            0.359
+                             ZETA [1,51) ms BH  3-class Cre           1077   1077                  0.207    0.234            348                          0.229            0.260
+                            latency<8 ms alone PV vs non-PV          13343  13343                  0.500    0.133            348                          0.500            0.350
+                            latency<8 ms alone  3-class Cre          13343  13343                  0.324    0.256            348                          0.333            0.344
+                                  label_source            feature  coef_std  ci_low  ci_high
+    calibrated (lfdr<0.05, artifacts excluded)  waveform_duration    -0.524  -1.769   -0.073
+    calibrated (lfdr<0.05, artifacts excluded) waveform_halfwidth    -0.398  -0.790   -0.045
+    calibrated (lfdr<0.05, artifacts excluded)           PT_ratio    -0.095  -0.750    0.168
+    calibrated (lfdr<0.05, artifacts excluded)    log_firing_rate     0.241  -0.044    0.517
+     operational heuristic (original pipeline)  waveform_duration    -1.332  -2.867   -0.241
+     operational heuristic (original pipeline) waveform_halfwidth    -0.217  -0.609    0.213
+     operational heuristic (original pipeline)           PT_ratio     0.014  -0.392    0.411
+     operational heuristic (original pipeline)    log_firing_rate     0.347  -0.043    0.694
+Allen/Lakunina (>=4/5 pulses, rel>=0.3, lat<8)  waveform_duration    -0.957  -2.527   -0.160
+Allen/Lakunina (>=4/5 pulses, rel>=0.3, lat<8) waveform_halfwidth    -0.324  -0.833    0.280
+Allen/Lakunina (>=4/5 pulses, rel>=0.3, lat<8)           PT_ratio    -0.029  -0.516    0.622
+Allen/Lakunina (>=4/5 pulses, rel>=0.3, lat<8)    log_firing_rate     0.008  -0.635    0.564
+               reliability>=0.3 & modulation>2  waveform_duration    -1.338  -2.884   -0.301
+               reliability>=0.3 & modulation>2 waveform_halfwidth    -0.215  -0.615    0.217
+               reliability>=0.3 & modulation>2           PT_ratio     0.014  -0.433    0.463
+               reliability>=0.3 & modulation>2    log_firing_rate     0.345  -0.039    0.703
+                                   SALT p<0.01  waveform_duration    -0.393  -1.548    0.057
+                                   SALT p<0.01 waveform_halfwidth    -0.205  -0.594    0.083
+                                   SALT p<0.01           PT_ratio    -0.041  -0.709    0.179
+                                   SALT p<0.01    log_firing_rate     0.290  -0.135    0.608
+                             ZETA [1,51) ms BH  waveform_duration    -0.159  -0.491    0.070
+                             ZETA [1,51) ms BH waveform_halfwidth    -0.131  -0.351    0.068
+                             ZETA [1,51) ms BH           PT_ratio    -0.046  -0.192    0.097
+                             ZETA [1,51) ms BH    log_firing_rate    -0.020  -0.235    0.247
+                            latency<8 ms alone  waveform_duration    -0.051  -0.210    0.099
+                            latency<8 ms alone waveform_halfwidth    -0.060  -0.270    0.072
+                            latency<8 ms alone           PT_ratio    -0.057  -0.223   -0.006
+                            latency<8 ms alone    log_firing_rate     0.019  -0.107    0.161
+mkdir -p results/calibration/run_log && echo "=== $(date -u +%FT%TZ) scripts/calibration/06_resource_table.py" >> results/calibration/run_log/run.log && python3 scripts/calibration/06_resource_table.py 2>&1 | tee -a results/calibration/run_log/run.log; test ${PIPESTATUS[0]} -eq 0
+resource table: 19005 units x 147 columns -> /home/user/Neuro_optogen101/results/calibration/resource
+mkdir -p results/calibration/run_log && echo "=== $(date -u +%FT%TZ) scripts/calibration/07_figures.py" >> results/calibration/run_log/run.log && python3 scripts/calibration/07_figures.py 2>&1 | tee -a results/calibration/run_log/run.log; test ${PIPESTATUS[0]} -eq 0
+calibration figures written to /home/user/Neuro_optogen101/results/calibration/figures
+exit 0

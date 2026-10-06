@@ -1,193 +1,99 @@
-# Beyond Binary Optotagging: A Computational Framework for Characterizing Optogenetic Responses in Neuropixels Recordings
+# Calibrating optotagging labels in the Allen Visual Coding Neuropixels cohort
 
-[![Target Venue: ACM TCBB](https://img.shields.io/badge/Target%20Venue-ACM%20TCBB-blue.svg)](https://tcbb.acm.org/)
-[![License: All Rights Reserved](https://img.shields.io/badge/License-All%20Rights%20Reserved%20(Proprietary)-red.svg)](#-strict-proprietary-license--anti-plagiarism-policy)
-[![Cohort: Allen Neuropixels](https://img.shields.io/badge/Cohort-18%2C316%20Units%20%7C%2028%20Mice-green.svg)](https://portal.brain-map.org/)
-[![Repository URL](https://img.shields.io/badge/GitHub-hubdk17%2FNeuro__optogen101-informational.svg)](https://github.com/hubdk17/Neuro_optogen101)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**Official Repository:** [https://github.com/hubdk17/Neuro_optogen101](https://github.com/hubdk17/Neuro_optogen101)  
-**Git Remote URL:** `https://github.com/hubdk17/Neuro_optogen101.git`
+A reanalysis, from raw spike times, of optogenetic identification ("optotagging") in 28 Pvalb-, Sst- and Vip-IRES-Cre × Ai32 mice from the Allen Brain Observatory Visual Coding Neuropixels dataset. The project asks how well the operational criteria used to label optotagged units are calibrated, and what those labels support downstream.
 
----
+> **`archive/` contains superseded material that was NOT computed from data** (random draws, hand-written rules, hard-coded constants), including the earlier manuscript draft. It is kept only for provenance; nothing in the current pipeline uses it, and a test enforces that. See [`archive/README.md`](archive/README.md).
 
-## ⚠️ STRICT PROPRIETARY NOTICE & ANTI-PLAGIARISM POLICY
+## Authors
 
-> **IMPORTANT LEGAL & ACADEMIC NOTICE:**  
-> **Copyright &copy; 2026. All Rights Reserved.**  
-> 
-> The computational methods, algorithms, mathematical derivations, analytical pipelines, empirical findings, figures, tables, and manuscript materials in this repository represent original, novel, and proprietary research conducted by the author(s).
+**To be completed by the authors.** Real names, affiliations, ORCIDs and CRediT contributions are required before any submission. They could not be filled in here and must not be invented. The previous placeholder ("Computational Neurophysiology and Bioinformatics Consortium") is not an author list.
 
-### Terms of Access and Use:
-1. **Strict Prohibition on Unauthorized Copying & Plagiarism:**  
-   No individual, group, laboratory, or organization is permitted to copy, reproduce, scrape, mirror, re-host, redistribute, sublicense, or commercially exploit any portion of the novel code, methodologies, analytical algorithms, or manuscript draft text found in this repository.
-2. **Prohibition of Third-Party Submissions:**  
-   Submitting this work, whether in whole or in part, or any paraphrased derivation thereof, to any journal, conference, preprint archive (e.g., bioRxiv, arXiv, TechRxiv), thesis, contest, or academic institution as original work by anyone other than the official authors is **strictly prohibited and constitutes academic plagiarism and intellectual property infringement**.
-3. **Scholarly Citation Requirement:**  
-   If this repository, its methodology, or its findings inform your independent scholarly work, explicit formal attribution and citation to this official repository are mandatory:
-   - **Repository:** `https://github.com/hubdk17/Neuro_optogen101.git`
-   - **Authors:** *Computational Neurophysiology and Bioinformatics Consortium*
-4. **Enforcement:**  
-   Any unauthorized distribution, re-licensing, or plagiarism of these assets will result in immediate DMCA takedown actions, formal notifications to institutional research integrity boards, and appropriate legal action.
+## What the pipeline computes
 
-For licensing permissions, research partnerships, or academic inquiries, please open an issue or contact the repository owner directly at [https://github.com/hubdk17/Neuro_optogen101](https://github.com/hubdk17/Neuro_optogen101).
+Every number is computed from spike times in the Allen NWB files.
 
----
+| Stage | Script | What it does |
+|---|---|---|
+| 0 | `scripts/reanalysis/00_validate_estimators.py` | Checks every estimator by simulation with known truth: false-positive rates, power, bias and CI coverage, FDR calibration, mixture recovery, CCG test calibration. |
+| 1 | `scripts/reanalysis/01_extract_cohort.py` | Streams each of the 28 sessions from the public S3 bucket, reduces it with `src/reanalysis/extract_nwb.py` and deletes the NWB. Each derived record holds: aligned opto spikes, spontaneous-epoch rates and spike trains, flash-aligned spikes, reference ZETA and spontaneous CCGs. |
+| 2 | `scripts/reanalysis/02_unit_inference.py` | Per unit, for 10-ms and 5-ms pulses: exact conditional Poisson test against a 460-ms same-trial baseline; sham-window statistics; chance-corrected reliability per light level; ML fit of a first-spike model (ρ, δ, σ); SALT (port of Kvitsiani et al. 2013); seeded reference ZETA; window counts to 500 ms; per-pulse 10-Hz train responses. |
+| 3 | `scripts/reanalysis/03_population_analysis.py` | Local FDR with an empirical null from sham windows; onset-artifact exclusion; method comparison; 5-ms replication; waveform check; animal-level yield and suppression; multinomial-mixture response profiles; dose and train models; depth models; CCG connectivity; variance decomposition. |
+| 4 | `scripts/reanalysis/04_figures.py` | Figures R1–R6 from the tables only. |
+| C0 | `scripts/calibration/00_regression_baseline.py` | Regression check of the committed results; exits non-zero on any mismatch. |
+| C1+ | `scripts/calibration/` | Calibration of the field's tagging criteria, validity of the latency/jitter discriminator, the non-opsin (visual) confound, label-noise propagation, and the per-unit resource table. See `reports/CALIBRATION_RESULTS.md`. |
 
-## 📌 Executive Scientific Overview
+Statistical choices: the animal (n = 28) is the unit of replication for every between-group comparison. Unit-pooled tests overstate precision 3–5× here (ICC 0.035 for light activation, design effect ≈ 25).
 
-High-density silicon microelectrode arrays (Neuropixels) coupled with optogenetic perturbation allow simultaneous recording of thousands of cortical neurons across layers and columns. In standard neurophysiology practice, optogenetic responses are collapsed into a **single binary heuristic label ("optotagged" vs. "non-tagged")** based on fixed latency cutoffs ($< 8$ ms), reliability thresholds, and fold-change metrics.
+## Reproduce
 
-This project introduces a **principled computational framework** that reframes optogenetic perturbation from a discrete classification filter into a **multidimensional perturbational response trajectory**.
-
-```
-Standard Optotagging Pipeline:
-[Optogenetic Pulse] ──▶ [Heuristic Latency / Reliability Cutoff] ──▶ Binary Label: Tagged (1) vs. Untagged (0)
-                        └── Severe Information Loss: Discards 98% of Network Dynamics
-
-Our Computational Framework:
-[Optogenetic Pulse] ──▶ Multi-Method Statistical Inference (SALT, ZETA, Continuous Score)
-                     ──▶ Stationary Poisson Null Conditioning (Quiescent Cortical Units)
-                     ──▶ Unsupervised Trajectory Archetyping (x_i ∈ ℝ⁵ GMM Clustering)
-                     ──▶ Standardized Pulse-Train Adaptation Index (AI)
-                     ──▶ Distance-Dependent Multi-Electrode Spatial Propagation
-                     ──▶ Specimen-Aware Hierarchical Mixed-Effects Variance Decomposition
-```
-
----
-
-## 🔬 Dataset & Cohort
-
-We analyze the complete open-access **Allen Visual Coding Neuropixels** optogenetic cohort across 28 biological specimens (mice), 159 probes, and 18,316 well-isolated single units:
-
-| Cre Driver Line | Specimens ($N$) | Probes ($N$) | Units ($N$) | Mean Units/Probe | Optical Stimulus Protocols |
-| :--- | :---: | :---: | :---: | :---: | :--- |
-| **`Pvalb-IRES-Cre`** | 8 | 45 | 4,421 | 98.2 | Single 10-ms pulses (1.0, 2.5, 4.0 mW) + 10-Hz trains |
-| **`Sst-IRES-Cre`**   | 12 | 70 | 8,488 | 121.3 | Single 10-ms pulses (1.0, 2.5, 4.0 mW) + 10-Hz trains |
-| **`Vip-IRES-Cre`**   | 8 | 44 | 5,407 | 122.9 | Single 10-ms pulses (1.0, 2.5, 4.0 mW) + 10-Hz trains |
-| **Total Cohort**     | **28** | **159** | **18,316** | **115.2** | **Full 225-trial pulse protocol + 10-Hz trains** |
-
----
-
-## 🚀 Key Methodological & Computational Innovations
-
-1. **Multi-Lens Statistical Responsiveness & Algorithm Divergence:**
-   - Evaluated all 18,316 units across the **Operational Heuristic**, **SALT** (Kvitsiani et al. 2013), and **ZETA** (Montijn et al. 2021).
-   - Revealed stark algorithmic divergence: 3-way consensus identifies only **13 units (0.07%)**, while operational heuristics discard **179 units** achieving dual significance ($p < 0.05$) under SALT and ZETA simply because their reliability ($0.082$) falls below the arbitrary $0.30$ boundary.
-2. **Explicit Stationary Poisson Null Model for Sparse Latency Fragility:**
-   - In quiescent cortex ($< 1$ Hz baseline, $N=3,867$ units, mean $\lambda = 0.192$ Hz), isolated spontaneous events under a uniform arrival null within 10 ms have an **expected arrival time of 5.0 ms** and an **80.0% probability of sub-8 ms latency**.
-   - Spontaneous Poisson events account for **44.03% (518.7 / 1,178)** of observed spiking units in this tier, explaining why **93.04% (1,096 units)** display apparent direct latencies despite failing statistical significance tests.
-3. **Trajectory-Based Unsupervised Response Archetyping:**
-   - Established a 5-window temporal feature space $\mathbf{x}_i \in \mathbb{R}^5$ covering:
-     - $W_1$ ($0–8$ ms): Direct candidate optical activation
-     - $W_2$ ($8–20$ ms): Early circuit recruitment
-     - $W_3$ ($20–50$ ms): Lateral inhibition and feedback
-     - $W_4$ ($50–200$ ms): Prolonged network suppression
-     - $W_5$ ($200–500$ ms): Rebound and late recovery
-   - Discovered that **lateral Prolonged Suppression (37.55%, $N=6,878$)** dominates the active cortical response space over rapid excitation ($2.11\%$, $N=386$).
-4. **Standardized Pulse-Train Adaptation Index ($AI$):**
-   - Formulated a zero-safe, bounded metric:
-     $$AI = \frac{R_{10} - R_1}{\max(R_1, 0.5)}$$
-   - Across $N=12,311$ train-responsive units, captured clear cell-type divergence: `Pvalb` ($74.96\%$ depressing) and `Sst` ($85.02\%$ depressing) vs. `Vip` ($65.73\%$ stable, $23.77\%$ facilitating).
-5. **Distance-Dependent Spatial Latency Organization:**
-   - Physical distance along the Neuropixels shank reveals systematic latency increases ($+1.1\ \mu\text{s}/\mu\text{m}$ in PV, $+0.3\ \mu\text{s}/\mu\text{m}$ in SST) relative to the optical centroid.
-6. **Stimulus-Associated Population Temporal Coordination (CCGs):**
-   - Multi-unit cross-correlograms between direct candidates and network units reveal a **4.04-fold surge** in coincident synchrony in `Pvalb` sessions (lead $+3.2$ ms) and a **2.50-fold surge** in `Sst` sessions (lead $+4.8$ ms).
-7. **Hierarchical Variance Decomposition (Preventing Pseudo-Replication):**
-   - One-way random-effects ANOVA and Intraclass Correlation Coefficients ($\text{ICC} = 0.009–0.014$) prove that **$> 98\%$ of modeled variance resides within specimens**, while specimen-level effects are consistently displaced from null across all 28 independent mice ($p < 0.0001$).
-
----
-
-## 📂 Repository Directory Structure
-
-```
-Neuro_optogen101/
-├── README.md                                  # Strict proprietary notice, methodology, and documentation
-├── .gitignore                                 # Git rules excluding large NWB raw files, cache, and virtualenvs
-├── manuscript/                                # Full publication manuscript (ACM TCBB / IEEE compsoc)
-│   ├── main.tex                               # Primary LaTeX source configured for Overleaf
-│   ├── manuscript_tcbb.tex                    # Identical LaTeX source for local and automated builds
-│   ├── references.bib                         # 30 audited peer-reviewed BibTeX citations
-│   ├── figures/                               # 10 publication-quality vector PDFs and 300 DPI PNG figures
-│   │   ├── figure1_experimental_paradigm_and_cohort.{pdf,png}
-│   │   ├── figure2_perturbational_response_space.{pdf,png}
-│   │   ├── figure3_method_disagreement_and_divergence.{pdf,png}
-│   │   ├── figure4_latency_and_sparse_firing_reliability.{pdf,png}
-│   │   ├── figure5_cell_type_fingerprints.{pdf,png}
-│   │   ├── figure6_intensity_response_relationships.{pdf,png}
-│   │   ├── figure7_pulse_train_dynamics_and_adaptation.{pdf,png}
-│   │   ├── figure8_distance_dependent_response_structure.{pdf,png}
-│   │   ├── figure9_population_temporal_coordination.{pdf,png}
-│   │   └── figure10_specimen_replication_and_variance.{pdf,png}
-│   └── tables/                                # Supplementary and raw numerical data tables
-├── src/                                       # Core analytical modules
-│   ├── feature_extraction.py                  # Single-unit feature extraction & trial alignment
-│   ├── responsiveness_methods.py              # SALT, ZETA, and heuristic responsiveness algorithms
-│   ├── artifact_control.py                    # Sham window and permutation negative controls
-│   └── pipeline.py                            # End-to-end execution pipeline
-├── scripts/                                   # Statistical audits, figure generators, and workflows
-│   ├── generate_revised_neuroscience_figures.py # Script generating all 10 unoccluded publication figures
-│   ├── run_rigorous_neuroscience_reanalysis.py  # Full statistical reanalysis & GMM archetyping
-│   ├── run_scientific_audit.py                # Master numerical consistency audit across 28 specimens
-│   └── run_leakage_audit_data_dependencies.py # Label-circularity and leakage audit script
-└── results/                                   # Processed tables and analytical benchmarks
-    └── neuroscience_study/
-        ├── REVISED_NEUROSCIENCE_RESULTS.md    # Authoritative summary of all verified empirical metrics
-        └── tables/revised/                    # Final CSV tables (Venn disagreement, Poisson tiers, etc.)
-```
-
----
-
-## 🛠️ Environment Setup & Reproduction
-
-### Prerequisites
-- Python 3.10, 3.11, or 3.12
-- Git
-
-### Installation
 ```bash
-# Clone the official repository
-git clone https://github.com/hubdk17/Neuro_optogen101.git
-cd Neuro_optogen101
-
-# Create and activate a Python virtual environment
-python -m venv .venv
-# On Windows (PowerShell):
-.venv\Scripts\Activate.ps1
-# On Linux/macOS:
-source .venv/bin/activate
-
-# Install required dependencies
-pip install -r requirements.txt  # or install numpy scipy pandas scikit-learn matplotlib seaborn pyarrow
+python -m venv .venv && . .venv/bin/activate
+pip install -r requirements.txt        # pinned; Python 3.11
+make all                               # extraction (~60 GB transfer, ~1.5 h) + all analyses
+make test                              # unit tests incl. archive isolation
 ```
 
-### Reproducing Figures & Analyses
-```bash
-# Generate all 10 publication-quality figures (saved as PNG + PDF in manuscript/figures/)
-python scripts/generate_revised_neuroscience_figures.py
+`make all` runs stages 0–4, the regression check and the calibration analyses in order, and writes package versions and a run log to `results/calibration/run_log/`. Extraction needs about 4 GB of free disk at peak (one NWB plus the derived records in `data/derived/`, which are git-ignored and regenerated).
 
-# Run the master numerical consistency audit across all 18,316 units
-python scripts/run_scientific_audit.py
-```
+## Outputs
 
----
+| Path | Contents |
+|---|---|
+| `results/reanalysis/tables/unit_results.parquet` | Per-unit statistics for all 19,005 units (input to all calibration analyses). |
+| `results/reanalysis/tables/*.csv` | Method comparison, latency fits, waveform check, yield and suppression per animal, archetypes, dose, trains, depth, CCGs, sparse-tier Poisson check, variance decomposition, estimator validation. |
+| `results/reanalysis/summary.json` | Headline numbers of the reanalysis. |
+| `results/reanalysis/figures/` | Figures R1–R6. |
+| `results/calibration/` | Calibration and critique analyses, the regression baseline, the resource table with its data dictionary, run logs. |
+| `reports/REANALYSIS_RESULTS.md` | Reanalysis write-up. |
+| `reports/CALIBRATION_RESULTS.md` | Calibration write-up, including every null or failed analysis. |
+| `reports/ANALYSIS_REPORT.md` | Audit of the superseded analysis (now in `archive/`). |
+| `reports/PREREGISTRATION_4A.md` | Pre-registered tests for the latency/jitter validity analysis. |
 
-## 📖 Citation
+## Headline results (reanalysis)
 
-If you use or reference the methods, findings, or code from this study in your research, please cite:
+* **Light activation is rare.** 350 of 19,005 units (1.8%) are light-activated at local FDR < 0.05 (estimated FDR 0.3%), after excluding 25 light-onset artifacts.
+* **It replicates and has the expected waveforms.** 92% of these units replicate on independent 5-ms pulse trials, against 3.5% of null units. Narrow-spike enrichment is OR 17.8 for Pvalb and 3.97 for Sst, with none for Vip (0.81).
+* **The latency criterion is uninformative.** Latency < 8 ms inside the [1, 9) ms window is passed by 96.7% of null units that fire in the window at all.
+* **Light level drives reliability; trains don't adapt.** Activation probability rises with light level (Δρ̂ = +0.41, 24 animals, t(23) = 11.5, p = 5 × 10⁻¹¹). There is no measurable 10-Hz train adaptation (t(23) = −0.70, p = 0.49).
+* **PV units show local inhibition.** PV-activated units show short-latency CCG troughs in 7.7% of partners, against 2.5% in the anticausal control.
+* **Fragile:** the Cre-line difference in light-activated yield (Pvalb 3.9 ± 1.4%, Sst 1.7 ± 0.5%, Vip 0.46 ± 0.20% per animal) is a **trend**, not a result. The between-animal permutation test gives p = 0.024, but Kruskal–Wallis gives p = 0.10. Dropping one animal at a time moves the Kruskal–Wallis p between 0.03 and 0.17, and the permutation p between 0.006 and 0.07. Six of 28 animals supply 69% of light-activated units, and four have none.
 
-```bibtex
-@misc{hubdk17_neuro_optogen101_2026,
-  author       = {{Computational Neurophysiology and Bioinformatics Consortium}},
-  title        = {Beyond Binary Optotagging: A Computational Framework for Characterizing Optogenetic Responses in Neuropixels Recordings},
-  year         = {2026},
-  howpublished = {\url{https://github.com/hubdk17/Neuro_optogen101.git}},
-  note         = {GitHub Repository: hubdk17/Neuro_optogen101}
-}
-```
+## Headline results (calibration)
 
----
+Full details, including every null result, are in [`reports/CALIBRATION_RESULTS.md`](reports/CALIBRATION_RESULTS.md).
 
-## ⚖️ Copyright Notice
+* **Latency/jitter does not identify cells with inhibitory output.** The "direct-like" latency/jitter criterion (δ̂ < 5 ms, σ̂ < 1.5 ms) does not predict monosynaptic inhibitory output. The animal-level difference is −0.011 [−0.036, +0.013], p = 0.31, across 10 animals. The CCG probe itself is validated by a pre-registered positive control: driven vs matched non-driven units, PV +0.047 [0.012, 0.081], p = 0.018, 6 animals. Narrow waveform and dose slope do predict inhibitory output. Reliability ρ̂ does not, once animal is accounted for.
+* **The standard criterion is well calibrated; others are not.** The standard conjunctive heuristic has an implied FDR of about 2% against sham trials, but misses 29% of light-activated units. Latency < 8 ms alone passes 71% of sham trials. A raw-probability reading of the "≥ 4 of 5 pulses" criterion has an implied FDR of 74%; a significance-based reading has 5%.
+* **Part of the network response is not opsin-mediated.** Thalamic suppression after a light pulse is Cre-independent (VIP mice included). It overlaps with the visual-flash response beyond chance, but it is faster. Without opsin-negative controls its origin cannot be resolved.
 
-**Copyright &copy; 2026. All Rights Reserved.**  
-No unauthorized reproduction, copying, distribution, or submission of this novel research is permitted under any circumstances. Official repository: [https://github.com/hubdk17/Neuro_optogen101.git](https://github.com/hubdk17/Neuro_optogen101.git).
+## Data availability
+
+The data are the Allen Brain Observatory **Visual Coding – Neuropixels** dataset (Siegle et al., 2021), publicly available from the Allen Institute (https://portal.brain-map.org/explore/circuits/visual-coding-neuropixels). The NWB files are read directly from `s3://allen-brain-observatory/visual-coding-neuropixels/ecephys-cache/session_<id>/session_<id>.nwb`. AllenSDK is not required; the NWB files are read with h5py 3.16.0. The record of the original pipeline (`results/run_metadata.json`) lists AllenSDK 2.16.2.
+
+The 28 sessions (8 Pvalb, 12 Sst, 8 Vip × Ai32; listed with specimen IDs in `results/cohort/full_28_specimen_manifest.csv`):
+
+`715093703, 719161530, 721123822, 746083955, 751348571, 755434585, 756029989, 758798717, 760345702, 760693773, 762120172, 762602078, 773418906, 786091066, 787025148, 789848216, 791319847, 794812542, 797828357, 798911424, 816200189, 819701982, 829720705, 831882777, 835479236, 839068429, 839557629, 840012044`
+
+Units are those passing the Allen default QC (isi_violations < 0.5, amplitude_cutoff < 0.1, presence_ratio > 0.9, quality = good): 19,005 units.
+
+## Code availability
+
+All code is in this repository under the MIT licence. **A Zenodo (or equivalent) DOI for the exact release must be minted at submission.**
+
+## Ethics
+
+This is a secondary analysis of publicly available data. No new animal experiments were performed. All animal procedures for the original recordings were approved by the Allen Institute Institutional Animal Care and Use Committee (Siegle et al., 2021).
+
+## References
+
+Siegle, J. H., Jia, X., Durand, S., et al. (2021). Survey of spiking in the mouse visual system reveals functional hierarchy. *Nature* 592, 86–92.
+
+Kvitsiani, D., Ranade, S., Hangya, B., et al. (2013). Distinct behavioural and network functions of two interneuron classes in prefrontal cortex. *Nature* 498, 363–366.
+
+Montijn, J. S., Seignette, K., Howlett, M. H., et al. (2021). A parameter-free statistical test for neuronal responsiveness. *eLife* 10, e71969.
+
+## Legacy code
+
+`src/*.py` (outside `src/reanalysis/`), `scripts/run_*ml*`, the leakage audits and related `results/` folders belong to an earlier machine-learning layer that predicts the operational label from the same features it was defined by. They are not part of the current pipeline, have not been re-audited line by line, and need `requirements-legacy.txt`.
