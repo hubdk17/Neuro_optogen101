@@ -2,7 +2,7 @@
 
 **Subject:** *Beyond Binary Optotagging* — the code, results tables, figures and manuscript in this repository  
 **Scope:** every module in `src/`, the analysis scripts that produce the manuscript numbers (`scripts/run_neuroscience_study_stage{1,2,3}_*.py`, `scripts/run_rigorous_neuroscience_reanalysis.py`, `scripts/compute_evidence_scores.py`, figure generators), the stored unit table (`results/neuroscience_study/tables/revised/master_neuroscience_phenotypes_revised.parquet`, 18,316 units, 28 sessions), `manuscript/main.tex` and `manuscript/references.bib`, and `results/literature/literature_review.md`.  
-**Reproducibility:** every number in this report that is not quoted from the repository is produced by `python scripts/verify_analysis_report.py`, which runs in about 20 s on the stored table.
+**Reproducibility:** every number in this report that is not quoted from the repository is produced by `python archive/audit/verify_analysis_report.py`, which runs in about 20 s on the stored table.
 
 ---
 

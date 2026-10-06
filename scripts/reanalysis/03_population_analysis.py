@@ -96,10 +96,16 @@ def main():
     df["zeta_sig_pos"] = (df["zeta_q"] < 0.05) & (df["zeta_sign"] > 0)
     df["zeta50_q"] = bh(df["zeta50_p"].values)
     df["zeta50_sig"] = df["zeta50_q"] < 0.05
-    rep = pd.read_parquet(ROOT / "results/neuroscience_study/tables/revised/master_neuroscience_phenotypes_revised.parquet",
-                          columns=["unit_id", "method_heuristic_direct", "method_salt_sig", "method_zeta_sig",
-                                   "unsupervised_response_archetype", "reference_class"])
-    df = df.merge(rep, on="unit_id", how="left")
+    # Operational heuristic of the original pipeline, recomputed from its data-derived
+    # per-unit features (results/ml_final, produced from NWB by src/feature_extraction.py):
+    # reliability >= 0.30, median latency < 8 ms, modulation > 2, p < 0.05, effect > 0.1.
+    rep = pd.read_parquet(ROOT / "results/ml_final/master_ml_dataset_28spec.parquet",
+                          columns=["unit_id", "trial_reliability", "median_latency_ms", "modulation_ratio",
+                                   "p_value", "effect_size", "reference_class"])
+    rep["method_heuristic_direct"] = ((rep.trial_reliability >= 0.30) & rep.median_latency_ms.notna()
+                                      & (rep.median_latency_ms < 8.0) & (rep.modulation_ratio > 2.0)
+                                      & (rep.p_value < 0.05) & (rep.effect_size > 0.10)).astype(float)
+    df = df.merge(rep[["unit_id", "method_heuristic_direct", "reference_class"]], on="unit_id", how="left")
     S["units_matched_to_repo"] = int(df.method_heuristic_direct.notna().sum())
     heur = df.method_heuristic_direct.fillna(0).astype(bool)
     methods = {
@@ -110,8 +116,6 @@ def main():
         "ZETA (zetapy) [1,9) ms, BH q<0.05, positive": df.zeta_sig_pos,
         "ZETA (zetapy) [1,51) ms, BH q<0.05, any sign": df.zeta50_sig,
         "repo heuristic label": heur,
-        "repo 'SALT'": df.method_salt_sig.fillna(0).astype(bool),
-        "repo 'ZETA'": df.method_zeta_sig.fillna(0).astype(bool),
     }
     rows = []
     for name, m in methods.items():
@@ -254,7 +258,6 @@ def main():
     S["suppressed_by_cre_detectable"] = {r.cre_line: [float(r["mean"]), float(r["sem"])] for _, r in g_s2.iterrows()}
     S["suppression_perm_p"] = perm_test_groups(a_s, "suppressed_f")[1]
     S["suppression_detectable_perm_p"] = perm_test_groups(a_s2, "suppressed_f")[1]
-    S["repo_prolonged_suppression_frac"] = float(df.unsupervised_response_archetype.fillna("").str.contains("Suppression").mean())
 
     # by brain-region group (light is delivered over visual cortex)
     def region(a):
