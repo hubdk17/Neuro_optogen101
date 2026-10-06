@@ -36,13 +36,15 @@ warnings.filterwarnings("ignore")
 
 
 def gee(formula, data, label):
-    """Binomial GEE clustered by animal. Returns dict with OR, CI, p for the first non-intercept term."""
+    """Binomial GEE clustered by animal. Returns OR, CI and p for the predictor of interest, i.e.
+    the first term on the right-hand side of the formula (covariates such as C(cre) come after it)."""
     data = data.copy()
     if data.specimen_id.nunique() < 3 or data.iloc[:, 0].size < 20:
         return dict(model=label, n_pairs=len(data), n_animals=data.specimen_id.nunique(), note="too few clusters")
     m = smf.gee(formula, groups="specimen_id", data=data, family=sm.families.Binomial(),
                 cov_struct=sm.cov_struct.Exchangeable()).fit()
-    term = [t for t in m.params.index if t != "Intercept"][0]
+    first = formula.split("~")[1].split("+")[0].strip()
+    term = next(t for t in m.params.index if t == first or t.startswith(first + "["))
     b, se = m.params[term], m.bse[term]
     return dict(model=label, term=term, n_pairs=len(data), n_ref_units=data.ref_unit.nunique(),
                 n_animals=data.specimen_id.nunique(), log_or=b, se=se, odds_ratio=np.exp(b),
@@ -206,6 +208,22 @@ def main():
         run = max(run, min(1.0, (m - rank) * alt.p.values[i]))
         holm[i] = run
     alt["p_holm"] = holm
+    # POST-HOC robustness (not pre-registered): GEE robust SEs can be anti-conservative with
+    # few clusters (6 PV, 11 SST animals). Animal-level check: per animal with >= 5 driven
+    # PV/SST reference units, Spearman rho of predictor vs source rate; Wilcoxon / t across animals.
+    rob = []
+    for name, c in preds.items():
+        rs = []
+        for sp, gg in dr2.dropna(subset=[c]).groupby("specimen_id"):
+            if len(gg) >= 5 and gg.source_rate.nunique() > 1 and gg[c].nunique() > 1:
+                rs.append(st.spearmanr(gg[c], gg.source_rate).statistic)
+        rs = np.array(rs)
+        a = t_ci(rs)
+        rob.append(dict(model=name, n_animals=a["n"], mean_within_animal_spearman=a["mean"],
+                        ci_low=a["ci_low"], ci_high=a["ci_high"], t_p=a["t_p"], wilcoxon_p=a["wilcoxon_p"]))
+    rob = pd.DataFrame(rob)
+    rob.to_csv(T / "4A_alternative_predictors_animal_level_posthoc.csv", index=False)
+    S["alternative_predictors_animal_level_posthoc"] = rob.to_dict("records")
     alt.to_csv(T / "4A_alternative_predictors.csv", index=False)
     S["alternative_predictors"] = alt[["model", "odds_ratio", "or_ci_low", "or_ci_high", "p", "p_holm",
                                        "spearman_rho_unit", "spearman_p_unit"]].to_dict("records")
@@ -244,6 +262,7 @@ def main():
         print(pc.round(4).to_string(index=False))
         print(pd.DataFrame(res2).round(4).to_string(index=False))
         print(alt.round(4).to_string(index=False))
+        print(rob.round(4).to_string(index=False))
         print(pd.DataFrame(tests).round(4).to_string(index=False))
         print(dirn.round(4).to_string(index=False))
         print(json.dumps(S["power"], indent=1, default=float))

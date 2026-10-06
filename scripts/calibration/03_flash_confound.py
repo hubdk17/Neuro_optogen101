@@ -35,6 +35,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import scipy.stats as st
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
@@ -230,6 +232,31 @@ def main():
             else:
                 pt.append(dict(group=grp, n_animals=len(w), note="fewer than 3 animals with both"))
     pd.DataFrame(pt).to_csv(T / "4B_onset_opto_vs_flash.csv", index=False)
+
+    # ---- overlap adjusted for detectability (baseline rate), GEE clustered by animal
+    df["lograte"] = np.log10((df.opto_nb / (df.opto_n * (BASE[1] - BASE[0]))).clip(lower=0.05))
+    df["fs"] = df.flash_suppressed.astype(int)
+    df["os"] = df.opto_suppressed.astype(int)
+    adj = []
+    for reg, g in df.groupby("region"):
+        if g.specimen_id.nunique() < 5 or g.os.sum() < 10:
+            continue
+        m = smf.gee("fs ~ os + lograte", "specimen_id", g, family=sm.families.Binomial(),
+                    cov_struct=sm.cov_struct.Exchangeable()).fit()
+        ci = np.exp(m.conf_int().loc["os"].values)
+        adj.append(dict(region=reg, n_units=len(g), n_animals=g.specimen_id.nunique(),
+                        overlap_OR_rate_adjusted=np.exp(m.params["os"]), ci_low=ci[0], ci_high=ci[1], p=m.pvalues["os"]))
+    pd.DataFrame(adj).to_csv(T / "4B_overlap_rate_adjusted.csv", index=False)
+    # ---- excitation as well as suppression (a visual response to the light would excite LGd/LP)
+    ex = df.groupby(["region", "cre", "specimen_id"])[["opto_excited", "opto_suppressed", "flash_excited", "flash_suppressed"]].mean()
+    ex = ex.groupby(["region", "cre"]).agg(["mean", "sem"])
+    ex.columns = ["_".join(c) for c in ex.columns]
+    ex.reset_index().to_csv(T / "4B_excitation_suppression_by_region.csv", index=False)
+    lp = df[df.structure.isin(["LGd", "LP"])].groupby(["structure", "cre", "specimen_id"])[
+        ["opto_excited", "opto_suppressed", "flash_excited", "flash_suppressed"]].mean().groupby(["structure", "cre"]).agg(["mean", "sem", "count"])
+    lp.columns = ["_".join(c) for c in lp.columns]
+    lp.reset_index().to_csv(T / "4B_LGd_LP_by_cre.csv", index=False)
+    S["overlap_rate_adjusted"] = adj
 
     # ---- shared fraction summary
     sup = df[df.opto_suppressed]
